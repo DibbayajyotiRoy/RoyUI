@@ -14,7 +14,7 @@ importers:
 
   apps/docs:
     dependencies:
-      '@royui/ui':
+      '@roy-ui/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       cmdk:
