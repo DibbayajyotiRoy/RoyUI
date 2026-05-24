@@ -32,25 +32,25 @@ export function CatalogView() {
   return (
     <>
       <div className="catalog-toolbar">
-        <div className="catalog-search">
+        <div className="input-search">
           <SearchIcon />
           <input
             type="search"
             placeholder="Filter components"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="catalog-search__input"
+            className="input-search__input"
             aria-label="Filter components"
           />
         </div>
 
-        <div className="catalog-chips" role="tablist">
+        <div className="chip-row" role="tablist">
           {categories.map((c) => (
             <button
               key={c}
               role="tab"
               aria-selected={category === c}
-              className={`catalog-chip ${category === c ? 'is-active' : ''}`}
+              className={`chip ${category === c ? 'is-active' : ''}`}
               onClick={() => setCategory(c)}
               type="button"
             >
@@ -60,16 +60,18 @@ export function CatalogView() {
         </div>
       </div>
 
-      <div className="catalog-result-count">
+      <div className="catalog-meta">
         {filtered.length} component{filtered.length === 1 ? '' : 's'}
+        {category !== 'All' ? ` · ${category}` : ''}
+        {query ? ` · matching "${query}"` : ''}
       </div>
 
       {filtered.length === 0 ? (
         <div className="catalog-empty">
-          <p>No matches. Try a different keyword.</p>
+          No matches. Try a different keyword.
         </div>
       ) : (
-        <div className="catalog-grid">
+        <div className="cards-grid">
           {filtered.map((c) => (
             <ComponentCard key={c.slug} entry={c} />
           ))}
@@ -82,7 +84,7 @@ export function CatalogView() {
 function SearchIcon() {
   return (
     <svg
-      className="catalog-search__icon"
+      className="input-search__icon"
       viewBox="0 0 24 24"
       width="16"
       height="16"

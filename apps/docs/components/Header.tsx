@@ -1,50 +1,45 @@
 'use client';
 
-import { useRouter, usePathname } from 'next/navigation';
-import { useState, type FormEvent } from 'react';
+import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { Link } from './Link';
 
 export function Header() {
-  const router = useRouter();
   const pathname = usePathname();
-  const [query, setQuery] = useState('');
+  const [isMac, setIsMac] = useState(false);
 
-  const submit = (e: FormEvent) => {
-    e.preventDefault();
-    const q = query.trim();
-    const target = q ? `/components?q=${encodeURIComponent(q)}` : '/components';
-    if (typeof document !== 'undefined' && document.startViewTransition) {
-      document.startViewTransition(() => router.push(target));
-    } else {
-      router.push(target);
-    }
+  useEffect(() => {
+    setIsMac(/Mac|iPhone|iPod|iPad/.test(navigator.platform));
+  }, []);
+
+  const openCommand = () => {
+    window.dispatchEvent(new CustomEvent('royui:openCommand'));
   };
 
   return (
-    <header className="site-header">
-      <div className="site-header__inner">
-        <Link href="/" className="brand">
+    <header className="header">
+      <div className="header__inner">
+        <Link href="/" className="brand" aria-label="RoyUI home">
           <span className="brand__mark" aria-hidden="true" />
           <span className="brand__name">RoyUI</span>
-          <span className="brand__ver">v0.0.1</span>
         </Link>
 
-        <nav className="site-nav" aria-label="Primary">
+        <nav className="header__nav" aria-label="Primary">
           <Link
             href="/"
-            className={`site-nav__link ${pathname === '/' ? 'is-active' : ''}`}
+            className={`header__nav-link ${pathname === '/' ? 'is-active' : ''}`}
           >
             Home
           </Link>
           <Link
             href="/components"
-            className={`site-nav__link ${pathname?.startsWith('/components') ? 'is-active' : ''}`}
+            className={`header__nav-link ${pathname?.startsWith('/components') ? 'is-active' : ''}`}
           >
             Components
           </Link>
           <a
             href="https://github.com"
-            className="site-nav__link"
+            className="header__nav-link"
             target="_blank"
             rel="noreferrer"
           >
@@ -52,18 +47,24 @@ export function Header() {
           </a>
         </nav>
 
-        <form className="search" role="search" onSubmit={submit}>
-          <SearchIcon />
-          <input
-            type="search"
-            placeholder="Search components"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            className="search__input"
-            aria-label="Search components"
-          />
-          <kbd className="search__kbd" aria-hidden="true">/</kbd>
-        </form>
+        <div className="header__actions">
+          <button type="button" className="kbd-launcher" onClick={openCommand}>
+            <span className="kbd-launcher__label">
+              <SearchIcon />
+              Search
+            </span>
+            <kbd className="kbd">{isMac ? '⌘' : 'Ctrl'} K</kbd>
+          </button>
+          <a
+            href="https://github.com"
+            className="icon-btn"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="GitHub"
+          >
+            <GitHubIcon />
+          </a>
+        </div>
       </div>
     </header>
   );
@@ -72,10 +73,9 @@ export function Header() {
 function SearchIcon() {
   return (
     <svg
-      className="search__icon"
+      width="14"
+      height="14"
       viewBox="0 0 24 24"
-      width="16"
-      height="16"
       fill="none"
       stroke="currentColor"
       strokeWidth="2"
@@ -85,6 +85,20 @@ function SearchIcon() {
     >
       <circle cx="11" cy="11" r="7" />
       <path d="m20 20-3.5-3.5" />
+    </svg>
+  );
+}
+
+function GitHubIcon() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <path d="M12 .5a11.5 11.5 0 0 0-3.63 22.4c.58.1.79-.25.79-.55v-2.02c-3.2.7-3.88-1.36-3.88-1.36-.53-1.35-1.3-1.71-1.3-1.71-1.06-.72.08-.7.08-.7 1.17.08 1.79 1.2 1.79 1.2 1.05 1.79 2.74 1.27 3.4.97.1-.76.4-1.27.74-1.56-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.47.11-3.06 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.18-1.18 3.18-1.18.63 1.59.23 2.77.11 3.06.74.81 1.19 1.84 1.19 3.1 0 4.43-2.7 5.4-5.26 5.69.41.36.78 1.06.78 2.14v3.17c0 .3.21.66.79.55A11.5 11.5 0 0 0 12 .5Z" />
     </svg>
   );
 }

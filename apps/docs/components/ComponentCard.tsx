@@ -1,9 +1,19 @@
+'use client';
+
+import type { MouseEvent } from 'react';
 import type { ComponentEntry } from '../lib/registry';
 import { Link } from './Link';
 import { PreviewBox } from './PreviewBox';
 
 export function ComponentCard({ entry }: { entry: ComponentEntry }) {
   const disabled = entry.status === 'coming-soon';
+
+  const onMouseMove = (e: MouseEvent<HTMLAnchorElement | HTMLElement>) => {
+    const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+    const el = e.currentTarget as HTMLElement;
+    el.style.setProperty('--mx', `${e.clientX - rect.left}px`);
+    el.style.setProperty('--my', `${e.clientY - rect.top}px`);
+  };
 
   const inner = (
     <>
@@ -15,8 +25,8 @@ export function ComponentCard({ entry }: { entry: ComponentEntry }) {
       </div>
       <div className="card__body">
         <div className="card__meta">
-          <span className="chip chip--category">{entry.category}</span>
-          {disabled && <span className="chip chip--soon">Coming soon</span>}
+          <span className="tag tag--category">{entry.category}</span>
+          {disabled && <span className="tag tag--soon">Soon</span>}
         </div>
         <h3
           className="card__title"
@@ -34,7 +44,11 @@ export function ComponentCard({ entry }: { entry: ComponentEntry }) {
   }
 
   return (
-    <Link href={`/components/${entry.slug}`} className="card">
+    <Link
+      href={`/components/${entry.slug}`}
+      className="card"
+      onMouseMove={onMouseMove}
+    >
       {inner}
     </Link>
   );

@@ -4,6 +4,8 @@ import { Link } from '../../../components/Link';
 import { PreviewBox } from '../../../components/PreviewBox';
 import { GradientButtonDocs } from '../../../components/GradientButtonDocs';
 import { PopoverDocs } from '../../../components/PopoverDocs';
+import { DocsSidebar } from '../../../components/DocsSidebar';
+import { TableOfContents, type TocItem } from '../../../components/TableOfContents';
 
 export function generateStaticParams() {
   return components.map((c) => ({ slug: c.slug }));
@@ -28,6 +30,21 @@ const docsBySlug: Record<string, () => React.ReactNode> = {
   popover: () => <PopoverDocs />,
 };
 
+const tocBySlug: Record<string, TocItem[]> = {
+  'gradient-button': [
+    { id: 'installation', label: 'Installation' },
+    { id: 'usage', label: 'Usage' },
+    { id: 'props', label: 'Props' },
+  ],
+  popover: [
+    { id: 'installation', label: 'Installation' },
+    { id: 'usage', label: 'Usage' },
+    { id: 'theming', label: 'Theming' },
+    { id: 'props', label: 'Props' },
+    { id: 'known-limits', label: 'Known limits' },
+  ],
+};
+
 export default async function ComponentDetailPage({
   params,
 }: {
@@ -38,21 +55,26 @@ export default async function ComponentDetailPage({
   if (!entry) notFound();
 
   const renderDocs = docsBySlug[entry.slug];
+  const toc = tocBySlug[entry.slug] ?? [];
 
   return (
-    <main className="detail">
-      <div className="detail__inner">
+    <div className="detail">
+      <DocsSidebar />
+
+      <main className="detail__main">
         <nav className="breadcrumb" aria-label="Breadcrumb">
           <Link href="/components">Components</Link>
           <span className="breadcrumb__sep" aria-hidden="true">·</span>
-          <span className="breadcrumb__current">{entry.category}</span>
+          <span>{entry.category}</span>
+          <span className="breadcrumb__sep" aria-hidden="true">·</span>
+          <span style={{ color: 'var(--fg)' }}>{entry.name}</span>
         </nav>
 
         <header className="detail__hero">
           <div className="detail__hero-meta">
-            <span className="chip chip--category">{entry.category}</span>
+            <span className="tag tag--category">{entry.category}</span>
             {entry.status === 'coming-soon' && (
-              <span className="chip chip--soon">Coming soon</span>
+              <span className="tag tag--soon">Coming soon</span>
             )}
           </div>
           <h1
@@ -73,7 +95,7 @@ export default async function ComponentDetailPage({
         </div>
 
         {entry.status === 'available' && renderDocs ? (
-          <div className="detail__docs">{renderDocs()}</div>
+          <div>{renderDocs()}</div>
         ) : (
           <div className="detail__placeholder">
             <h2>Documentation coming soon</h2>
@@ -88,16 +110,20 @@ export default async function ComponentDetailPage({
         )}
 
         <NextComponentNav slug={entry.slug} />
-      </div>
-    </main>
+      </main>
+
+      {toc.length > 0 && <TableOfContents items={toc} />}
+    </div>
   );
 }
 
 function NextComponentNav({ slug }: { slug: string }) {
-  const list = components;
-  const idx = list.findIndex((c) => c.slug === slug);
-  const prev = idx > 0 ? list[idx - 1] : null;
-  const next = idx < list.length - 1 ? list[idx + 1] : null;
+  const available = components.filter((c) => c.status === 'available');
+  const idx = available.findIndex((c) => c.slug === slug);
+  const prev = idx > 0 ? available[idx - 1] : null;
+  const next = idx < available.length - 1 ? available[idx + 1] : null;
+
+  if (!prev && !next) return null;
 
   return (
     <nav className="detail__nav" aria-label="Component navigation">

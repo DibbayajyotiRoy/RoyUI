@@ -1,19 +1,21 @@
 .royui-popover {
-  /* Theming surface — override these on .royui-popover (or :root) to retheme. */
+  /* Theming surface — override on .royui-popover (or :root) to retheme. */
   --royui-popover-bg: #ffffff;
-  --royui-popover-border: rgb(234, 232, 225);
   --royui-popover-title: rgb(20, 20, 20);
   --royui-popover-body: rgb(58, 58, 56);
   --royui-popover-trigger-idle: rgb(142, 139, 131);
   --royui-popover-trigger-hover: rgb(58, 58, 56);
   --royui-popover-trigger-bg: rgb(244, 243, 238);
   --royui-popover-trigger-active: rgb(20, 20, 20);
-  --royui-popover-shadow:
-    0 12px 28px -8px rgba(20, 20, 20, 0.14),
-    0 4px 10px -4px rgba(20, 20, 20, 0.06);
   --royui-popover-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
   --royui-popover-dur: 180ms;
-  --royui-popover-radius: 14px;
+  --royui-popover-radius: 12px;
+  /* Unified shadow stack — also used to draw a hairline ring around the
+     entire popover silhouette (panel + tail) via filter: drop-shadow. */
+  --royui-popover-ring: 0 0 0 0.5px rgba(20, 20, 20, 0.08);
+  --royui-popover-shadow-near: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --royui-popover-shadow-mid: 0 6px 14px rgba(0, 0, 0, 0.08);
+  --royui-popover-shadow-far: 0 22px 44px rgba(0, 0, 0, 0.14);
 
   position: relative;
   display: inline-block;
@@ -60,13 +62,18 @@
   z-index: 30;
   top: calc(100% + 8px);
   background: var(--royui-popover-bg);
-  border: 1px solid var(--royui-popover-border);
   border-radius: var(--royui-popover-radius);
-  padding: 16px;
+  padding: 14px 16px;
   font-size: 14px;
-  line-height: 1.6;
+  line-height: 1.55;
   color: var(--royui-popover-body);
-  box-shadow: var(--royui-popover-shadow);
+  /* drop-shadow follows the combined silhouette of panel + ::before tail,
+     so the hairline ring and shadow wrap around the tail as one shape — no
+     visible seam where they meet. */
+  filter:
+    drop-shadow(0 0 0.5px rgba(20, 20, 20, 0.18))
+    drop-shadow(0 2px 4px rgba(0, 0, 0, 0.05))
+    drop-shadow(0 14px 36px rgba(0, 0, 0, 0.16));
   animation: royui-popover-in var(--royui-popover-dur) var(--royui-popover-ease);
 }
 
@@ -77,32 +84,34 @@
 .royui-popover__panel--right { left: auto; right: 0; }
 .royui-popover__panel--left  { right: auto; left: 0; }
 
-/* Tail — square rotated 45° with two borders, merging into panel edge */
+/* Tail — pure CSS triangle (no rotated square, no border-meets-border seam).
+   Its base extends 2px INSIDE the panel so the panel's bg seamlessly overlaps
+   the triangle's base, and the drop-shadow filter wraps panel + tail as one
+   merged silhouette. Positioned 14px from the corner — flush at the edge. */
 .royui-popover__panel::before {
   content: '';
   position: absolute;
-  top: -6px;
-  width: 12px;
-  height: 12px;
-  background: var(--royui-popover-bg);
-  border-top: 1px solid var(--royui-popover-border);
-  border-left: 1px solid var(--royui-popover-border);
-  transform: rotate(45deg);
+  top: -7px;
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 9px solid var(--royui-popover-bg);
 }
-.royui-popover__panel--right::before { right: 8px; }
-.royui-popover__panel--left::before  { left: 8px; }
+.royui-popover__panel--right::before { right: 14px; }
+.royui-popover__panel--left::before  { left: 14px; }
 
 .royui-popover__title {
   font-size: 14px;
   font-weight: 600;
   letter-spacing: -0.005em;
   color: var(--royui-popover-title);
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .royui-popover__body {
   font-size: 14px;
-  line-height: 1.6;
+  line-height: 1.55;
   color: var(--royui-popover-body);
 }
 

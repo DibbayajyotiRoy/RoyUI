@@ -1,8 +1,8 @@
-'use client';
-
-import { useState, type ReactNode } from 'react';
 import { GradientButton } from '@royui/ui';
-import { CodeBlock } from './CodeBlock';
+import { Code } from './Code';
+import { PreviewTabs } from './PreviewTabs';
+import { LoadingDemo } from './demos/LoadingDemo';
+import type { ReactNode } from 'react';
 
 export function GradientButtonDocs() {
   return (
@@ -14,11 +14,8 @@ export function GradientButtonDocs() {
         description="Add the package to your project. Components ship with their own CSS — no global setup."
       >
         <div className="install-grid">
-          <CodeBlock tag="Terminal" code={`pnpm add @royui/ui`} />
-          <CodeBlock
-            tag="Import"
-            code={`import { GradientButton } from '@royui/ui';`}
-          />
+          <Code label="Terminal" lang="bash" code={`pnpm add @royui/ui`} />
+          <Code label="Import" code={`import { GradientButton } from '@royui/ui';`} />
         </div>
       </DocSection>
 
@@ -28,10 +25,55 @@ export function GradientButtonDocs() {
         title="Usage"
         description="The component is full-width by default and includes a spinner-based loading state out of the box."
       >
-        <DefaultExample />
-        <LoadingExample />
-        <InlineExample />
-        <DisabledExample />
+        <Example
+          title="Default"
+          description="Full-width — drops into a form column with no extra wrapping."
+          code={`<GradientButton onClick={handleClick}>
+  Join the Waitlist
+</GradientButton>`}
+          stretchPreview
+        >
+          <GradientButton>Join the Waitlist</GradientButton>
+        </Example>
+
+        <Example
+          title="Loading state"
+          description="Pass loading={true} to swap the label for a spinner and disable the button. Click to simulate an async submit."
+          code={`const [loading, setLoading] = useState(false);
+
+<GradientButton
+  type="submit"
+  loading={loading}
+  onClick={handleSubmit}
+>
+  Join the Waitlist
+</GradientButton>`}
+          stretchPreview
+        >
+          <LoadingDemo />
+        </Example>
+
+        <Example
+          title="Inline"
+          description="Set fullWidth={false} to size the button to its content."
+          code={`<GradientButton fullWidth={false}>
+  Subscribe
+</GradientButton>`}
+        >
+          <GradientButton fullWidth={false}>Subscribe</GradientButton>
+        </Example>
+
+        <Example
+          title="Disabled"
+          description="Hover lift is suppressed while disabled. Pointer falls back to not-allowed."
+          code={`<GradientButton fullWidth={false} disabled>
+  Can't click
+</GradientButton>`}
+        >
+          <GradientButton fullWidth={false} disabled>
+            Can't click
+          </GradientButton>
+        </Example>
       </DocSection>
 
       <DocSection
@@ -71,88 +113,7 @@ function DocSection({
   );
 }
 
-function DefaultExample() {
-  return (
-    <Example
-      title="Default"
-      description="Full-width — drops into a form column with no extra wrapping."
-      code={`<GradientButton onClick={handleClick}>
-  Join the Waitlist
-</GradientButton>`}
-      stretchPreview
-    >
-      <GradientButton onClick={() => alert('clicked')}>
-        Join the Waitlist
-      </GradientButton>
-    </Example>
-  );
-}
-
-function LoadingExample() {
-  const [loading, setLoading] = useState(false);
-  const simulate = () => {
-    setLoading(true);
-    setTimeout(() => setLoading(false), 2200);
-  };
-  return (
-    <Example
-      title="Loading state"
-      description="Pass loading={true} to swap the label for a spinner and disable the button. Click to simulate an async submit."
-      code={`const [loading, setLoading] = useState(false);
-
-<GradientButton
-  type="submit"
-  loading={loading}
-  onClick={handleSubmit}
->
-  Join the Waitlist
-</GradientButton>`}
-      stretchPreview
-    >
-      <GradientButton
-        type="submit"
-        loading={loading}
-        onClick={simulate}
-      >
-        Join the Waitlist
-      </GradientButton>
-    </Example>
-  );
-}
-
-function InlineExample() {
-  return (
-    <Example
-      title="Inline"
-      description="Set fullWidth={false} to size the button to its content."
-      code={`<GradientButton fullWidth={false}>
-  Subscribe
-</GradientButton>`}
-    >
-      <GradientButton fullWidth={false} onClick={() => alert('subscribed')}>
-        Subscribe
-      </GradientButton>
-    </Example>
-  );
-}
-
-function DisabledExample() {
-  return (
-    <Example
-      title="Disabled"
-      description="Hover lift is suppressed while disabled. Pointer falls back to not-allowed."
-      code={`<GradientButton fullWidth={false} disabled>
-  Can't click
-</GradientButton>`}
-    >
-      <GradientButton fullWidth={false} disabled>
-        Can't click
-      </GradientButton>
-    </Example>
-  );
-}
-
-function Example({
+async function Example({
   title,
   description,
   code,
@@ -165,20 +126,18 @@ function Example({
   children: ReactNode;
   stretchPreview?: boolean;
 }) {
+  const codeNode = <Code code={code} />;
   return (
     <article className="example">
-      <header className="example__header">
+      <header className="example__head">
         <h3 className="example__title">{title}</h3>
         <p className="example__desc">{description}</p>
       </header>
-      <div className="example__preview">
-        <div className={stretchPreview ? 'example__preview-stretch' : undefined}>
-          {children}
-        </div>
-      </div>
-      <div className="example__code">
-        <CodeBlock code={code} />
-      </div>
+      <PreviewTabs
+        preview={children}
+        code={codeNode}
+        stretchPreview={stretchPreview}
+      />
     </article>
   );
 }
