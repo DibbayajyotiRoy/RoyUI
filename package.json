@@ -1,0 +1,15 @@
+{
+  "name": "ui-library",
+  "private": true,
+  "version": "0.0.0",
+  "packageManager": "pnpm@9.15.4",
+  "scripts": {
+    "build": "pnpm --filter @royui/ui build",
+    "dev:ui": "pnpm --filter @royui/ui dev",
+    "dev": "pnpm --filter @royui/docs dev",
+    "dev:all": "pnpm --parallel --filter @royui/ui --filter @royui/docs dev"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3"
+  }
+}
