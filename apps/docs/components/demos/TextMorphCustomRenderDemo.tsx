@@ -1,13 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { TextMorph } from '@royui/ui';
+import { TextMorph } from '@roy-ui/ui';
 
 const cmds = {
-  pnpm: 'pnpm add @royui/ui',
-  npm: 'npm install @royui/ui',
-  yarn: 'yarn add @royui/ui',
-  bun: 'bun add @royui/ui',
+  pnpm: 'pnpm add @roy-ui/ui',
+  npm: 'npm install @roy-ui/ui',
+  yarn: 'yarn add @roy-ui/ui',
+  bun: 'bun add @roy-ui/ui',
 } as const;
 
 type Pm = keyof typeof cmds;

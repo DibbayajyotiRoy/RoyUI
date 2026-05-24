@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "pnpm --filter @royui/ui build && pnpm --filter @royui/docs build",
+  "buildCommand": "pnpm --filter @roy-ui/ui build && pnpm --filter @roy-ui/docs build",
   "installCommand": "pnpm install --frozen-lockfile",
   "outputDirectory": "apps/docs/.next",
   "framework": "nextjs"

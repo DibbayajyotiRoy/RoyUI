@@ -3,7 +3,7 @@
 Open-source React component library. Monorepo layout:
 
 ```
-packages/ui    →  @royui/ui   (published to npm)
+packages/ui    →  @roy-ui/ui   (published to npm)
 apps/docs      →  Next.js demo + docs site
 ```
 

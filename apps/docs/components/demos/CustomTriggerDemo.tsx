@@ -1,6 +1,6 @@
 'use client';
 
-import { Popover } from '@royui/ui';
+import { Popover } from '@roy-ui/ui';
 
 export function CustomTriggerDemo() {
   return (

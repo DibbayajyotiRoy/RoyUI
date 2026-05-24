@@ -1,6 +1,6 @@
 'use client';
 
-import { GradientButton, type GradientButtonProps } from '@royui/ui';
+import { GradientButton, type GradientButtonProps } from '@roy-ui/ui';
 import { useRouter } from 'next/navigation';
 import type { ComponentProps } from 'react';
 

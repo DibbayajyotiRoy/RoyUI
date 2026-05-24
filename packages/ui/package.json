@@ -1,9 +1,22 @@
 {
-  "name": "@royui/ui",
+  "name": "@roy-ui/ui",
   "version": "0.0.1",
   "description": "Open source React component library",
   "license": "MIT",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DibbayajyotiRoy/RoyUI.git",
+    "directory": "packages/ui"
+  },
+  "homepage": "https://github.com/DibbayajyotiRoy/RoyUI#readme",
+  "bugs": {
+    "url": "https://github.com/DibbayajyotiRoy/RoyUI/issues"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "sideEffects": [
     "**/*.css"
   ],

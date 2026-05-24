@@ -1,4 +1,4 @@
-import { GradientButton } from '@royui/ui';
+import { GradientButton } from '@roy-ui/ui';
 import { Code } from './Code';
 import { InstallTabs } from './InstallTabs';
 import { PreviewTabs } from './PreviewTabs';
@@ -15,8 +15,8 @@ export function GradientButtonDocs() {
         description="Add the package to your project. Components ship with their own CSS — no global setup."
       >
         <div className="install-grid">
-          <InstallTabs pkg="@royui/ui" />
-          <Code label="Import" code={`import { GradientButton } from '@royui/ui';`} />
+          <InstallTabs pkg="@roy-ui/ui" />
+          <Code label="Import" code={`import { GradientButton } from '@roy-ui/ui';`} />
         </div>
       </DocSection>
 

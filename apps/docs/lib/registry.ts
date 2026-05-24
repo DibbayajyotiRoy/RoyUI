@@ -23,7 +23,7 @@ export const components: ComponentEntry[] = [
     tags: ['button', 'cta', 'form', 'gradient'],
     status: 'available',
     featured: true,
-    importStatement: `import { GradientButton } from '@royui/ui';`,
+    importStatement: `import { GradientButton } from '@roy-ui/ui';`,
   },
   {
     slug: 'popover',
@@ -35,7 +35,7 @@ export const components: ComponentEntry[] = [
     tags: ['popover', 'overlay', 'tooltip', 'info'],
     status: 'available',
     featured: true,
-    importStatement: `import { Popover } from '@royui/ui';`,
+    importStatement: `import { Popover } from '@roy-ui/ui';`,
   },
   {
     slug: 'made-by',
@@ -47,7 +47,7 @@ export const components: ComponentEntry[] = [
     tags: ['badge', 'credit', 'attribution', 'floating', 'pill'],
     status: 'available',
     featured: true,
-    importStatement: `import { MadeBy } from '@royui/ui';`,
+    importStatement: `import { MadeBy } from '@roy-ui/ui';`,
   },
   {
     slug: 'text-morph',
@@ -59,7 +59,7 @@ export const components: ComponentEntry[] = [
     tags: ['text', 'animation', 'typing', 'transition', 'morph'],
     status: 'available',
     featured: true,
-    importStatement: `import { TextMorph } from '@royui/ui';`,
+    importStatement: `import { TextMorph } from '@roy-ui/ui';`,
   },
   {
     slug: 'input',

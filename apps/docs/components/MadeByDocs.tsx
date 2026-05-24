@@ -1,4 +1,4 @@
-import { MadeBy } from '@royui/ui';
+import { MadeBy } from '@roy-ui/ui';
 import type { CSSProperties, ReactNode } from 'react';
 import { Code } from './Code';
 import { InstallTabs } from './InstallTabs';
@@ -18,8 +18,8 @@ export function MadeByDocs() {
         description="Drop the package in. The badge ships with its own CSS — no global setup, no positioning utilities required."
       >
         <div className="install-grid">
-          <InstallTabs pkg="@royui/ui" />
-          <Code label="Import" code={`import { MadeBy } from '@royui/ui';`} />
+          <InstallTabs pkg="@roy-ui/ui" />
+          <Code label="Import" code={`import { MadeBy } from '@roy-ui/ui';`} />
         </div>
       </DocSection>
 

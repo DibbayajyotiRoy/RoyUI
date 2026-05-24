@@ -1,4 +1,4 @@
-import { GradientButton, MadeBy, Popover } from '@royui/ui';
+import { GradientButton, MadeBy, Popover } from '@roy-ui/ui';
 import { Link } from '../components/Link';
 import { InstallTabs } from '../components/InstallTabs';
 import { ShowcaseCard } from '../components/ShowcaseCard';
@@ -45,7 +45,7 @@ function Hero() {
           <NavGradientButton href="/components" fullWidth={false}>
             Browse components
           </NavGradientButton>
-          <InstallTabs pkg="@royui/ui" variant="pill" />
+          <InstallTabs pkg="@roy-ui/ui" variant="pill" />
         </div>
 
         <div className="hero__frameworks">

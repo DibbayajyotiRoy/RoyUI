@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
 import localFont from 'next/font/local';
-import { MadeBy } from '@royui/ui';
+import { MadeBy } from '@roy-ui/ui';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { CommandPalette } from '../components/CommandPalette';

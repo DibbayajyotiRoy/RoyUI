@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { TextMorph } from '@royui/ui';
+import { TextMorph } from '@roy-ui/ui';
 
 const PHRASES = [
   'Crafted with care.',

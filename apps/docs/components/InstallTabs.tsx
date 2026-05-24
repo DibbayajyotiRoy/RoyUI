@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { TextMorph } from '@royui/ui';
+import { TextMorph } from '@roy-ui/ui';
 
 type Manager = 'pnpm' | 'npm' | 'yarn' | 'bun';
 

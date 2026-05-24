@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { GradientButton, MadeBy, Popover, TextMorph } from '@royui/ui';
+import { GradientButton, MadeBy, Popover, TextMorph } from '@roy-ui/ui';
 import type { ComponentEntry } from '../lib/registry';
 
 export function PreviewBox({

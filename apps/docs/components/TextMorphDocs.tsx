@@ -18,8 +18,8 @@ export function TextMorphDocs() {
         description="One install. The primitive exports nothing but the component and its prop types."
       >
         <div className="install-grid">
-          <InstallTabs pkg="@royui/ui" />
-          <Code label="Import" code={`import { TextMorph } from '@royui/ui';`} />
+          <InstallTabs pkg="@roy-ui/ui" />
+          <Code label="Import" code={`import { TextMorph } from '@roy-ui/ui';`} />
         </div>
       </DocSection>
 
@@ -78,10 +78,10 @@ const prices = {
           description="A real-world use case — package-manager switcher. This is the same primitive that powers the install pill in this site's hero."
           code={`const [pm, setPm] = useState('pnpm');
 const cmds = {
-  pnpm: 'pnpm add @royui/ui',
-  npm:  'npm install @royui/ui',
-  yarn: 'yarn add @royui/ui',
-  bun:  'bun add @royui/ui',
+  pnpm: 'pnpm add @roy-ui/ui',
+  npm:  'npm install @roy-ui/ui',
+  yarn: 'yarn add @roy-ui/ui',
+  bun:  'bun add @roy-ui/ui',
 };
 
 <TextMorph value={cmds[pm]} />`}

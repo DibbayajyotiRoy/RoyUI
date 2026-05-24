@@ -1,4 +1,4 @@
-import { Popover } from '@royui/ui';
+import { Popover } from '@roy-ui/ui';
 import type { ReactNode } from 'react';
 import { Code } from './Code';
 import { InstallTabs } from './InstallTabs';
@@ -15,8 +15,8 @@ export function PopoverDocs() {
         description="Add the package, import the component. The popover ships with its own CSS — no setup, no Tailwind config to extend."
       >
         <div className="install-grid">
-          <InstallTabs pkg="@royui/ui" />
-          <Code label="Import" code={`import { Popover } from '@royui/ui';`} />
+          <InstallTabs pkg="@roy-ui/ui" />
+          <Code label="Import" code={`import { Popover } from '@roy-ui/ui';`} />
         </div>
       </DocSection>
 
