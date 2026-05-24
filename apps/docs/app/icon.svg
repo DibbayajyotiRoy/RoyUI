@@ -1,0 +1,16 @@
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="brandGrad" x1="100%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#0044ff"/>
+      <stop offset="55%" stop-color="#2ccfff"/>
+      <stop offset="100%" stop-color="#0044ff"/>
+    </linearGradient>
+    <linearGradient id="highlight" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#afe6ff" stop-opacity="0.45"/>
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#135fd8" stop-opacity="0.35"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="28" height="28" rx="8" fill="url(#brandGrad)"/>
+  <rect x="2" y="2" width="28" height="28" rx="8" fill="url(#highlight)"/>
+</svg>

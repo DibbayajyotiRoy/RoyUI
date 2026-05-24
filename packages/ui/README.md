@@ -8,7 +8,14 @@
 [![types](https://img.shields.io/npm/types/@roy-ui/ui?color=3178C6&logo=typescript&logoColor=white)](https://www.npmjs.com/package/@roy-ui/ui)
 [![license](https://img.shields.io/npm/l/@roy-ui/ui?color=22c55e)](https://github.com/DibbayajyotiRoy/RoyUI/blob/main/LICENSE)
 
-**[▶ Watch the 30-second demo on GitHub](https://github.com/DibbayajyotiRoy/RoyUI/blob/main/apps/docs/lib/demo/linkedin2.mp4)**
+<a href="https://github.com/DibbayajyotiRoy/RoyUI/blob/main/apps/docs/lib/demo/linkedin2.mp4">
+  <img
+    src="https://raw.githubusercontent.com/DibbayajyotiRoy/RoyUI/main/apps/docs/lib/demo/demo.gif"
+    alt="Roy UI components demo — gradient button, popover, text morph, made-by badge"
+    width="720" />
+</a>
+
+<sub>Click the GIF for the full-quality video.</sub>
 
 ---
 

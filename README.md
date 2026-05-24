@@ -13,16 +13,14 @@
 
 <br />
 
-<video
-  src="https://raw.githubusercontent.com/DibbayajyotiRoy/RoyUI/main/apps/docs/lib/demo/linkedin2.mp4"
-  controls
-  muted
-  loop
-  playsinline
-  width="720">
-</video>
+<a href="https://github.com/DibbayajyotiRoy/RoyUI/blob/main/apps/docs/lib/demo/linkedin2.mp4">
+  <img
+    src="https://raw.githubusercontent.com/DibbayajyotiRoy/RoyUI/main/apps/docs/lib/demo/demo.gif"
+    alt="Roy UI components demo — gradient button, popover, text morph, made-by badge"
+    width="720" />
+</a>
 
-<p><sub><a href="https://github.com/DibbayajyotiRoy/RoyUI/blob/main/apps/docs/lib/demo/linkedin2.mp4">Watch the demo on GitHub</a> if the player above does not load.</sub></p>
+<p><sub>Click the GIF for the full-quality 88-second video.</sub></p>
 
 </div>
 
