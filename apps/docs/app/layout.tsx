@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
 import localFont from 'next/font/local';
+import { Analytics } from '@vercel/analytics/next';
 import { MadeBy } from '@roy-ui/ui';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
@@ -48,6 +49,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         {children}
         <Footer />
         <MadeBy name="Roy" href="https://dibbayajyoti.com" />
+        <Analytics />
       </body>
     </html>
   );

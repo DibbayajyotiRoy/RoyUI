@@ -119,7 +119,7 @@ export default async function ComponentDetailPage({
             <h2>Documentation coming soon</h2>
             <p>
               This component is on the roadmap. Track progress on{' '}
-              <a href="https://github.com" target="_blank" rel="noreferrer">
+              <a href="https://github.com/DibbayajyotiRoy/RoyUI" target="_blank" rel="noreferrer">
                 GitHub
               </a>
               .

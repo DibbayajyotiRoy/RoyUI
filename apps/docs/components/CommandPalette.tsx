@@ -106,14 +106,14 @@ export function CommandPalette() {
           <Command.Group heading="External">
             <Command.Item
               value="github source code"
-              onSelect={() => window.open('https://github.com', '_blank')}
+              onSelect={() => window.open('https://github.com/DibbayajyotiRoy/RoyUI', '_blank')}
             >
               <ExternalIcon />
               <span>GitHub repository</span>
             </Command.Item>
             <Command.Item
               value="npm package registry"
-              onSelect={() => window.open('https://www.npmjs.com/', '_blank')}
+              onSelect={() => window.open('https://www.npmjs.com/package/@roy-ui/ui', '_blank')}
             >
               <ExternalIcon />
               <span>npm package</span>

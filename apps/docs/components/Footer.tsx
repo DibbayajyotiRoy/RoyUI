@@ -27,9 +27,9 @@ export function Footer() {
         <div>
           <div className="footer__col-title">Resources</div>
           <ul className="footer__list">
-            <li><a href="https://github.com" target="_blank" rel="noreferrer">GitHub</a></li>
-            <li><a href="https://www.npmjs.com" target="_blank" rel="noreferrer">npm</a></li>
-            <li><a href="https://github.com" target="_blank" rel="noreferrer">Changelog</a></li>
+            <li><a href="https://github.com/DibbayajyotiRoy/RoyUI" target="_blank" rel="noreferrer">GitHub</a></li>
+            <li><a href="https://www.npmjs.com/package/@roy-ui/ui" target="_blank" rel="noreferrer">npm</a></li>
+            <li><a href="https://github.com/DibbayajyotiRoy/RoyUI/releases" target="_blank" rel="noreferrer">Changelog</a></li>
           </ul>
         </div>
 

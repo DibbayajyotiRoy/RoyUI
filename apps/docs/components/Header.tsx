@@ -42,11 +42,12 @@ export function Header() {
             <kbd className="kbd">{isMac ? '⌘' : 'Ctrl'} K</kbd>
           </button>
           <a
-            href="https://github.com"
+            href="https://github.com/DibbayajyotiRoy/RoyUI"
             className="icon-btn"
             target="_blank"
             rel="noreferrer"
-            aria-label="GitHub"
+            aria-label="View source on GitHub"
+            title="View source on GitHub"
           >
             <GitHubIcon />
           </a>
