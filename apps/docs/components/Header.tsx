@@ -37,14 +37,6 @@ export function Header() {
           >
             Components
           </Link>
-          <a
-            href="https://github.com"
-            className="header__nav-link"
-            target="_blank"
-            rel="noreferrer"
-          >
-            GitHub
-          </a>
         </nav>
 
         <div className="header__actions">
