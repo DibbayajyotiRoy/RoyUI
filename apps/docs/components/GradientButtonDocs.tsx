@@ -1,5 +1,6 @@
 import { GradientButton } from '@royui/ui';
 import { Code } from './Code';
+import { InstallTabs } from './InstallTabs';
 import { PreviewTabs } from './PreviewTabs';
 import { LoadingDemo } from './demos/LoadingDemo';
 import type { ReactNode } from 'react';
@@ -14,7 +15,7 @@ export function GradientButtonDocs() {
         description="Add the package to your project. Components ship with their own CSS — no global setup."
       >
         <div className="install-grid">
-          <Code label="Terminal" lang="bash" code={`pnpm add @royui/ui`} />
+          <InstallTabs pkg="@royui/ui" />
           <Code label="Import" code={`import { GradientButton } from '@royui/ui';`} />
         </div>
       </DocSection>

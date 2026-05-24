@@ -1,7 +1,8 @@
-import { GradientButton, Popover } from '@royui/ui';
+import { GradientButton, MadeBy, Popover } from '@royui/ui';
 import { Link } from '../components/Link';
 import { InstallPill } from '../components/InstallPill';
 import { ShowcaseCard } from '../components/ShowcaseCard';
+import { NavGradientButton } from '../components/NavGradientButton';
 import { getFeatured, getComponent } from '../lib/registry';
 
 export default function HomePage() {
@@ -42,9 +43,9 @@ function Hero() {
         </p>
 
         <div className="hero__ctas">
-          <Link href="/components" className="btn btn-primary">
+          <NavGradientButton href="/components" fullWidth={false}>
             Browse components
-          </Link>
+          </NavGradientButton>
           <InstallPill command="pnpm add @royui/ui" />
         </div>
 
@@ -123,6 +124,15 @@ function FeaturedPreview({ slug }: { slug: string }) {
           Billed monthly. Cancel any time from your dashboard.
         </Popover>
       </div>
+    );
+  }
+  if (slug === 'made-by') {
+    return (
+      <MadeBy
+        name="Roy"
+        href="https://dibbayajyoti.com"
+        style={{ position: 'static' }}
+      />
     );
   }
   const entry = getComponent(slug);

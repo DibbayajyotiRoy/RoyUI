@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
+import { MadeBy } from '@royui/ui';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
 import { CommandPalette } from '../components/CommandPalette';
@@ -26,6 +27,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <Header />
         {children}
         <Footer />
+        <MadeBy name="Roy" href="https://dibbayajyoti.com" />
       </body>
     </html>
   );

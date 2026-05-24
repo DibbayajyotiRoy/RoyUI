@@ -1032,16 +1032,20 @@ button { font: inherit; cursor: pointer; }
 .doc-section + .doc-section { margin-top: 56px; }
 .doc-section__head { margin-bottom: 22px; }
 .doc-section__eyebrow {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 10.5px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-feature-settings: 'tnum', 'cv11';
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0;
   color: var(--accent);
   background: var(--accent-soft);
-  border-radius: 4px;
-  padding: 2px 7px;
+  border-radius: 6px;
+  padding: 3px 9px;
   margin-bottom: 14px;
+  min-width: 28px;
 }
 .doc-section__title {
   font-size: 26px;
@@ -1202,20 +1206,28 @@ button { font: inherit; cursor: pointer; }
 .code-card__copy {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  justify-content: center;
+  width: 28px;
+  height: 26px;
+  padding: 0;
   background: transparent;
   border: 1px solid var(--border-2);
-  color: var(--fg-2);
+  color: var(--fg-3);
   border-radius: 6px;
-  padding: 3px 9px;
-  font-family: var(--font-mono);
-  font-size: 10.5px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
   transition: all 0.15s var(--ease);
+  flex-shrink: 0;
 }
-.code-card__copy:hover { color: var(--fg); border-color: var(--border-3); background: var(--surface); }
-.code-card__copy.is-copied { color: var(--accent); border-color: var(--accent-soft); }
+.code-card__copy:hover {
+  color: var(--fg);
+  border-color: var(--border-3);
+  background: var(--surface);
+}
+.code-card__copy.is-copied {
+  color: var(--accent);
+  border-color: rgba(78, 198, 255, 0.4);
+  background: var(--accent-soft);
+}
+.code-card__copy svg { display: block; }
 
 .code-inline {
   font-family: var(--font-mono);
@@ -1225,6 +1237,58 @@ button { font: inherit; cursor: pointer; }
   border-radius: 4px;
   color: var(--accent);
 }
+
+/* ── Install tabs (pnpm / npm / yarn / bun) ───────────── */
+.code-card--install .code-card__head--tabs {
+  padding: 0 10px 0 4px;
+  border-bottom: 1px solid var(--border);
+}
+.install-tabs {
+  display: inline-flex;
+  align-items: stretch;
+  gap: 0;
+}
+.install-tab {
+  background: transparent;
+  border: 0;
+  color: var(--fg-3);
+  font-family: var(--font-sans);
+  font-feature-settings: 'cv11';
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  padding: 9px 12px;
+  cursor: pointer;
+  transition: color 0.15s var(--ease);
+  position: relative;
+  text-transform: lowercase;
+}
+.install-tab:hover { color: var(--fg-2); }
+.install-tab.is-active { color: var(--fg); }
+.install-tab.is-active::after {
+  content: '';
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: -1px;
+  height: 1.5px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+.install-cmd {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.7;
+  padding: 16px 18px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.92);
+  overflow-x: auto;
+}
+.install-cmd code { font-family: inherit; }
+.install-cmd__bin { color: #d2a8ff; font-weight: 500; }
+.install-cmd__sub { color: rgba(255, 255, 255, 0.55); }
+.install-cmd__pkg { color: #79c0ff; }
 
 /* ── Props table ─── */
 .props {

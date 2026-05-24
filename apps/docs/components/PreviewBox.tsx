@@ -1,6 +1,6 @@
 'use client';
 
-import { GradientButton, Popover } from '@royui/ui';
+import { GradientButton, MadeBy, Popover } from '@royui/ui';
 import type { ComponentEntry } from '../lib/registry';
 
 export function PreviewBox({
@@ -36,9 +36,21 @@ function renderLivePreview(entry: ComponentEntry, compact: boolean) {
       );
     case 'popover':
       return compact ? <PopoverThumb /> : <PopoverLive />;
+    case 'made-by':
+      return <MadeByPreview />;
     default:
       return null;
   }
+}
+
+function MadeByPreview() {
+  return (
+    <MadeBy
+      name="Roy"
+      href="https://example.com"
+      style={{ position: 'static' }}
+    />
+  );
 }
 
 /* Non-interactive thumb for catalog cards — Card is a Link, so we can't put

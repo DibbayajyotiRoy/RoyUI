@@ -1,0 +1,116 @@
+.royui-madeby {
+  /* Theme surface — override on .royui-madeby or :root for global retheme. */
+  --royui-madeby-bg: rgba(12, 12, 14, 0.86);
+  --royui-madeby-bg-hover: rgba(16, 16, 19, 0.92);
+  --royui-madeby-border: rgba(255, 255, 255, 0.08);
+  --royui-madeby-border-hover: rgba(255, 255, 255, 0.18);
+  --royui-madeby-prefix: rgba(255, 255, 255, 0.5);
+  --royui-madeby-name: rgba(255, 255, 255, 0.96);
+  --royui-madeby-name-hover: #4ec6ff;
+  --royui-madeby-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.18),
+    0 6px 16px -2px rgba(0, 0, 0, 0.28);
+  --royui-madeby-shadow-hover:
+    0 1px 2px rgba(0, 0, 0, 0.22),
+    0 12px 26px -4px rgba(0, 0, 0, 0.34);
+  --royui-madeby-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  /* Author-name typography (overridable). */
+  --royui-madeby-name-font: inherit;
+  --royui-madeby-name-weight: 500;
+
+  position: fixed;
+  z-index: 100;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 13px;
+  background: var(--royui-madeby-bg);
+  backdrop-filter: saturate(180%) blur(14px);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  border: 1px solid var(--royui-madeby-border);
+  border-radius: 999px;
+  font-size: 12.5px;
+  line-height: 1.4;
+  letter-spacing: -0.005em;
+  text-decoration: none;
+  color: var(--royui-madeby-prefix);
+  box-shadow: var(--royui-madeby-shadow);
+  transition:
+    border-color 0.2s var(--royui-madeby-ease),
+    background 0.2s var(--royui-madeby-ease),
+    box-shadow 0.25s var(--royui-madeby-ease),
+    transform 0.2s var(--royui-madeby-ease);
+  user-select: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.royui-madeby:hover {
+  background: var(--royui-madeby-bg-hover);
+  border-color: var(--royui-madeby-border-hover);
+  box-shadow: var(--royui-madeby-shadow-hover);
+  transform: translateY(-1px);
+}
+
+.royui-madeby:hover .royui-madeby__name {
+  color: var(--royui-madeby-name-hover);
+}
+
+.royui-madeby:focus-visible {
+  outline: 2px solid var(--royui-madeby-name-hover);
+  outline-offset: 3px;
+}
+
+.royui-madeby:active {
+  transform: translateY(0);
+  box-shadow: var(--royui-madeby-shadow);
+}
+
+.royui-madeby__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 2px;
+  line-height: 0;
+}
+
+.royui-madeby__prefix {
+  color: var(--royui-madeby-prefix);
+  font-weight: 400;
+}
+
+.royui-madeby__name {
+  color: var(--royui-madeby-name);
+  font-weight: var(--royui-madeby-name-weight);
+  font-family: var(--royui-madeby-name-font);
+  font-style: italic;
+  transition: color 0.18s var(--royui-madeby-ease);
+}
+
+/* Positions */
+.royui-madeby--bottom-right { bottom: 18px; right: 18px; }
+.royui-madeby--bottom-left  { bottom: 18px; left: 18px; }
+.royui-madeby--top-right    { top: 18px; right: 18px; }
+.royui-madeby--top-left     { top: 18px; left: 18px; }
+
+@media (max-width: 540px) {
+  .royui-madeby {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+  .royui-madeby--bottom-right,
+  .royui-madeby--bottom-left { bottom: 12px; }
+  .royui-madeby--bottom-right { right: 12px; }
+  .royui-madeby--bottom-left { left: 12px; }
+  .royui-madeby--top-right,
+  .royui-madeby--top-left { top: 12px; }
+  .royui-madeby--top-right { right: 12px; }
+  .royui-madeby--top-left { left: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .royui-madeby,
+  .royui-madeby__name { transition: none; }
+  .royui-madeby:hover { transform: none; }
+}

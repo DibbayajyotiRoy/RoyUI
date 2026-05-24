@@ -1,6 +1,7 @@
 import { Popover } from '@royui/ui';
 import type { ReactNode } from 'react';
 import { Code } from './Code';
+import { InstallTabs } from './InstallTabs';
 import { PreviewTabs } from './PreviewTabs';
 import { CustomTriggerDemo } from './demos/CustomTriggerDemo';
 
@@ -14,7 +15,7 @@ export function PopoverDocs() {
         description="Add the package, import the component. The popover ships with its own CSS — no setup, no Tailwind config to extend."
       >
         <div className="install-grid">
-          <Code label="Terminal" lang="bash" code={`pnpm add @royui/ui`} />
+          <InstallTabs pkg="@royui/ui" />
           <Code label="Import" code={`import { Popover } from '@royui/ui';`} />
         </div>
       </DocSection>

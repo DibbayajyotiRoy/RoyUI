@@ -4,6 +4,7 @@ import { Link } from '../../../components/Link';
 import { PreviewBox } from '../../../components/PreviewBox';
 import { GradientButtonDocs } from '../../../components/GradientButtonDocs';
 import { PopoverDocs } from '../../../components/PopoverDocs';
+import { MadeByDocs } from '../../../components/MadeByDocs';
 import { DocsSidebar } from '../../../components/DocsSidebar';
 import { TableOfContents, type TocItem } from '../../../components/TableOfContents';
 
@@ -28,6 +29,7 @@ export async function generateMetadata({
 const docsBySlug: Record<string, () => React.ReactNode> = {
   'gradient-button': () => <GradientButtonDocs />,
   popover: () => <PopoverDocs />,
+  'made-by': () => <MadeByDocs />,
 };
 
 const tocBySlug: Record<string, TocItem[]> = {
@@ -42,6 +44,13 @@ const tocBySlug: Record<string, TocItem[]> = {
     { id: 'theming', label: 'Theming' },
     { id: 'props', label: 'Props' },
     { id: 'known-limits', label: 'Known limits' },
+  ],
+  'made-by': [
+    { id: 'installation', label: 'Installation' },
+    { id: 'usage', label: 'Usage' },
+    { id: 'positions', label: 'Positions' },
+    { id: 'theming', label: 'Theming' },
+    { id: 'props', label: 'Props' },
   ],
 };
 

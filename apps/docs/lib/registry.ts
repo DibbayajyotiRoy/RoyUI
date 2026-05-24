@@ -38,6 +38,18 @@ export const components: ComponentEntry[] = [
     importStatement: `import { Popover } from '@royui/ui';`,
   },
   {
+    slug: 'made-by',
+    name: 'MadeBy',
+    tagline: 'Floating credit badge with author name and portfolio link.',
+    description:
+      'A fixed-position pill that floats in any corner of the viewport. Shows a "Made by" prefix and a clickable author name linked to a portfolio or social URL. Italic name by default, but the font and style are fully configurable per author.',
+    category: 'Display',
+    tags: ['badge', 'credit', 'attribution', 'floating', 'pill'],
+    status: 'available',
+    featured: true,
+    importStatement: `import { MadeBy } from '@royui/ui';`,
+  },
+  {
     slug: 'input',
     name: 'Input',
     tagline: 'Accessible text input with built-in label and helper text.',
