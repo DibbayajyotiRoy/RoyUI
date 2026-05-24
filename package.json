@@ -4,7 +4,9 @@
   "version": "0.0.0",
   "packageManager": "pnpm@9.15.4",
   "scripts": {
-    "build": "pnpm --filter @royui/ui build",
+    "build": "pnpm --filter @royui/ui build && pnpm --filter @royui/docs build",
+    "build:ui": "pnpm --filter @royui/ui build",
+    "build:docs": "pnpm --filter @royui/docs build",
     "dev:ui": "pnpm --filter @royui/ui dev",
     "dev": "pnpm --filter @royui/docs dev",
     "dev:all": "pnpm --parallel --filter @royui/ui --filter @royui/docs dev"

@@ -1,8 +1,9 @@
 'use client';
 
 import { useState } from 'react';
+import { TextMorph } from '@royui/ui';
 
-type Manager = 'pnpm' | 'npm' | 'bun' | 'yarn';
+type Manager = 'pnpm' | 'npm' | 'yarn' | 'bun';
 
 const managers: { id: Manager; label: string; cmd: (pkg: string) => string }[] = [
   { id: 'pnpm', label: 'pnpm', cmd: (pkg) => `pnpm add ${pkg}` },
@@ -11,22 +12,74 @@ const managers: { id: Manager; label: string; cmd: (pkg: string) => string }[] =
   { id: 'bun', label: 'bun', cmd: (pkg) => `bun add ${pkg}` },
 ];
 
-export function InstallTabs({ pkg }: { pkg: string }) {
+export type InstallTabsVariant = 'card' | 'pill';
+
+export function InstallTabs({
+  pkg,
+  variant = 'card',
+}: {
+  pkg: string;
+  variant?: InstallTabsVariant;
+}) {
   const [active, setActive] = useState<Manager>('pnpm');
   const [copied, setCopied] = useState(false);
-  const current = managers.find((m) => m.id === active)!;
-  const cmd = current.cmd(pkg);
-  const [bin, subcommand, ...rest] = cmd.split(' ');
+
+  const activeCmd = managers.find((m) => m.id === active)!.cmd(pkg);
 
   const copy = async () => {
     try {
-      await navigator.clipboard.writeText(cmd);
+      await navigator.clipboard.writeText(activeCmd);
       setCopied(true);
       setTimeout(() => setCopied(false), 1400);
     } catch {
       /* clipboard blocked */
     }
   };
+
+  if (variant === 'pill') {
+    return (
+      <div className="install-row" role="group" aria-label="Install command">
+        <div
+          className="install-row__tabs"
+          role="tablist"
+          aria-label="Package manager"
+        >
+          {managers.map((m) => (
+            <button
+              key={m.id}
+              type="button"
+              role="tab"
+              aria-selected={active === m.id}
+              onClick={() => setActive(m.id)}
+              className={`install-row__tab ${active === m.id ? 'is-active' : ''}`}
+            >
+              {m.label}
+            </button>
+          ))}
+        </div>
+
+        <span className="install-row__sep" aria-hidden />
+
+        <div className="install-row__cmd-stage">
+          <TextMorph
+            value={activeCmd}
+            className="install-row__cmd"
+            renderText={(t) => <ColoredCmd text={t} />}
+          />
+        </div>
+
+        <button
+          type="button"
+          onClick={copy}
+          className={`install-row__copy ${copied ? 'is-copied' : ''}`}
+          aria-label={copied ? 'Copied' : `Copy: ${activeCmd}`}
+          title={copied ? 'Copied' : 'Copy command'}
+        >
+          {copied ? <CheckIcon /> : <CopyIcon />}
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="code-card code-card--install">
@@ -49,30 +102,50 @@ export function InstallTabs({ pkg }: { pkg: string }) {
           type="button"
           onClick={copy}
           className={`code-card__copy ${copied ? 'is-copied' : ''}`}
-          aria-label={copied ? 'Copied' : `Copy: ${cmd}`}
+          aria-label={copied ? 'Copied' : `Copy: ${activeCmd}`}
           title={copied ? 'Copied' : 'Copy command'}
         >
           {copied ? <CheckIcon /> : <CopyIcon />}
         </button>
       </div>
-      <div className="code-card__body">
-        <pre className="install-cmd">
-          <code>
-            <span className="install-cmd__bin">{bin}</span>
-            <span className="install-cmd__sub"> {subcommand} </span>
-            <span className="install-cmd__pkg">{rest.join(' ')}</span>
-          </code>
-        </pre>
+      <div className="code-card__body install-cmd-stage">
+        <TextMorph
+          value={activeCmd}
+          className="install-cmd"
+          renderText={(t) => <ColoredCmd text={t} />}
+        />
       </div>
     </div>
+  );
+}
+
+function ColoredCmd({ text }: { text: string }) {
+  const parts = text.split(' ');
+  return (
+    <code>
+      {parts.map((part, i, arr) => {
+        const cls =
+          i === 0
+            ? 'install-cmd__bin'
+            : i === 1
+              ? 'install-cmd__sub'
+              : 'install-cmd__pkg';
+        return (
+          <span key={i} className={cls}>
+            {part}
+            {i < arr.length - 1 ? ' ' : ''}
+          </span>
+        );
+      })}
+    </code>
   );
 }
 
 function CopyIcon() {
   return (
     <svg
-      width="14"
-      height="14"
+      width="13"
+      height="13"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -90,8 +163,8 @@ function CopyIcon() {
 function CheckIcon() {
   return (
     <svg
-      width="14"
-      height="14"
+      width="13"
+      height="13"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"

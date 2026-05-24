@@ -5,6 +5,7 @@ import { PreviewBox } from '../../../components/PreviewBox';
 import { GradientButtonDocs } from '../../../components/GradientButtonDocs';
 import { PopoverDocs } from '../../../components/PopoverDocs';
 import { MadeByDocs } from '../../../components/MadeByDocs';
+import { TextMorphDocs } from '../../../components/TextMorphDocs';
 import { DocsSidebar } from '../../../components/DocsSidebar';
 import { TableOfContents, type TocItem } from '../../../components/TableOfContents';
 
@@ -30,6 +31,7 @@ const docsBySlug: Record<string, () => React.ReactNode> = {
   'gradient-button': () => <GradientButtonDocs />,
   popover: () => <PopoverDocs />,
   'made-by': () => <MadeByDocs />,
+  'text-morph': () => <TextMorphDocs />,
 };
 
 const tocBySlug: Record<string, TocItem[]> = {
@@ -50,6 +52,13 @@ const tocBySlug: Record<string, TocItem[]> = {
     { id: 'usage', label: 'Usage' },
     { id: 'positions', label: 'Positions' },
     { id: 'theming', label: 'Theming' },
+    { id: 'props', label: 'Props' },
+  ],
+  'text-morph': [
+    { id: 'installation', label: 'Installation' },
+    { id: 'usage', label: 'Usage' },
+    { id: 'custom-render', label: 'Custom render' },
+    { id: 'behavior', label: 'Behavior' },
     { id: 'props', label: 'Props' },
   ],
 };

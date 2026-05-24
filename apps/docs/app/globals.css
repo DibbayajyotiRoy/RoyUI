@@ -4,7 +4,12 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html {
+  /* Smooth anchor-link scrolling with the sticky header offset baked in,
+     so jumps land below the header with a small breath of space. */
+  scroll-behavior: smooth;
+  scroll-padding-top: 84px;
+}
 
 :root {
   /* ── Color (dark, near-black with cool undertone) ─── */
@@ -32,10 +37,17 @@ html { scroll-behavior: smooth; }
     'Segoe UI', sans-serif;
   --font-mono: var(--font-geist-mono), 'JetBrains Mono', 'SF Mono', Menlo,
     monospace;
+  /* Single source of truth for all headings + prominent title text.
+     Change this one var to re-skin every title across the docs site. */
+  --font-heading: var(--font-articulat), var(--font-sans);
 
   /* ── Motion ─── */
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-calm: cubic-bezier(0.32, 0.72, 0, 1);
+  --dur-fast: 180ms;
+  --dur-base: 240ms;
+  --dur-slow: 420ms;
 
   /* ── Layout ─── */
   --container: 1280px;
@@ -46,7 +58,19 @@ html { scroll-behavior: smooth; }
 
 body {
   font-family: var(--font-sans);
-  background: var(--bg);
+  /* Layered background stack:
+     1. Dim overlay (top)  — keeps the image as a texture, not a focal point
+     2. Accent radial glows — preserve the cyan/blue corner ambience
+     3. Background image    — fixed so it stays put as content scrolls
+     4. Solid base color    — fallback while the image loads
+     Painted top-down in CSS multi-bg order (first = topmost). */
+  background:
+    linear-gradient(rgba(5, 5, 8, 0.82), rgba(5, 5, 8, 0.82)),
+    radial-gradient(1100px 600px at 85% -5%, rgba(44, 207, 255, 0.06), transparent 60%),
+    radial-gradient(900px 500px at -5% 95%, rgba(0, 68, 255, 0.07), transparent 60%),
+    url('/background.webp') center center / cover no-repeat,
+    var(--bg);
+  background-attachment: fixed;
   color: var(--fg);
   font-feature-settings: 'cv11', 'ss03', 'ss01';
   letter-spacing: -0.005em;
@@ -54,6 +78,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  /* Spring lifts and hover transforms could briefly overshoot horizontally
+     on narrow viewports — clip it so the page never gains a horizontal bar. */
+  overflow-x: hidden;
 }
 
 /* ── Subtle scrollbar styling site-wide ───────────────── */
@@ -95,6 +122,27 @@ button { font: inherit; cursor: pointer; }
   font-weight: 500;
 }
 
+/* Headings + prominent title text use one shared font token so the whole
+   docs site stays visually consistent. Hits both semantic heading elements
+   and every BEM title/name class regardless of which tag it renders on. */
+h1, h2, h3, h4, h5, h6,
+.brand__name,
+.hero__title,
+.section__title,
+.cta-card__title,
+.catalog__title,
+.card__title,
+.detail__title,
+.detail__tagline,
+.doc-section__title,
+.example__title,
+.showcase__name,
+.value__title,
+.detail__nav-name,
+.detail__placeholder h2 {
+  font-family: var(--font-heading);
+}
+
 /* ════════════════════════════════════════════════════════
    Header
    ════════════════════════════════════════════════════════ */
@@ -114,10 +162,9 @@ button { font: inherit; cursor: pointer; }
   height: 100%;
   margin: 0 auto;
   padding: 0 24px;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
+  display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 28px;
 }
 .brand {
   display: inline-flex;
@@ -146,7 +193,6 @@ button { font: inherit; cursor: pointer; }
   display: flex;
   align-items: center;
   gap: 2px;
-  justify-self: center;
 }
 .header__nav-link {
   padding: 7px 12px;
@@ -163,6 +209,7 @@ button { font: inherit; cursor: pointer; }
   display: flex;
   align-items: center;
   gap: 8px;
+  margin-left: auto;
 }
 .kbd-launcher {
   display: inline-flex;
@@ -218,38 +265,6 @@ button { font: inherit; cursor: pointer; }
   padding: 88px 24px 96px;
   border-bottom: 1px solid var(--border);
 }
-.hero__bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-.hero__bg-grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
-  background-size: 56px 56px;
-  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 0%, transparent 70%);
-  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 0%, transparent 70%);
-}
-.hero__bg-glow {
-  position: absolute;
-  top: -260px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 900px;
-  height: 700px;
-  background:
-    radial-gradient(50% 50% at 50% 50%, rgba(78, 198, 255, 0.22) 0%, transparent 70%);
-  filter: blur(30px);
-  animation: hero-glow-pulse 8s ease-in-out infinite;
-}
-@keyframes hero-glow-pulse {
-  0%, 100% { opacity: 0.7; transform: translateX(-50%) scale(1); }
-  50% { opacity: 1; transform: translateX(-50%) scale(1.08); }
-}
 .hero__inner {
   position: relative;
   z-index: 1;
@@ -291,7 +306,7 @@ button { font: inherit; cursor: pointer; }
 
 .hero__title {
   font-size: clamp(44px, 6.5vw, 80px);
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: -0.045em;
   line-height: 0.98;
   margin: 0 auto 24px;
@@ -371,11 +386,10 @@ button { font: inherit; cursor: pointer; }
 
 .hero__frameworks {
   display: flex;
-  gap: 28px;
-  justify-content: center;
+  flex-direction: column;
+  gap: 18px;
   align-items: center;
   margin-top: 56px;
-  flex-wrap: wrap;
   color: var(--fg-4);
 }
 .hero__frameworks-label {
@@ -387,14 +401,72 @@ button { font: inherit; cursor: pointer; }
 .framework-chip {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   color: var(--fg-3);
   font-size: 13.5px;
   font-weight: 500;
   transition: color 0.15s var(--ease);
+  white-space: nowrap;
 }
 .framework-chip:hover { color: var(--fg-2); }
-.framework-chip svg { opacity: 0.85; }
+.framework-chip__logo {
+  width: 16px;
+  height: 16px;
+  display: block;
+  opacity: 0.88;
+}
+
+/* Endless right→left marquee.
+   Structure: viewport (overflow: hidden) → track (animated, 2× sets)
+   → set (display: flex, gap, padding-right matches the gap).
+   Each set's padding-right makes the cross-set spacing identical to the
+   intra-set spacing — so the second set's first chip lands in the first
+   set's first chip's pixel position when the track hits translateX(-50%).
+   That's what makes the loop seamless. Edges fade via mask. */
+.framework-marquee {
+  width: 100%;
+  max-width: 760px;
+  overflow: hidden;
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 10%,
+    #000 90%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 10%,
+    #000 90%,
+    transparent 100%
+  );
+}
+.framework-marquee__track {
+  display: flex;
+  width: max-content;
+  animation: framework-marquee 40s linear infinite;
+}
+.framework-marquee__set {
+  display: flex;
+  align-items: center;
+  gap: 44px;
+  /* Trailing space equal to gap → cross-set spacing == intra-set spacing. */
+  padding: 0 44px 0 0;
+  margin: 0;
+  list-style: none;
+  flex-shrink: 0;
+}
+.framework-marquee:hover .framework-marquee__track {
+  animation-play-state: paused;
+}
+@keyframes framework-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .framework-marquee__track { animation: none; }
+}
 
 /* ════════════════════════════════════════════════════════
    Home sections
@@ -464,11 +536,15 @@ button { font: inherit; cursor: pointer; }
      dramatically (they have their own shadow). */
   overflow: visible;
   background: var(--bg-elev);
-  transition: border-color 0.2s var(--ease), transform 0.2s var(--ease);
+  transition:
+    border-color 0.35s var(--ease-calm),
+    transform 0.35s var(--ease-calm),
+    box-shadow 0.35s var(--ease-calm);
 }
 .showcase:hover {
   border-color: var(--border-2);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px -16px rgba(0, 0, 0, 0.5);
 }
 .showcase__stage {
   height: 280px;
@@ -735,7 +811,10 @@ button { font: inherit; cursor: pointer; }
   border: 1px solid var(--border);
   border-radius: 14px;
   overflow: hidden;
-  transition: border-color 0.18s var(--ease), transform 0.18s var(--ease);
+  transition:
+    border-color 0.3s var(--ease-calm),
+    transform 0.3s var(--ease-calm),
+    box-shadow 0.3s var(--ease-calm);
 }
 .card::before {
   content: '';
@@ -748,11 +827,15 @@ button { font: inherit; cursor: pointer; }
     transparent 40%
   );
   opacity: 0;
-  transition: opacity 0.25s var(--ease);
+  transition: opacity 0.4s var(--ease-calm);
   pointer-events: none;
   z-index: 1;
 }
-.card:hover { border-color: var(--border-2); transform: translateY(-2px); }
+.card:hover {
+  border-color: var(--border-2);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px -12px rgba(0, 0, 0, 0.4);
+}
 .card:hover::before { opacity: 1; }
 .card--disabled { opacity: 0.55; pointer-events: none; }
 
@@ -1276,6 +1359,11 @@ button { font: inherit; cursor: pointer; }
   border-radius: 2px;
 }
 
+.install-cmd-stage {
+  position: relative;
+  /* Stage for crossfade — both the entering and leaving commands stack
+     here briefly during a manager switch. */
+}
 .install-cmd {
   font-family: var(--font-mono);
   font-size: 13px;
@@ -1283,12 +1371,118 @@ button { font: inherit; cursor: pointer; }
   padding: 16px 18px;
   margin: 0;
   color: rgba(255, 255, 255, 0.92);
-  overflow-x: auto;
+  display: inline-block;
+  white-space: pre;
 }
 .install-cmd code { font-family: inherit; }
 .install-cmd__bin { color: #d2a8ff; font-weight: 500; }
 .install-cmd__sub { color: rgba(255, 255, 255, 0.55); }
 .install-cmd__pkg { color: #79c0ff; }
+
+/* ── Typing-transition container ────────────────────────
+   The command text updates character-by-character in JS (see InstallTabs).
+   No CSS animation here — the per-char delays drive the perceived motion
+   and the typed string is just a plain state-driven render. */
+
+/* ════════════════════════════════════════════════════════
+   Pill variant — sleek single-row install for the hero
+   ════════════════════════════════════════════════════════ */
+.install-row {
+  display: inline-flex;
+  align-items: stretch;
+  height: 40px;
+  background: rgba(10, 10, 14, 0.78);
+  backdrop-filter: saturate(180%) blur(14px);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 3px;
+  overflow: hidden;
+  transition: border-color 0.25s var(--ease-calm);
+}
+.install-row:hover { border-color: var(--border-2); }
+
+.install-row__tabs {
+  display: inline-flex;
+  align-items: stretch;
+  gap: 1px;
+}
+.install-row__tab {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 10px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  color: var(--fg-3);
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+  transition:
+    color 0.25s var(--ease-calm),
+    background 0.25s var(--ease-calm);
+}
+.install-row__tab:hover {
+  color: var(--fg-2);
+  background: var(--surface-2);
+}
+.install-row__tab.is-active {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.install-row__sep {
+  width: 1px;
+  background: var(--border);
+  margin: 8px 8px;
+}
+
+.install-row__cmd-stage {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 6px;
+  min-width: 188px;
+  overflow: hidden;
+}
+.install-row__cmd-stage .install-cmd {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--fg);
+}
+
+.install-row__copy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  margin: 3px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  color: var(--fg-3);
+  cursor: pointer;
+  transition:
+    color 0.25s var(--ease-calm),
+    background 0.25s var(--ease-calm);
+  flex-shrink: 0;
+}
+.install-row__copy:hover {
+  color: var(--fg);
+  background: var(--surface-2);
+}
+.install-row__copy.is-copied {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
 
 /* ── Props table ─── */
 .props {
@@ -1365,6 +1559,40 @@ button { font: inherit; cursor: pointer; }
   background: var(--accent-soft);
   border-color: rgba(78, 198, 255, 0.4);
   color: var(--accent);
+}
+
+/* ── Shared toggle pill for docs demos (TextMorph examples) ── */
+.morph-demo-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+}
+.morph-demo-toggle__btn {
+  padding: 6px 14px;
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  color: var(--fg-3);
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+  transition:
+    color 0.25s var(--ease-calm),
+    background 0.25s var(--ease-calm);
+  text-transform: capitalize;
+}
+.morph-demo-toggle__btn:hover {
+  color: var(--fg-2);
+  background: var(--surface-2);
+}
+.morph-demo-toggle__btn.is-active {
+  color: var(--fg);
+  background: var(--surface-3);
 }
 
 /* ── Right TOC ─── */
@@ -1503,15 +1731,6 @@ button { font: inherit; cursor: pointer; }
   color: var(--fg-3);
   letter-spacing: 0.02em;
 }
-.footer__status { display: inline-flex; align-items: center; gap: 8px; }
-.footer__status-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 999px;
-  background: #4ade80;
-  box-shadow: 0 0 8px rgba(74, 222, 128, 0.6);
-}
-
 /* ════════════════════════════════════════════════════════
    Command Palette (cmdk)
    ════════════════════════════════════════════════════════ */
@@ -1626,16 +1845,33 @@ button { font: inherit; cursor: pointer; }
 
 @view-transition { navigation: auto; }
 
+/* Slightly longer durations + the gentler ease-calm curve give navigation
+   that "settles into place" feel instead of snapping. Shared elements take
+   a touch longer than the root cross-fade so eye-tracking stays connected. */
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation-duration: 260ms;
-  animation-timing-function: var(--ease-out);
+  animation-duration: 360ms;
+  animation-timing-function: var(--ease-calm);
 }
 ::view-transition-group(*) {
-  animation-duration: 340ms;
-  animation-timing-function: var(--ease-out);
+  animation-duration: 480ms;
+  animation-timing-function: var(--ease-calm);
 }
+::view-transition-old(root) {
+  animation-name: page-fade-out;
+}
+::view-transition-new(root) {
+  animation-name: page-fade-in;
+}
+@keyframes page-fade-out {
+  to { opacity: 0; transform: translateY(-4px); }
+}
+@keyframes page-fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
   ::view-transition-group(*),
   ::view-transition-old(root),
   ::view-transition-new(root) {
@@ -1643,4 +1879,68 @@ button { font: inherit; cursor: pointer; }
   }
   .hero__bg-glow,
   .hero__pill-dot { animation: none !important; }
+}
+
+/* ════════════════════════════════════════════════════════
+   Entrance choreography
+   ──────────────────────────────────────────────────────
+   Initial hidden states are gated on `.js` so that crawlers
+   and noscript users get fully-visible SSR'd content. The
+   inline script in <head> adds .js synchronously before
+   first paint, so users with JS see the entrance animation.
+   ════════════════════════════════════════════════════════ */
+
+@keyframes settle-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Hero — staggered settle-in on initial page load. */
+html.js .hero__title,
+html.js .hero__lede,
+html.js .hero__ctas,
+html.js .hero__frameworks {
+  opacity: 0;
+  will-change: transform, opacity;
+  animation: settle-in 0.8s var(--ease-calm) both;
+}
+html.js .hero__title       { animation-delay: 80ms; }
+html.js .hero__lede        { animation-delay: 240ms; }
+html.js .hero__ctas        { animation-delay: 380ms; }
+html.js .hero__frameworks  { animation-delay: 520ms; }
+
+/* ScrollReveal — fires once per section as it enters the viewport. */
+html.js .reveal-pre {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.85s var(--ease-calm),
+    transform 0.85s var(--ease-calm);
+  will-change: transform, opacity;
+}
+html.js .reveal-pre.is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* Drop will-change after the entrance settles to free the compositor layer. */
+html.js .reveal-pre.is-revealed,
+html.js .hero__title,
+html.js .hero__lede,
+html.js .hero__ctas,
+html.js .hero__frameworks {
+  animation-fill-mode: forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.js .hero__title,
+  html.js .hero__lede,
+  html.js .hero__ctas,
+  html.js .hero__frameworks,
+  html.js .reveal-pre {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
 }

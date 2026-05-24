@@ -1,6 +1,7 @@
 'use client';
 
-import { GradientButton, MadeBy, Popover } from '@royui/ui';
+import { useEffect, useState } from 'react';
+import { GradientButton, MadeBy, Popover, TextMorph } from '@royui/ui';
 import type { ComponentEntry } from '../lib/registry';
 
 export function PreviewBox({
@@ -38,18 +39,50 @@ function renderLivePreview(entry: ComponentEntry, compact: boolean) {
       return compact ? <PopoverThumb /> : <PopoverLive />;
     case 'made-by':
       return <MadeByPreview />;
+    case 'text-morph':
+      return <TextMorphPreview />;
     default:
       return null;
   }
 }
 
+function TextMorphPreview() {
+  const phrases = ['Crafted with care.', 'Built with focus.', 'Shipped with joy.'];
+  const [i, setI] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setI((n) => (n + 1) % phrases.length), 2400);
+    return () => clearInterval(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  return (
+    <span
+      style={{
+        fontFamily: 'inherit',
+        fontSize: 18,
+        fontWeight: 500,
+        color: 'rgba(255,255,255,0.95)',
+      }}
+    >
+      <TextMorph value={phrases[i] ?? phrases[0]!} />
+    </span>
+  );
+}
+
 function MadeByPreview() {
   return (
-    <MadeBy
-      name="Roy"
-      href="https://example.com"
-      style={{ position: 'static' }}
-    />
+    <div
+      style={{
+        transform: 'scale(1.6)',
+        transformOrigin: 'center center',
+        display: 'inline-flex',
+      }}
+    >
+      <MadeBy
+        name="Roy"
+        href="https://example.com"
+        style={{ position: 'static' }}
+      />
+    </div>
   );
 }
 

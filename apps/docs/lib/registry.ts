@@ -50,6 +50,18 @@ export const components: ComponentEntry[] = [
     importStatement: `import { MadeBy } from '@royui/ui';`,
   },
   {
+    slug: 'text-morph',
+    name: 'TextMorph',
+    tagline: 'Text that diff-types between values with human-feeling jitter.',
+    description:
+      'A primitive for any text that swaps from one value to another. Computes the minimal diff, backspaces the differing middle, pauses for a beat, then types in the new middle — with per-character jitter (and extra delay on harder-to-reach chars). Interruptible mid-animation, reduced-motion safe, and accepts a custom renderer for syntax tinting or word-by-word styling.',
+    category: 'Display',
+    tags: ['text', 'animation', 'typing', 'transition', 'morph'],
+    status: 'available',
+    featured: true,
+    importStatement: `import { TextMorph } from '@royui/ui';`,
+  },
+  {
     slug: 'input',
     name: 'Input',
     tagline: 'Accessible text input with built-in label and helper text.',

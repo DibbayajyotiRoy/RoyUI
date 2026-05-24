@@ -1,0 +1,6 @@
+.royui-textmorph {
+  display: inline-block;
+  white-space: pre;
+  /* Preserve spaces during typing so intermediate strings like
+     "pnpm  @royui/ui" (mid-deletion) render their gap correctly. */
+}

@@ -1,17 +1,26 @@
 import { GradientButton, MadeBy, Popover } from '@royui/ui';
 import { Link } from '../components/Link';
-import { InstallPill } from '../components/InstallPill';
+import { InstallTabs } from '../components/InstallTabs';
 import { ShowcaseCard } from '../components/ShowcaseCard';
 import { NavGradientButton } from '../components/NavGradientButton';
+import { ScrollReveal } from '../components/ScrollReveal';
+import { HeroTitleMorph } from '../components/HeroTitleMorph';
+import { FeaturedTextMorph } from '../components/featured/FeaturedTextMorph';
 import { getFeatured, getComponent } from '../lib/registry';
 
 export default function HomePage() {
   return (
     <main>
       <Hero />
-      <Featured />
-      <Values />
-      <CtaStrip />
+      <ScrollReveal>
+        <Featured />
+      </ScrollReveal>
+      <ScrollReveal>
+        <Values />
+      </ScrollReveal>
+      <ScrollReveal>
+        <CtaStrip />
+      </ScrollReveal>
     </main>
   );
 }
@@ -21,20 +30,10 @@ export default function HomePage() {
 function Hero() {
   return (
     <section className="hero">
-      <div className="hero__bg" aria-hidden="true">
-        <div className="hero__bg-glow" />
-        <div className="hero__bg-grid" />
-      </div>
-
       <div className="hero__inner">
-        <Link href="/components/popover" className="hero__pill">
-          <span className="hero__pill-dot" />
-          <span>New — Popover</span>
-        </Link>
-
         <h1 className="hero__title">
           The component library<br />
-          for the <em>next React era.</em>
+          for the <em>next <HeroTitleMorph /> era.</em>
         </h1>
 
         <p className="hero__lede">
@@ -46,23 +45,12 @@ function Hero() {
           <NavGradientButton href="/components" fullWidth={false}>
             Browse components
           </NavGradientButton>
-          <InstallPill command="pnpm add @royui/ui" />
+          <InstallTabs pkg="@royui/ui" variant="pill" />
         </div>
 
         <div className="hero__frameworks">
           <span className="hero__frameworks-label">Works with</span>
-          <span className="framework-chip">
-            <NextLogo /> Next.js
-          </span>
-          <span className="framework-chip">
-            <TanStackLogo /> TanStack Start
-          </span>
-          <span className="framework-chip">
-            <ViteLogo /> Vite
-          </span>
-          <span className="framework-chip">
-            <RemixLogo /> Remix
-          </span>
+          <FrameworkMarquee />
         </div>
       </div>
     </section>
@@ -134,6 +122,9 @@ function FeaturedPreview({ slug }: { slug: string }) {
         style={{ position: 'static' }}
       />
     );
+  }
+  if (slug === 'text-morph') {
+    return <FeaturedTextMorph />;
   }
   const entry = getComponent(slug);
   return (
@@ -253,35 +244,51 @@ function CopyIcon() {
     </svg>
   );
 }
-function NextLogo() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-      <circle cx="12" cy="12" r="11" stroke="currentColor" fill="none" strokeWidth="1.4" />
-      <path d="M9 7v10M9 7l8 10" stroke="currentColor" strokeWidth="1.6" fill="none" />
-    </svg>
+/* ─── Framework marquee ─── */
+
+const FRAMEWORKS = [
+  { name: 'Next.js', logo: 'https://cdn.simpleicons.org/nextdotjs/ffffff' },
+  { name: 'Vue.js', logo: 'https://cdn.simpleicons.org/vuedotjs/4FC08D' },
+  { name: 'Vite', logo: 'https://cdn.simpleicons.org/vite/646CFF' },
+  { name: 'Angular', logo: 'https://cdn.simpleicons.org/angular/DD0031' },
+];
+
+function FrameworkMarquee() {
+  // Canonical infinite-marquee (Aceternity / Magic UI / react-fast-marquee):
+  // viewport → animated track → TWO identical sets. The track translates by
+  // exactly one set's width (-50%) on every loop, so the second set lands in
+  // the first set's pixel position — seamless join.
+  //
+  // The pattern only looks continuous if each set is wider than the viewport.
+  // With only 4 frameworks the natural set is too short, so we repeat the list
+  // inside each set until it comfortably exceeds the viewport.
+  const REPEATS_PER_SET = 3;
+  const setItems = Array.from({ length: REPEATS_PER_SET }).flatMap(() => FRAMEWORKS);
+
+  const renderSet = (ariaHidden: boolean) => (
+    <ul className="framework-marquee__set" aria-hidden={ariaHidden || undefined}>
+      {setItems.map((f, i) => (
+        <li className="framework-chip" key={`${f.name}-${i}`}>
+          <img
+            src={f.logo}
+            alt=""
+            width={16}
+            height={16}
+            className="framework-chip__logo"
+            loading="lazy"
+          />
+          {f.name}
+        </li>
+      ))}
+    </ul>
   );
-}
-function TanStackLogo() {
+
   return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden>
-      <rect x="3" y="5" width="18" height="3" rx="1" />
-      <rect x="3" y="10.5" width="18" height="3" rx="1" />
-      <rect x="3" y="16" width="18" height="3" rx="1" />
-    </svg>
-  );
-}
-function ViteLogo() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" aria-hidden>
-      <path d="M2 4h20l-10 17z" />
-    </svg>
-  );
-}
-function RemixLogo() {
-  return (
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" aria-hidden>
-      <path d="M4 4h12a4 4 0 0 1 0 8H8v8H4z" />
-      <path d="M14 12l6 8" />
-    </svg>
+    <div className="framework-marquee">
+      <div className="framework-marquee__track">
+        {renderSet(false)}
+        {renderSet(true)}
+      </div>
+    </div>
   );
 }

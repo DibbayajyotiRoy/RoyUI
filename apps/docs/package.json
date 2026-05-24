@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "predev": "kill-port 3050 > /dev/null 2>&1 || true",
+    "prebuild": "pnpm --filter @royui/ui build",
     "dev": "next dev -p 3050",
     "build": "next build",
     "prestart": "kill-port 3050 > /dev/null 2>&1 || true",

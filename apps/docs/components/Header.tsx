@@ -26,12 +26,6 @@ export function Header() {
 
         <nav className="header__nav" aria-label="Primary">
           <Link
-            href="/"
-            className={`header__nav-link ${pathname === '/' ? 'is-active' : ''}`}
-          >
-            Home
-          </Link>
-          <Link
             href="/components"
             className={`header__nav-link ${pathname?.startsWith('/components') ? 'is-active' : ''}`}
           >

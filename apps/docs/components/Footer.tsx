@@ -45,10 +45,6 @@ export function Footer() {
 
       <div className="footer__bar">
         <span>© 2026 RoyUI · MIT License</span>
-        <span className="footer__status">
-          <span className="footer__status-dot" aria-hidden="true" />
-          All systems operational
-        </span>
       </div>
     </footer>
   );
