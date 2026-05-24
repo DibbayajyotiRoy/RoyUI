@@ -9,6 +9,7 @@ on:
       - ".github/**"
       - ".gitignore"
       - "vercel.json"
+  workflow_dispatch:
 
 concurrency:
   group: release-${{ github.ref }}
