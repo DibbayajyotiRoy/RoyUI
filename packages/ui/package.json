@@ -1,7 +1,7 @@
 {
   "name": "@roy-ui/ui",
-  "version": "0.0.3",
-  "description": "Animated React components. Drop in, ship. TypeScript, RSC-safe, tree-shakable, under 12 KB. Works in Next.js, Vite, Remix, Astro, and TanStack Start.",
+  "version": "0.0.4",
+  "description": "Free, animated React components built with TypeScript. Zero config, RSC-safe, sub-12 KB. Gradient button, popover, text morph and more.",
   "keywords": [
     "react",
     "reactjs",
