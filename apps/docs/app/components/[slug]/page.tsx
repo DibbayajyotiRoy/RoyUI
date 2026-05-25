@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { components, getComponent } from '../../../lib/registry';
 import { Link } from '../../../components/Link';
@@ -6,6 +7,7 @@ import { GradientButtonDocs } from '../../../components/GradientButtonDocs';
 import { PopoverDocs } from '../../../components/PopoverDocs';
 import { MadeByDocs } from '../../../components/MadeByDocs';
 import { TextMorphDocs } from '../../../components/TextMorphDocs';
+import { TreeNavDocs } from '../../../components/TreeNavDocs';
 import { DocsSidebar } from '../../../components/DocsSidebar';
 import { TableOfContents, type TocItem } from '../../../components/TableOfContents';
 
@@ -13,17 +15,106 @@ export function generateStaticParams() {
   return components.map((c) => ({ slug: c.slug }));
 }
 
+const SITE_URL = 'https://royui.dev';
+
+const baseKeywords = [
+  'React component library',
+  'React UI library',
+  'animated React components',
+  'TypeScript React components',
+  'Next.js 15 components',
+  'React Server Components',
+  'shadcn alternative',
+  'Aceternity UI alternative',
+  'Magic UI alternative',
+  'free React components',
+  'open source React components',
+  'tree-shakable',
+  'Roy UI',
+  '@roy-ui/ui',
+];
+
+const slugKeywords: Record<string, string[]> = {
+  'gradient-button': [
+    'React gradient button',
+    'animated gradient button',
+    'gradient button component',
+    'React CTA button',
+    'loading button React',
+    'React button with spinner',
+    'Tailwind gradient button alternative',
+  ],
+  popover: [
+    'React popover',
+    'animated popover',
+    'React popover component',
+    'click popover',
+    'tooltip React',
+    'accessible popover',
+    'Radix popover alternative',
+  ],
+  'made-by': [
+    'made by badge',
+    'React attribution badge',
+    'floating credit badge',
+    'portfolio badge',
+    'React floating pill',
+    'corner badge React',
+  ],
+  'text-morph': [
+    'React text animation',
+    'text morph React',
+    'typing animation React',
+    'animated counter React',
+    'live text React',
+    'text transition React',
+  ],
+  'tree-nav': [
+    'React tree navigation',
+    'React sidebar navigation',
+    'React file tree nav',
+    'docs sidebar React',
+    'router-agnostic nav React',
+    'sub-nav React',
+  ],
+  input: ['React input component', 'accessible input React', 'form input React'],
+  card: ['React card component', 'React container card', 'layout card React'],
+  dialog: ['React dialog', 'React modal', 'accessible modal React', 'Radix dialog alternative'],
+};
+
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string }>;
-}) {
+}): Promise<Metadata> {
   const { slug } = await params;
   const entry = getComponent(slug);
   if (!entry) return {};
+
+  const title = `${entry.name} — ${entry.tagline}`;
+  const description = entry.tagline;
+  const url = `${SITE_URL}/components/${entry.slug}`;
+  const componentKeywords = slugKeywords[entry.slug] ?? [];
+
   return {
-    title: `${entry.name} · RoyUI`,
-    description: entry.tagline,
+    title: entry.name,
+    description,
+    keywords: [...componentKeywords, ...baseKeywords],
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      type: 'article',
+      title,
+      description,
+      url,
+      siteName: 'Roy UI',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
   };
 }
 
@@ -32,6 +123,7 @@ const docsBySlug: Record<string, () => React.ReactNode> = {
   popover: () => <PopoverDocs />,
   'made-by': () => <MadeByDocs />,
   'text-morph': () => <TextMorphDocs />,
+  'tree-nav': () => <TreeNavDocs />,
 };
 
 const tocBySlug: Record<string, TocItem[]> = {
@@ -59,6 +151,13 @@ const tocBySlug: Record<string, TocItem[]> = {
     { id: 'usage', label: 'Usage' },
     { id: 'custom-render', label: 'Custom render' },
     { id: 'behavior', label: 'Behavior' },
+    { id: 'props', label: 'Props' },
+  ],
+  'tree-nav': [
+    { id: 'installation', label: 'Installation' },
+    { id: 'usage', label: 'Usage' },
+    { id: 'router', label: 'Router integration' },
+    { id: 'theming', label: 'Theming' },
     { id: 'props', label: 'Props' },
   ],
 };

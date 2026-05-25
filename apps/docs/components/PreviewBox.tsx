@@ -1,7 +1,14 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { GradientButton, MadeBy, Popover, TextMorph } from '@roy-ui/ui';
+import { useEffect, useState, type CSSProperties } from 'react';
+import {
+  GradientButton,
+  MadeBy,
+  Popover,
+  TextMorph,
+  TreeNav,
+  TreeNavItem,
+} from '@roy-ui/ui';
 import type { ComponentEntry } from '../lib/registry';
 
 export function PreviewBox({
@@ -41,9 +48,64 @@ function renderLivePreview(entry: ComponentEntry, compact: boolean) {
       return <MadeByPreview />;
     case 'text-morph':
       return <TextMorphPreview />;
+    case 'tree-nav':
+      return <TreeNavPreview compact={compact} />;
     default:
       return null;
   }
+}
+
+function TreeNavPreview({ compact }: { compact: boolean }) {
+  return (
+    <div
+      style={{
+        width: compact ? 200 : 240,
+        padding: compact ? 12 : 16,
+        background: 'rgba(255,255,255,0.04)',
+        border: '1px solid rgba(255,255,255,0.08)',
+        borderRadius: 10,
+      }}
+    >
+      <div
+        style={{
+          fontSize: 13,
+          fontWeight: 600,
+          color: 'rgba(255,255,255,0.92)',
+          paddingLeft: 8,
+          marginBottom: 4,
+        }}
+      >
+        Pricing
+      </div>
+      <TreeNav
+        style={
+          {
+            ['--royui-treenav-branch']: 'rgba(255,255,255,0.22)',
+            ['--royui-treenav-branch-active']: 'rgba(255,255,255,0.6)',
+            ['--royui-treenav-label']: 'rgba(255,255,255,0.6)',
+            ['--royui-treenav-label-hover']: 'rgba(255,255,255,0.95)',
+            ['--royui-treenav-label-active']: '#fff',
+            ['--royui-treenav-hover-bg']: 'rgba(255,255,255,0.06)',
+            ['--royui-treenav-active-bg']: 'rgba(255,255,255,0.08)',
+          } as CSSProperties
+        }
+      >
+        <TreeNavItem
+          href="#"
+          active
+          linkProps={{ onClick: (e) => e.preventDefault() }}
+        >
+          Pay per use
+        </TreeNavItem>
+        <TreeNavItem
+          href="#"
+          linkProps={{ onClick: (e) => e.preventDefault() }}
+        >
+          Packages
+        </TreeNavItem>
+      </TreeNav>
+    </div>
+  );
 }
 
 function TextMorphPreview() {

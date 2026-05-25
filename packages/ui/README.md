@@ -1,6 +1,7 @@
 # @roy-ui/ui
 
-> Free, animated React components built with TypeScript. Zero config, RSC-safe, sub-12 KB.
+> Animated React components. Drop in, ship.
+> TypeScript · RSC-safe · tree-shakable · under 12 KB.
 
 [![npm version](https://img.shields.io/npm/v/@roy-ui/ui?logo=npm&label=npm&color=cb3837)](https://www.npmjs.com/package/@roy-ui/ui)
 [![npm downloads](https://img.shields.io/npm/dm/@roy-ui/ui?logo=npm&label=downloads&color=cb3837)](https://www.npmjs.com/package/@roy-ui/ui)
@@ -21,13 +22,15 @@
 
 ## What is it?
 
-`@roy-ui/ui` is an open-source React component library focused on animated, micro-interactive UI primitives — gradient buttons, popovers, text-morph effects, attribution badges — written in TypeScript, shipped as tree-shakable ESM, and fully compatible with React Server Components, Next.js 15, Vite, Remix, and any modern React 18+ runtime.
+`@roy-ui/ui` is an **open-source React component library** focused on **animated, micro-interactive UI components** — animated gradient buttons, accessible popovers, text-morph typing effects, tree navigation, and attribution badges — written in **TypeScript**, shipped as **tree-shakable ESM**, and fully compatible with **React Server Components**, **Next.js 15 App Router**, **Vite**, **Remix**, **Astro**, **TanStack Start**, and any modern React 18+ runtime.
 
-- **Zero runtime config** — install, import, render.
-- **Tree-shakable ESM** with first-class TypeScript types and source maps.
-- **Self-contained CSS** — no Tailwind plugin, no PostCSS, no theme provider.
-- **RSC-safe** — components are correctly marked `"use client"` inside the bundle.
-- **Tiny** — the whole library is under 12 KB minified + gzipped.
+- **Zero runtime config** — install, import, render. No CLI, no copy-paste, no Tailwind plugin.
+- **TypeScript-first** — tree-shakable ESM with first-class `.d.ts` types and source maps.
+- **Self-contained CSS** — no Tailwind plugin, no PostCSS, no theme provider, no design tokens to wire up.
+- **RSC-safe (React Server Components-safe)** — components are correctly marked `"use client"` inside the bundle, so you can import directly from a Next.js App Router server component.
+- **Tiny** — the whole library is under **12 KB** minified + gzipped, smaller than most single-component installs.
+- **Animation built in** — no Framer Motion / motion-react setup required.
+- **Framework-agnostic** — Next.js, Vite, Remix, Astro, TanStack Start, CRA, any ESM bundler.
 
 ## Install
 
@@ -87,15 +90,19 @@ Using the **Next.js App Router**? Import directly from a Server Component — th
 | **`TextMorph`** | Character-by-character text diff animation. Great for live counters, currency tickers, and status text. |
 | **`MadeBy`** | Floating "Made by ___" attribution badge with corner positioning. |
 
-## Why use this?
+## Why use this? (shadcn / Aceternity / Magic UI / MUI / Radix comparison)
 
-|  | `@roy-ui/ui` | Radix / Headless UI | shadcn/ui |
-| --- | --- | --- | --- |
-| Ships visual styles | Yes | No | Yes (copy-paste) |
-| One install (no CLI, no copy) | Yes | Yes | No |
-| RSC-safe out of the box | Yes | Manual | Yes |
-| Tailwind required | No | No | Yes |
-| Animation built in | Yes | No | Sometimes |
+|  | `@roy-ui/ui` | shadcn/ui | Aceternity UI / Magic UI | Radix / Headless UI | MUI |
+| --- | --- | --- | --- | --- | --- |
+| Single `npm install` (no CLI, no copy) | Yes | No | No | Yes | Yes |
+| Ships visual styles | Yes | Yes | Yes | No | Yes |
+| RSC-safe out of the box | Yes | Yes | Manual | Manual | Manual |
+| Tailwind required | No | Yes | Yes | No | No |
+| Framer Motion required | No | No | Yes | No | No |
+| Animation built in | Yes | Sometimes | Yes | No | Sometimes |
+| Sub-12 KB total bundle | Yes | n/a | Per-component | Varies | No |
+
+If you want unstyled accessibility primitives, use **Radix** or **React Aria**. If you want Tailwind components you copy-paste, use **shadcn/ui**. If you want marketing-page hero effects, use **Aceternity UI** or **Magic UI**. If you want a **small, drop-in set of animated React components with zero setup**, use **`@roy-ui/ui`**.
 
 ## Links
 
@@ -107,3 +114,7 @@ Using the **Next.js App Router**? Import directly from a Server Component — th
 ## License
 
 [MIT](https://github.com/DibbayajyotiRoy/RoyUI/blob/main/LICENSE) © [Dibbayajyoti Roy](https://github.com/DibbayajyotiRoy)
+
+---
+
+<sub>**Topics:** React component library · React UI library · React UI kit · TypeScript React components · Next.js 15 components · Next.js App Router · React Server Components · RSC-safe · animated React components · React animation library · micro-interactions · tree-shakable ESM · zero-config React UI · tiny React UI · sub-12 KB · gradient button · animated gradient button · React popover · text morph · typing animation · React tree navigation · React sidebar nav · made by attribution badge · headless UI · accessible · WAI-ARIA · a11y · shadcn alternative · shadcn/ui alternative · Aceternity UI alternative · Magic UI alternative · MUI alternative · Material UI alternative · Radix alternative · HeroUI alternative · Mantine alternative · Chakra UI alternative · DaisyUI alternative · Tailwind-friendly · Vite · Remix · Astro · TanStack Start · React 18 · React 19 · MIT · open source · free.</sub>

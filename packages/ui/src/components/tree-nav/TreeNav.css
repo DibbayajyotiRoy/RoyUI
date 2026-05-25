@@ -1,0 +1,135 @@
+.royui-treenav {
+  /* Theme tokens — override on .royui-treenav or :root for global retheme. */
+  --royui-treenav-branch: rgba(0, 0, 0, 0.28);
+  --royui-treenav-branch-active: rgba(0, 0, 0, 0.65);
+
+  --royui-treenav-label: rgba(0, 0, 0, 0.6);
+  --royui-treenav-label-hover: rgba(0, 0, 0, 0.92);
+  --royui-treenav-label-active: rgba(0, 0, 0, 1);
+  --royui-treenav-hover-bg: rgba(0, 0, 0, 0.04);
+  --royui-treenav-active-bg: rgba(0, 0, 0, 0.06);
+
+  --royui-treenav-font:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
+    sans-serif;
+  --royui-treenav-font-size: 13px;
+  --royui-treenav-font-weight: 500;
+  --royui-treenav-font-weight-active: 600;
+  --royui-treenav-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  position: relative;
+  margin: 0;
+  padding: 0;
+  padding-top: 4px;
+  margin-left: var(--royui-treenav-indent, 24px);
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--royui-treenav-gap, 2px);
+  font-family: var(--royui-treenav-font);
+}
+
+@media (prefers-color-scheme: dark) {
+  .royui-treenav {
+    --royui-treenav-branch: rgba(255, 255, 255, 0.3);
+    --royui-treenav-branch-active: rgba(255, 255, 255, 0.65);
+    --royui-treenav-label: rgba(255, 255, 255, 0.6);
+    --royui-treenav-label-hover: rgba(255, 255, 255, 0.92);
+    --royui-treenav-label-active: rgba(255, 255, 255, 1);
+    --royui-treenav-hover-bg: rgba(255, 255, 255, 0.05);
+    --royui-treenav-active-bg: rgba(255, 255, 255, 0.07);
+  }
+}
+
+.royui-treenav__item {
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Bent-arrow connector — single SVG, single filled path. The L line and the
+   arrowhead share one closed outline, so they can never read as two shapes. */
+.royui-treenav__connector {
+  position: absolute;
+  left: -2px;
+  top: 0;
+  width: 20px;
+  height: 100%;
+  color: var(--royui-treenav-branch);
+  transition: color 0.2s var(--royui-treenav-ease);
+  pointer-events: none;
+  z-index: 1;
+  overflow: visible;
+}
+
+/* Active state — :has() on the LI keeps the rule order-independent and
+   works with any router that sets aria-current="page" on the inner link. */
+.royui-treenav__item:has(.royui-treenav__link[aria-current='page'])
+  .royui-treenav__connector {
+  color: var(--royui-treenav-branch-active);
+}
+
+/* Link / anchor row */
+.royui-treenav__link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 18px;
+  padding: 6px 10px 6px 8px;
+  border-radius: 6px;
+  color: var(--royui-treenav-label);
+  font-size: var(--royui-treenav-font-size);
+  font-weight: var(--royui-treenav-font-weight);
+  line-height: 1.3;
+  text-decoration: none;
+  transition:
+    background-color 0.2s var(--royui-treenav-ease),
+    color 0.2s var(--royui-treenav-ease),
+    transform 0.18s var(--royui-treenav-ease);
+}
+
+.royui-treenav__link:hover {
+  background-color: var(--royui-treenav-hover-bg);
+  color: var(--royui-treenav-label-hover);
+  transform: translateX(4px);
+}
+
+.royui-treenav__link:focus-visible {
+  outline: 2px solid var(--royui-treenav-branch-active);
+  outline-offset: 2px;
+}
+
+.royui-treenav__link[aria-current='page'] {
+  background-color: var(--royui-treenav-active-bg);
+  color: var(--royui-treenav-label-active);
+  font-weight: var(--royui-treenav-font-weight-active);
+}
+
+.royui-treenav__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  line-height: 0;
+}
+
+.royui-treenav__label {
+  display: inline-block;
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .royui-treenav__connector,
+  .royui-treenav__link {
+    transition: none;
+  }
+  .royui-treenav__link:hover {
+    transform: none;
+  }
+}

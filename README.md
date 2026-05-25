@@ -2,7 +2,9 @@
 
 # Roy UI
 
-### Free, animated React components built with TypeScript. Zero config, RSC-safe, sub-12 KB.
+### Animated React components. Drop in, ship.
+
+#### TypeScript · RSC-safe · tree-shakable · under 12 KB.
 
 [![npm version](https://img.shields.io/npm/v/@roy-ui/ui?logo=npm&label=npm&color=cb3837)](https://www.npmjs.com/package/@roy-ui/ui)
 [![npm downloads](https://img.shields.io/npm/dm/@roy-ui/ui?logo=npm&label=downloads&color=cb3837)](https://www.npmjs.com/package/@roy-ui/ui)
@@ -31,17 +33,19 @@
 
 ## What is Roy UI?
 
-**Roy UI** (`@roy-ui/ui`) is an open-source React component library focused on animated, micro-interactive UI primitives — gradient buttons, popovers, text-morph effects, attribution badges — written in TypeScript, shipped as tree-shakable ESM, and fully compatible with React Server Components, Next.js 15, Vite, Remix, and any modern React 18+ runtime. Install one package, import a component, ship it.
+**Roy UI** (`@roy-ui/ui`) is an **open-source React component library** focused on **animated, micro-interactive UI components** — animated gradient buttons, accessible popovers, text-morph typing effects, tree navigation, and attribution badges — written in TypeScript, shipped as tree-shakable ESM, and **fully compatible with React Server Components (RSC), Next.js 15 App Router, Vite, Remix, Astro, TanStack Start, and any modern React 18+ runtime**. Install one npm package, import a component, ship it.
 
-Try every component live with copyable code: **[roy-ui-docs.vercel.app](https://roy-ui-docs.vercel.app/)**.
+Try every component live with copyable code: **[royui.dev](https://royui.dev)** (or the Vercel preview at **[roy-ui-docs.vercel.app](https://roy-ui-docs.vercel.app/)**).
 
-Built for developers who want the polish of a custom design system without the setup cost of one.
+Built for developers who want the polish of a custom design system without the setup cost of one — a **lightweight React UI kit** for product teams, indie hackers, and Next.js apps that need motion-first components out of the box.
 
-- **Zero runtime config** — `npm i @roy-ui/ui`, import, render.
-- **Tree-shakable ESM** with first-class TypeScript types and source maps.
-- **Self-contained CSS** — no Tailwind plugin, no PostCSS config, no theme provider.
-- **RSC-safe** — every interactive component is correctly marked `"use client"` inside the bundle.
-- **Tiny** — the entire library is **under 12 KB** minified + gzipped.
+- **Zero runtime config** — `npm i @roy-ui/ui`, import, render. No CLI, no copy-paste, no codegen.
+- **TypeScript-first** — tree-shakable ESM with first-class `.d.ts` types and source maps.
+- **Self-contained CSS** — no Tailwind plugin, no PostCSS config, no theme provider, no design-token setup.
+- **React Server Components-safe (RSC-safe)** — every interactive component is correctly marked `"use client"` inside the bundle, so you can import directly from a Next.js App Router server component.
+- **Tiny bundle** — the entire library is **under 12 KB** minified + gzipped, smaller than most single-component installs.
+- **Animation built in** — micro-interactions and motion are part of the components, not a separate Framer Motion / motion-react setup.
+- **Framework-agnostic** — works in Next.js 15, Vite, Remix, Astro (React island), TanStack Start, Create React App, and any bundler that understands ESM.
 - **Provenance-signed** — every release is published to npm with [npm provenance](https://docs.npmjs.com/generating-provenance-statements) so you can verify what built it.
 
 ## Table of contents
@@ -129,19 +133,27 @@ Each component lives in its own folder with the source `.tsx`, its CSS, and an `
 | Create React App | Supported |
 | Plain React 18 + bundler | Supported |
 
-## Why Roy UI?
+## Why Roy UI? (shadcn / Aceternity / Magic UI / MUI / Radix comparison)
 
-|  | Roy UI | Radix / Headless UI | shadcn/ui |
-| --- | --- | --- | --- |
-| Ships visual styles | Yes | No | Yes (copy-paste) |
-| One `npm install` (no CLI, no copy) | Yes | Yes | No |
-| RSC-safe out of the box | Yes | Manual | Yes |
-| Tailwind required | No | No | Yes |
-| Animation built in | Yes | No | Sometimes |
-| TypeScript-first | Yes | Yes | Yes |
-| Sub-12 KB total bundle | Yes | Varies | n/a (per-component copy) |
+|  | Roy UI | shadcn/ui | Aceternity UI / Magic UI | Radix / Headless UI | MUI |
+| --- | --- | --- | --- | --- | --- |
+| Single `npm install` (no CLI, no copy) | Yes | No (copy-paste CLI) | No (copy-paste) | Yes | Yes |
+| Ships visual styles | Yes | Yes | Yes | No | Yes |
+| RSC-safe out of the box | Yes | Yes | Manual | Manual | Manual |
+| Tailwind required | No | Yes | Yes | No | No |
+| Framer Motion required | No | No | Yes | No | No |
+| Animation built in | Yes | Sometimes | Yes | No | Sometimes |
+| TypeScript-first | Yes | Yes | Yes | Yes | Yes |
+| Sub-12 KB total bundle | Yes | n/a (per-component) | Per-component | Varies | No (large) |
+| MIT-licensed, free, open source | Yes | Yes | Yes | Yes | Yes |
 
-If you want unstyled accessibility primitives, use Radix. If you want Tailwind-powered components you maintain yourself, use shadcn/ui. If you want a small drop-in set of opinionated, animated components with zero setup, use **Roy UI**.
+**When to use what:**
+
+- Want **unstyled accessibility primitives** with full WAI-ARIA coverage? Use **Radix UI** or **React Aria**.
+- Want **Tailwind-powered components you maintain yourself**? Use **shadcn/ui**.
+- Want **stunning marketing-page effects** with Framer Motion? Use **Aceternity UI** or **Magic UI**.
+- Want an **enterprise design system** with hundreds of Material Design components? Use **Material UI (MUI)** or **Mantine**.
+- Want a **small, drop-in set of opinionated animated components** with zero setup, zero Tailwind, RSC-safe, under 12 KB? Use **Roy UI**.
 
 ## Requirements
 
@@ -192,4 +204,14 @@ PRs welcome. Open an issue first for anything larger than a one-line fix. A new 
 
 ---
 
-<sub>Keywords: React component library, React UI library, TypeScript components, Next.js components, React Server Components, RSC, animated React components, gradient button, popover, text morph animation, open source UI kit, free React UI components.</sub>
+<details>
+<summary><strong>Topics this library covers</strong> (for search)</summary>
+
+<sub>
+
+React component library, React UI library, React UI kit, React UI framework, React components, free React components, open source React components, TypeScript React components, TypeScript-first component library, animated React components, animated UI components, React animation library, micro-interactions, motion components, Next.js component library, Next.js 15 components, Next.js App Router components, React Server Components, RSC-safe components, `"use client"` library, Vite React components, Remix UI components, Astro React components, TanStack Start components, tree-shakable React components, side-effect-free, ESM-only React library, zero-config React UI, tiny React component library, lightweight React UI, sub-12 KB bundle, headless UI alternative, accessible React components, WAI-ARIA components, a11y components, shadcn alternative, shadcn/ui alternative, Aceternity UI alternative, Magic UI alternative, MUI alternative, Material UI alternative, Radix UI alternative, HeroUI alternative, Mantine alternative, Chakra UI alternative, DaisyUI alternative, Tailwind components, Tailwind-friendly, React gradient button, animated gradient button, React CTA button, loading button React, React popover, animated popover, React popover component, accessible popover, tooltip React, React text animation, text morph React, typing animation React, animated counter React, React tree navigation, React sidebar navigation, file-tree nav, made by badge, React attribution badge, floating credit badge, npm React component, React 18, React 19, MIT React UI library, design system.
+
+</sub>
+</details>
+
+<sub>**Keywords:** React component library · React UI library · TypeScript React components · Next.js 15 components · React Server Components · RSC-safe · animated React components · gradient button · popover · text morph · tree nav · made-by badge · shadcn alternative · Aceternity UI alternative · Magic UI alternative · MUI alternative · Radix alternative · open source UI kit · free React UI components · tree-shakable · ESM · under 12 KB.</sub>

@@ -18,11 +18,129 @@ const articulatCF = localFont({
   style: 'normal',
 });
 
+const SITE_URL = 'https://royui.dev';
+const SITE_NAME = 'Roy UI';
+const SITE_TAGLINE = 'Animated components for React';
+const SITE_DESCRIPTION =
+  'Animated React components for Next.js, Vite, and Remix. TypeScript. Tree-shakable. Under 12 KB.';
+
 export const metadata: Metadata = {
-  title: 'RoyUI — The component library for the next React era',
-  description:
-    'Production-ready React components for Next.js, TanStack, and Vite. Zero-config styling. TypeScript-first. Tree-shakeable.',
-  metadataBase: new URL('https://royui.dev'),
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    template: `%s · ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  generator: 'Next.js',
+  referrer: 'origin-when-cross-origin',
+  keywords: [
+    'React component library',
+    'React UI library',
+    'React UI kit',
+    'React UI framework',
+    'React components',
+    'open source React components',
+    'free React components',
+    'TypeScript React components',
+    'TypeScript-first component library',
+    'Next.js component library',
+    'Next.js 15 components',
+    'Next.js App Router components',
+    'React Server Components',
+    'RSC-safe components',
+    'use client',
+    'Vite React components',
+    'Remix UI components',
+    'Astro React components',
+    'TanStack Start components',
+    'animated React components',
+    'animated UI components',
+    'React animation library',
+    'micro-interactions',
+    'micro-interactive components',
+    'tree-shakable React components',
+    'ESM React components',
+    'zero-config React UI',
+    'tiny React component library',
+    'lightweight React UI',
+    'design system',
+    'headless UI',
+    'accessible React components',
+    'WAI-ARIA',
+    'shadcn alternative',
+    'shadcn/ui alternative',
+    'Aceternity UI alternative',
+    'Magic UI alternative',
+    'MUI alternative',
+    'Material UI alternative',
+    'Radix UI alternative',
+    'HeroUI alternative',
+    'Mantine alternative',
+    'Chakra UI alternative',
+    'DaisyUI alternative',
+    'Tailwind components',
+    'Tailwind-friendly',
+    'gradient button',
+    'animated gradient button',
+    'React gradient button',
+    'React popover',
+    'animated popover',
+    'React text animation',
+    'text morph',
+    'React tree navigation',
+    'React sidebar navigation',
+    'attribution badge',
+    'made by badge',
+    'npm React components',
+    'React 18',
+    'React 19',
+    'Roy UI',
+    'RoyUI',
+    '@roy-ui/ui',
+  ],
+  authors: [
+    {
+      name: 'Dibbayajyoti Roy',
+      url: 'https://github.com/DibbayajyotiRoy',
+    },
+  ],
+  creator: 'Dibbayajyoti Roy',
+  publisher: 'Roy UI',
+  category: 'technology',
+  alternates: {
+    canonical: SITE_URL,
+  },
+  openGraph: {
+    type: 'website',
+    siteName: SITE_NAME,
+    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: `${SITE_NAME} — ${SITE_TAGLINE}`,
+    description: SITE_DESCRIPTION,
+    creator: '@dibbayajyoti',
+    site: '@dibbayajyoti',
+  },
+  icons: {
+    icon: '/icon.svg',
+    apple: '/apple-icon.svg',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
+  },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
@@ -40,6 +158,37 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <script
           dangerouslySetInnerHTML={{
             __html: `document.documentElement.classList.add('js')`,
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'SoftwareApplication',
+              name: 'Roy UI',
+              alternateName: ['@roy-ui/ui', 'RoyUI'],
+              applicationCategory: 'DeveloperApplication',
+              operatingSystem: 'Web, Node.js',
+              description: SITE_DESCRIPTION,
+              url: SITE_URL,
+              downloadUrl: 'https://www.npmjs.com/package/@roy-ui/ui',
+              softwareVersion: '0.0.3',
+              license: 'https://opensource.org/licenses/MIT',
+              programmingLanguage: 'TypeScript',
+              author: {
+                '@type': 'Person',
+                name: 'Dibbayajyoti Roy',
+                url: 'https://github.com/DibbayajyotiRoy',
+              },
+              offers: {
+                '@type': 'Offer',
+                price: '0',
+                priceCurrency: 'USD',
+              },
+              keywords:
+                'React component library, animated React components, Next.js 15, React Server Components, TypeScript, gradient button, popover, text morph, shadcn alternative, Aceternity UI alternative, Magic UI alternative, tree-shakable, ESM, open source',
+            }),
           }}
         />
       </head>

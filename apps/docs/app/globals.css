@@ -1944,3 +1944,89 @@ html.js .hero__frameworks {
     transition: none !important;
   }
 }
+
+/* TreeNav demo — collapsible parent rows (docs-only styling).
+   No chevron icon by design — the open/closed state is signaled by the
+   children sliding in/out and a left accent that fills when open. */
+.royui-treenav-demo-group + .royui-treenav-demo-group {
+  margin-top: 4px;
+}
+
+.royui-treenav-demo-parent {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 8px 10px 8px 14px;
+  margin: 0;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: rgba(0, 0, 0, 0.85);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease;
+}
+
+.royui-treenav-demo-parent::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 50%;
+  width: 2px;
+  height: 0;
+  background: rgba(0, 0, 0, 0.55);
+  border-radius: 2px;
+  transform: translateY(-50%);
+  transition: height 0.22s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.royui-treenav-demo-parent:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.royui-treenav-demo-parent--open {
+  color: #0a0a0a;
+}
+
+.royui-treenav-demo-parent--open::before {
+  height: 14px;
+}
+
+.royui-treenav-demo-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.24s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.royui-treenav-demo-panel > * {
+  min-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-2px);
+  transition:
+    opacity 0.18s ease,
+    transform 0.22s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.royui-treenav-demo-panel--open {
+  grid-template-rows: 1fr;
+}
+
+.royui-treenav-demo-panel--open > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .royui-treenav-demo-parent::before,
+  .royui-treenav-demo-panel,
+  .royui-treenav-demo-panel > * {
+    transition: none;
+  }
+}

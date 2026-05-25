@@ -62,6 +62,17 @@ export const components: ComponentEntry[] = [
     importStatement: `import { TextMorph } from '@roy-ui/ui';`,
   },
   {
+    slug: 'tree-nav',
+    name: 'TreeNav',
+    tagline: 'Sidebar sub-nav with file-explorer L-branch connectors.',
+    description:
+      'A two-piece nav (TreeNav container + TreeNavItem rows) that draws the L-shaped branch and triangle tip familiar from file explorers. Router-agnostic via asChild, active state driven by aria-current, and every visual surface — branch color, thickness, indent, hover lift — wired to CSS variables.',
+    category: 'Display',
+    tags: ['nav', 'sidebar', 'tree', 'menu', 'navigation'],
+    status: 'available',
+    importStatement: `import { TreeNav, TreeNavItem } from '@roy-ui/ui';`,
+  },
+  {
     slug: 'input',
     name: 'Input',
     tagline: 'Accessible text input with built-in label and helper text.',
