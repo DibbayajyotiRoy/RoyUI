@@ -170,6 +170,7 @@ const tocBySlug: Record<string, TocItem[]> = {
     { id: 'pagination', label: 'Pagination' },
     { id: 'dates-and-times', label: 'Range + time' },
     { id: 'columns', label: 'Reorder, resize, hide' },
+    { id: 'fit-columns', label: 'Fit to width' },
     { id: 'export-import', label: 'Export & import' },
     { id: 'typography', label: 'Typography' },
     { id: 'primitives', label: 'Primitives' },

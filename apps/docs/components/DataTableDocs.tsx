@@ -256,8 +256,102 @@ export function DataTableDocs() {
       </DocSection>
 
       <DocSection
-        id="export-import"
+        id="fit-columns"
         eyebrow="07"
+        title="Render every column without horizontal scroll"
+        description="Pass fitColumns to make every column share the container width. Default widths and resized widths are ignored; cells wrap onto multiple lines instead of clipping. Drop it whenever you'd rather see all columns at once than scroll sideways."
+      >
+        <Example
+          title="fitColumns — no X scrollbar, ever"
+          description="The same seven columns the hero table uses, but constrained to the parent container with fitColumns. Try shrinking your browser window — content wraps; horizontal scroll never appears."
+          code={`<DataTable
+  data={orders}
+  columns={columns}
+  fitColumns
+  pagination={{ pageSize: 6 }}
+/>`}
+        >
+          <DataTable<Order>
+            data={makeOrders(18, 17)}
+            columns={[
+              ...minimalColumns,
+              {
+                key: 'channel',
+                header: 'Channel',
+                accessor: (r) => r.channel,
+                defaultWidth: 110,
+              },
+              {
+                key: 'placedAt',
+                header: 'Placed',
+                accessor: (r) => r.placedAt,
+                type: 'date',
+                cell: (v) => (v as Date).toLocaleDateString(),
+              },
+              {
+                key: 'time',
+                header: 'Time',
+                accessor: (r) => r.placedAt,
+                type: 'time',
+                cell: (v) =>
+                  (v as Date).toLocaleTimeString([], {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  }),
+              },
+            ]}
+            fitColumns
+            pagination={{ pageSize: 6 }}
+          />
+        </Example>
+        <Example
+          title="Off (default) — wide widths overflow into a scrollbar"
+          description="Same columns, same widths, no fitColumns. The X scrollbar appears when the sum of defaultWidth exceeds the container — useful for dense, wide datasets where users would rather scroll than read wrapped cells."
+          code={`<DataTable
+  data={orders}
+  columns={columns}
+  // no fitColumns prop — defaultWidth respected, X scroll allowed
+/>`}
+        >
+          <DataTable<Order>
+            data={makeOrders(6, 23)}
+            columns={[
+              ...minimalColumns,
+              {
+                key: 'channel',
+                header: 'Channel',
+                accessor: (r) => r.channel,
+                defaultWidth: 140,
+              },
+              {
+                key: 'placedAt',
+                header: 'Placed',
+                accessor: (r) => r.placedAt,
+                type: 'date',
+                cell: (v) => (v as Date).toLocaleDateString(),
+                defaultWidth: 160,
+              },
+              {
+                key: 'time',
+                header: 'Time',
+                accessor: (r) => r.placedAt,
+                type: 'time',
+                cell: (v) =>
+                  (v as Date).toLocaleTimeString([], {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  }),
+                defaultWidth: 140,
+              },
+            ]}
+            pagination={false}
+          />
+        </Example>
+      </DocSection>
+
+      <DocSection
+        id="export-import"
+        eyebrow="08"
         title="Export & import"
         description="One prop adds CSV + JSON export buttons. Another exposes a file picker that hands parsed rows to onImport — the parent controls data, so importing is a state update."
       >
@@ -282,7 +376,7 @@ export function DataTableDocs() {
 
       <DocSection
         id="typography"
-        eyebrow="08"
+        eyebrow="09"
         title="Per-zone typography"
         description="Three fonts: column headers, row headers (the row-identifier cells), and data cells. Pass a string for family, or an object for size / weight / tracking / feature settings."
       >
@@ -317,7 +411,7 @@ export function DataTableDocs() {
 
       <DocSection
         id="primitives"
-        eyebrow="09"
+        eyebrow="10"
         title="The primitives, alone"
         description="DataTable is a convenience. Every part stands on its own — wire them into whatever layout you have."
       >
@@ -349,7 +443,7 @@ export function DataTableDocs() {
 
       <DocSection
         id="props"
-        eyebrow="10"
+        eyebrow="11"
         title="Props"
         description="DataTable, plus a quick reference for the standalone primitives."
       >
@@ -585,6 +679,7 @@ const dataTableProps: PropRow[] = [
   { name: 'reorderable', type: 'boolean', def: 'true', desc: 'Drag a header to reorder columns. Pinned columns are skipped.' },
   { name: 'resizable', type: 'boolean', def: 'true', desc: 'Drag the right edge of a header to resize. Double-click resets.' },
   { name: 'columnMenu', type: 'boolean', def: 'true', desc: 'Show the Columns popover with per-column toggle + Reset + hidden-count chip.' },
+  { name: 'fitColumns', type: 'boolean', def: 'false', desc: 'Force every column to share the container width. Ignores defaultWidth and resized widths, suppresses horizontal scroll, and wraps cell content onto multiple lines.' },
   { name: 'dataIO', type: '{ export?, import? }', def: '—', desc: 'Wire Export (CSV / JSON) and Import (file picker) buttons into the toolbar.' },
   { name: 'headerFont', type: 'string | FontSpec', def: 'system', desc: 'Font for the column-header zone. Pass family, or an object with size / weight / tracking / featureSettings.' },
   { name: 'rowHeaderFont', type: 'string | FontSpec', def: 'system', desc: 'Font for cells declared with isRowHeader.' },
