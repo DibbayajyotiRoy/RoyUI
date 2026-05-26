@@ -6,6 +6,7 @@ import { NavGradientButton } from '../components/NavGradientButton';
 import { ScrollReveal } from '../components/ScrollReveal';
 import { HeroTitleMorph } from '../components/HeroTitleMorph';
 import { FeaturedTextMorph } from '../components/featured/FeaturedTextMorph';
+import { FeaturedDataTable } from '../components/featured/FeaturedDataTable';
 import { getFeatured, getComponent } from '../lib/registry';
 
 export default function HomePage() {
@@ -125,6 +126,9 @@ function FeaturedPreview({ slug }: { slug: string }) {
   }
   if (slug === 'text-morph') {
     return <FeaturedTextMorph />;
+  }
+  if (slug === 'data-table') {
+    return <FeaturedDataTable />;
   }
   const entry = getComponent(slug);
   return (

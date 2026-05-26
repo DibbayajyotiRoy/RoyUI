@@ -50,9 +50,96 @@ function renderLivePreview(entry: ComponentEntry, compact: boolean) {
       return <TextMorphPreview />;
     case 'tree-nav':
       return <TreeNavPreview compact={compact} />;
+    case 'data-table':
+      return <DataTableThumb compact={compact} />;
     default:
       return null;
   }
+}
+
+function DataTableThumb({ compact }: { compact: boolean }) {
+  const rows = [
+    { id: 'INV-4201', name: 'Aarav Okafor', status: 'paid', total: '$148.32' },
+    { id: 'INV-4202', name: 'Mira Lindqvist', status: 'pending', total: '$92.05' },
+    { id: 'INV-4203', name: 'Theo Reyes', status: 'paid', total: '$310.40' },
+    { id: 'INV-4204', name: 'Yuna Tanaka', status: 'refunded', total: '$58.00' },
+  ];
+  const colorByStatus: Record<string, string> = {
+    paid: 'rgba(110, 220, 150, 0.95)',
+    pending: 'rgba(240, 196, 88, 0.95)',
+    refunded: 'rgba(200, 200, 210, 0.7)',
+  };
+  return (
+    <div
+      style={{
+        width: compact ? 240 : 340,
+        background: 'rgba(255,255,255,0.03)',
+        border: '1px solid rgba(255,255,255,0.08)',
+        borderRadius: 10,
+        overflow: 'hidden',
+        fontFamily:
+          '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+        fontSize: compact ? 10.5 : 11.5,
+      }}
+    >
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '1.1fr 1.4fr 0.8fr 0.8fr',
+          gap: 0,
+          padding: '7px 10px',
+          fontSize: compact ? 9 : 10,
+          fontWeight: 600,
+          letterSpacing: '0.06em',
+          textTransform: 'uppercase',
+          color: 'rgba(255,255,255,0.5)',
+          background: 'rgba(255,255,255,0.02)',
+          borderBottom: '1px solid rgba(255,255,255,0.06)',
+        }}
+      >
+        <span>Order</span>
+        <span>Customer</span>
+        <span>Status</span>
+        <span style={{ textAlign: 'right' }}>Total</span>
+      </div>
+      {rows.map((r) => (
+        <div
+          key={r.id}
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1.1fr 1.4fr 0.8fr 0.8fr',
+            padding: '8px 10px',
+            color: 'rgba(255,255,255,0.9)',
+            borderBottom: '1px solid rgba(255,255,255,0.04)',
+            alignItems: 'center',
+          }}
+        >
+          <span
+            style={{
+              fontFamily: 'ui-monospace, Menlo, monospace',
+              color: 'rgba(255,255,255,0.65)',
+              fontSize: compact ? 10 : 11,
+            }}
+          >
+            {r.id}
+          </span>
+          <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            {r.name}
+          </span>
+          <span style={{ color: colorByStatus[r.status] }}>{r.status}</span>
+          <span
+            style={{
+              textAlign: 'right',
+              fontVariantNumeric: 'tabular-nums',
+              color: 'rgba(255,255,255,0.92)',
+            }}
+          >
+            {r.total}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
 }
 
 function TreeNavPreview({ compact }: { compact: boolean }) {

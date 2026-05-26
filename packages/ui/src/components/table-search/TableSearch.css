@@ -1,0 +1,87 @@
+.royui-tablesearch {
+  --royui-tablesearch-bg: #ffffff;
+  --royui-tablesearch-bg-hover: rgba(20, 20, 20, 0.02);
+  --royui-tablesearch-border: rgba(20, 20, 20, 0.12);
+  --royui-tablesearch-border-focus: rgba(20, 20, 20, 0.4);
+  --royui-tablesearch-fg: rgb(20, 20, 20);
+  --royui-tablesearch-placeholder: rgba(20, 20, 20, 0.42);
+  --royui-tablesearch-dot: rgba(20, 20, 20, 0.45);
+  --royui-tablesearch-clear: rgba(20, 20, 20, 0.5);
+  --royui-tablesearch-clear-hover: rgba(20, 20, 20, 0.95);
+  --royui-tablesearch-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: 34px;
+  background: var(--royui-tablesearch-bg);
+  border: 1px solid var(--royui-tablesearch-border);
+  border-radius: 8px;
+  padding: 0 10px;
+  transition:
+    border-color 140ms var(--royui-tablesearch-ease),
+    background 140ms var(--royui-tablesearch-ease);
+}
+
+.royui-tablesearch:hover {
+  background: var(--royui-tablesearch-bg-hover);
+}
+
+.royui-tablesearch:focus-within {
+  border-color: var(--royui-tablesearch-border-focus);
+}
+
+.royui-tablesearch__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--royui-tablesearch-dot);
+  margin-right: 9px;
+  flex: 0 0 5px;
+}
+
+.royui-tablesearch__input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  background: transparent;
+  border: 0;
+  outline: none;
+  color: var(--royui-tablesearch-fg);
+  font: inherit;
+  font-size: 13.5px;
+  letter-spacing: -0.005em;
+}
+
+.royui-tablesearch__input::placeholder {
+  color: var(--royui-tablesearch-placeholder);
+}
+
+.royui-tablesearch__clear {
+  margin-left: 8px;
+  padding: 0 4px;
+  background: transparent;
+  border: 0;
+  font: inherit;
+  font-size: 11.5px;
+  color: var(--royui-tablesearch-clear);
+  cursor: pointer;
+  transition: color 140ms var(--royui-tablesearch-ease);
+}
+.royui-tablesearch__clear:hover {
+  color: var(--royui-tablesearch-clear-hover);
+}
+
+@media (prefers-color-scheme: dark) {
+  .royui-tablesearch {
+    --royui-tablesearch-bg: rgba(255, 255, 255, 0.03);
+    --royui-tablesearch-bg-hover: rgba(255, 255, 255, 0.05);
+    --royui-tablesearch-border: rgba(255, 255, 255, 0.1);
+    --royui-tablesearch-border-focus: rgba(255, 255, 255, 0.45);
+    --royui-tablesearch-fg: rgba(255, 255, 255, 0.94);
+    --royui-tablesearch-placeholder: rgba(255, 255, 255, 0.38);
+    --royui-tablesearch-dot: rgba(255, 255, 255, 0.5);
+    --royui-tablesearch-clear: rgba(255, 255, 255, 0.5);
+    --royui-tablesearch-clear-hover: rgba(255, 255, 255, 0.95);
+  }
+}

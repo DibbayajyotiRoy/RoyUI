@@ -1,0 +1,411 @@
+.royui-tp {
+  --royui-tp-bg: #ffffff;
+  --royui-tp-fg: rgb(20, 20, 20);
+  --royui-tp-muted: rgba(20, 20, 20, 0.55);
+  --royui-tp-subtle: rgba(20, 20, 20, 0.35);
+  --royui-tp-border: rgba(20, 20, 20, 0.1);
+  --royui-tp-border-strong: rgba(20, 20, 20, 0.18);
+  --royui-tp-hover-bg: rgba(20, 20, 20, 0.04);
+  --royui-tp-accent: rgb(20, 20, 20);
+  --royui-tp-accent-fg: #ffffff;
+  --royui-tp-face-bg: #fafafa;
+  --royui-tp-face-stroke: rgba(20, 20, 20, 0.12);
+  --royui-tp-tick: rgba(20, 20, 20, 0.18);
+  --royui-tp-tick-major: rgba(20, 20, 20, 0.5);
+  --royui-tp-hand-quiet: rgba(20, 20, 20, 0.4);
+  --royui-tp-hand-active: rgb(20, 20, 20);
+  --royui-tp-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --royui-tp-dur: 160ms;
+
+  position: relative;
+  display: inline-block;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
+    sans-serif;
+}
+
+/* ── Trigger ────────────────────────────────────────────── */
+
+.royui-tp__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  height: 34px;
+  padding: 0 12px;
+  background: var(--royui-tp-bg);
+  border: 1px solid var(--royui-tp-border);
+  border-radius: 8px;
+  color: var(--royui-tp-fg);
+  font: inherit;
+  font-size: 13.5px;
+  letter-spacing: -0.005em;
+  cursor: pointer;
+  transition:
+    border-color var(--royui-tp-dur) var(--royui-tp-ease),
+    background var(--royui-tp-dur) var(--royui-tp-ease);
+  font-variant-numeric: tabular-nums;
+}
+.royui-tp__trigger:hover {
+  background: var(--royui-tp-hover-bg);
+  border-color: var(--royui-tp-border-strong);
+}
+.royui-tp__trigger:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.royui-tp__trigger-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--royui-tp-subtle);
+}
+
+/* ── Panel ──────────────────────────────────────────────── */
+
+.royui-tp__panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  z-index: 40;
+  width: 280px;
+  background: var(--royui-tp-bg);
+  border: 1px solid var(--royui-tp-border);
+  border-radius: 14px;
+  padding: 14px;
+  box-shadow:
+    0 0 0 0.5px rgba(20, 20, 20, 0.04),
+    0 6px 14px rgba(0, 0, 0, 0.06),
+    0 22px 44px rgba(0, 0, 0, 0.12);
+  animation: royui-tp-in var(--royui-tp-dur) var(--royui-tp-ease);
+}
+.royui-tp__panel--left { left: 0; }
+.royui-tp__panel--right { right: 0; }
+
+.royui-tp__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.royui-tp__readout {
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--royui-tp-fg);
+  font-variant-numeric: tabular-nums;
+}
+
+.royui-tp__variants {
+  display: inline-flex;
+  background: var(--royui-tp-hover-bg);
+  border-radius: 7px;
+  padding: 2px;
+}
+.royui-tp__variant {
+  background: transparent;
+  border: 0;
+  padding: 4px 10px;
+  font: inherit;
+  font-size: 11.5px;
+  color: var(--royui-tp-muted);
+  cursor: pointer;
+  border-radius: 5px;
+  transition:
+    background var(--royui-tp-dur) var(--royui-tp-ease),
+    color var(--royui-tp-dur) var(--royui-tp-ease);
+}
+.royui-tp__variant:hover {
+  color: var(--royui-tp-fg);
+}
+.royui-tp__variant--on {
+  background: var(--royui-tp-bg);
+  color: var(--royui-tp-fg);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.royui-tp__body {
+  display: flex;
+  justify-content: center;
+  padding: 4px 0 8px;
+}
+
+/* ── Analog ─────────────────────────────────────────────── */
+
+.royui-tp-analog {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.royui-tp-analog__face {
+  touch-action: none;
+  user-select: none;
+}
+
+.royui-tp-analog__bezel {
+  fill: var(--royui-tp-face-bg);
+  stroke: var(--royui-tp-face-stroke);
+  stroke-width: 1;
+}
+
+.royui-tp-analog__tick {
+  stroke: var(--royui-tp-tick);
+  stroke-width: 1;
+}
+.royui-tp-analog__tick--major {
+  stroke: var(--royui-tp-tick-major);
+  stroke-width: 1.2;
+}
+
+.royui-tp-analog__numeral {
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 500;
+  fill: var(--royui-tp-muted);
+  user-select: none;
+}
+
+.royui-tp-analog__hand {
+  stroke-linecap: round;
+  transition: stroke var(--royui-tp-dur) var(--royui-tp-ease);
+  cursor: grab;
+}
+.royui-tp-analog__hand:active {
+  cursor: grabbing;
+}
+.royui-tp-analog__hand--hour {
+  stroke: var(--royui-tp-hand-quiet);
+  stroke-width: 3;
+}
+.royui-tp-analog__hand--minute {
+  stroke: var(--royui-tp-hand-quiet);
+  stroke-width: 2;
+}
+.royui-tp-analog__hand--active {
+  stroke: var(--royui-tp-hand-active);
+}
+
+.royui-tp-analog__pin {
+  fill: var(--royui-tp-hand-active);
+}
+
+.royui-tp-analog__modes {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.royui-tp-analog__mode {
+  background: transparent;
+  border: 1px solid var(--royui-tp-border);
+  border-radius: 7px;
+  padding: 4px 10px;
+  font: inherit;
+  font-size: 11.5px;
+  color: var(--royui-tp-muted);
+  cursor: pointer;
+  transition:
+    background var(--royui-tp-dur) var(--royui-tp-ease),
+    color var(--royui-tp-dur) var(--royui-tp-ease),
+    border-color var(--royui-tp-dur) var(--royui-tp-ease);
+}
+.royui-tp-analog__mode:hover {
+  background: var(--royui-tp-hover-bg);
+}
+.royui-tp-analog__mode--on {
+  background: var(--royui-tp-accent);
+  color: var(--royui-tp-accent-fg);
+  border-color: var(--royui-tp-accent);
+}
+
+/* AM / PM pair — segmented control flanking the mode tabs. */
+.royui-tp-analog__period {
+  display: inline-flex;
+  background: var(--royui-tp-hover-bg);
+  border-radius: 7px;
+  padding: 2px;
+}
+.royui-tp-analog__period-btn {
+  background: transparent;
+  border: 0;
+  padding: 3px 10px;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--royui-tp-muted);
+  cursor: pointer;
+  border-radius: 5px;
+  letter-spacing: 0.02em;
+  transition:
+    background var(--royui-tp-dur) var(--royui-tp-ease),
+    color var(--royui-tp-dur) var(--royui-tp-ease);
+}
+.royui-tp-analog__period-btn:hover {
+  color: var(--royui-tp-fg);
+}
+.royui-tp-analog__period-btn--on {
+  background: var(--royui-tp-bg);
+  color: var(--royui-tp-fg);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+/* ── Digital ────────────────────────────────────────────── */
+
+.royui-tp-digital {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 8px 4px;
+}
+
+.royui-tp-digital__row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.royui-tp-digital__seg {
+  font: inherit;
+  font-size: 44px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--royui-tp-fg);
+  font-variant-numeric: tabular-nums;
+  background: var(--royui-tp-face-bg);
+  border: 1px solid var(--royui-tp-border);
+  border-radius: 10px;
+  padding: 8px 14px;
+  min-width: 78px;
+  text-align: center;
+  cursor: ns-resize;
+  outline: none;
+  transition:
+    border-color var(--royui-tp-dur) var(--royui-tp-ease),
+    background var(--royui-tp-dur) var(--royui-tp-ease);
+}
+.royui-tp-digital__seg:hover,
+.royui-tp-digital__seg:focus {
+  border-color: var(--royui-tp-border-strong);
+  background: var(--royui-tp-bg);
+}
+
+.royui-tp-digital__sep {
+  font-size: 36px;
+  color: var(--royui-tp-subtle);
+  font-weight: 300;
+  padding-bottom: 6px;
+}
+
+.royui-tp-digital__period {
+  display: inline-flex;
+  background: var(--royui-tp-hover-bg);
+  border-radius: 8px;
+  padding: 2px;
+  margin-top: 12px;
+}
+.royui-tp-digital__period-btn {
+  background: transparent;
+  border: 0;
+  padding: 5px 14px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--royui-tp-muted);
+  cursor: pointer;
+  border-radius: 6px;
+  transition:
+    background var(--royui-tp-dur) var(--royui-tp-ease),
+    color var(--royui-tp-dur) var(--royui-tp-ease);
+}
+.royui-tp-digital__period-btn:hover {
+  color: var(--royui-tp-fg);
+}
+.royui-tp-digital__period-btn--on {
+  background: var(--royui-tp-bg);
+  color: var(--royui-tp-fg);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.royui-tp-digital__hint {
+  font-size: 11px;
+  color: var(--royui-tp-subtle);
+  letter-spacing: 0.01em;
+}
+
+/* ── Foot ───────────────────────────────────────────────── */
+
+.royui-tp__foot {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--royui-tp-border);
+}
+.royui-tp__ghost,
+.royui-tp__primary {
+  font: inherit;
+  font-size: 12.5px;
+  padding: 6px 12px;
+  border-radius: 7px;
+  cursor: pointer;
+  transition:
+    background var(--royui-tp-dur) var(--royui-tp-ease),
+    color var(--royui-tp-dur) var(--royui-tp-ease);
+}
+.royui-tp__ghost {
+  background: transparent;
+  border: 1px solid var(--royui-tp-border);
+  color: var(--royui-tp-muted);
+}
+.royui-tp__ghost:hover {
+  color: var(--royui-tp-fg);
+  background: var(--royui-tp-hover-bg);
+}
+.royui-tp__primary {
+  background: var(--royui-tp-accent);
+  color: var(--royui-tp-accent-fg);
+  border: 1px solid var(--royui-tp-accent);
+}
+
+@keyframes royui-tp-in {
+  from { opacity: 0; transform: translateY(-4px) scale(0.98); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ── Dark ───────────────────────────────────────────────── */
+
+@media (prefers-color-scheme: dark) {
+  .royui-tp {
+    --royui-tp-bg: #131315;
+    --royui-tp-fg: rgba(255, 255, 255, 0.94);
+    --royui-tp-muted: rgba(255, 255, 255, 0.55);
+    --royui-tp-subtle: rgba(255, 255, 255, 0.32);
+    --royui-tp-border: rgba(255, 255, 255, 0.1);
+    --royui-tp-border-strong: rgba(255, 255, 255, 0.22);
+    --royui-tp-hover-bg: rgba(255, 255, 255, 0.06);
+    --royui-tp-accent: rgba(255, 255, 255, 0.95);
+    --royui-tp-accent-fg: #0a0a0a;
+    --royui-tp-face-bg: rgba(255, 255, 255, 0.03);
+    --royui-tp-face-stroke: rgba(255, 255, 255, 0.1);
+    --royui-tp-tick: rgba(255, 255, 255, 0.2);
+    --royui-tp-tick-major: rgba(255, 255, 255, 0.55);
+    --royui-tp-hand-quiet: rgba(255, 255, 255, 0.42);
+    --royui-tp-hand-active: rgba(255, 255, 255, 0.95);
+  }
+  .royui-tp__panel {
+    box-shadow:
+      0 0 0 0.5px rgba(255, 255, 255, 0.06),
+      0 6px 14px rgba(0, 0, 0, 0.4),
+      0 22px 44px rgba(0, 0, 0, 0.55);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .royui-tp__panel { animation: none; }
+}

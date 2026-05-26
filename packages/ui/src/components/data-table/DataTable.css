@@ -1,0 +1,396 @@
+.royui-dt {
+  --royui-dt-bg: #ffffff;
+  --royui-dt-fg: rgb(20, 20, 20);
+  --royui-dt-muted: rgba(20, 20, 20, 0.55);
+  --royui-dt-subtle: rgba(20, 20, 20, 0.35);
+  --royui-dt-border: rgba(20, 20, 20, 0.1);
+  --royui-dt-border-strong: rgba(20, 20, 20, 0.18);
+  --royui-dt-hover-bg: rgba(20, 20, 20, 0.04);
+  --royui-dt-accent: rgb(20, 20, 20);
+  --royui-dt-accent-fg: #ffffff;
+  --royui-dt-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --royui-dt-dur: 160ms;
+
+  width: 100%;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
+    sans-serif;
+}
+
+/* ── Toolbar ────────────────────────────────────────────── */
+
+.royui-dt__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.royui-dt__toolbar-left,
+.royui-dt__toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.royui-dt__sep {
+  width: 1px;
+  height: 16px;
+  background: var(--royui-dt-border);
+  margin: 0 2px;
+}
+
+/* ── Column menu ────────────────────────────────────────── */
+
+.royui-dt-colmenu {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.royui-dt-colmenu__trigger {
+  background: transparent;
+  border: 1px solid var(--royui-dt-border);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font: inherit;
+  font-size: 13px;
+  color: var(--royui-dt-fg);
+  cursor: pointer;
+  transition:
+    background var(--royui-dt-dur) var(--royui-dt-ease),
+    border-color var(--royui-dt-dur) var(--royui-dt-ease);
+}
+.royui-dt-colmenu__trigger:hover {
+  background: var(--royui-dt-hover-bg);
+  border-color: var(--royui-dt-border-strong);
+}
+
+.royui-dt-colmenu__chip {
+  background: var(--royui-dt-hover-bg);
+  border: 1px solid var(--royui-dt-border);
+  border-radius: 999px;
+  padding: 3px 9px;
+  font: inherit;
+  font-size: 11.5px;
+  color: var(--royui-dt-muted);
+  cursor: pointer;
+  font-variant-numeric: tabular-nums;
+}
+.royui-dt-colmenu__chip:hover {
+  color: var(--royui-dt-fg);
+}
+
+.royui-dt-colmenu__panel {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 30;
+  min-width: 220px;
+  background: var(--royui-dt-bg);
+  border: 1px solid var(--royui-dt-border);
+  border-radius: 12px;
+  padding: 8px;
+  box-shadow:
+    0 0 0 0.5px rgba(20, 20, 20, 0.04),
+    0 6px 14px rgba(0, 0, 0, 0.06),
+    0 22px 44px rgba(0, 0, 0, 0.12);
+  animation: royui-dt-pop var(--royui-dt-dur) var(--royui-dt-ease);
+}
+
+.royui-dt-colmenu__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 8px 6px;
+  border-bottom: 1px solid var(--royui-dt-border);
+}
+.royui-dt-colmenu__title {
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--royui-dt-muted);
+}
+.royui-dt-colmenu__reset {
+  background: transparent;
+  border: 0;
+  font: inherit;
+  font-size: 12px;
+  color: var(--royui-dt-muted);
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 4px;
+  transition: color var(--royui-dt-dur) var(--royui-dt-ease);
+}
+.royui-dt-colmenu__reset:hover {
+  color: var(--royui-dt-fg);
+}
+
+.royui-dt-colmenu__list {
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.royui-dt-colmenu__row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  padding: 7px 8px;
+  font: inherit;
+  font-size: 13px;
+  color: var(--royui-dt-fg);
+  cursor: pointer;
+  text-align: left;
+  transition: background var(--royui-dt-dur) var(--royui-dt-ease);
+}
+.royui-dt-colmenu__row:hover {
+  background: var(--royui-dt-hover-bg);
+}
+.royui-dt-colmenu__row--locked {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.royui-dt-colmenu__row--off .royui-dt-colmenu__label {
+  color: var(--royui-dt-muted);
+}
+
+.royui-dt-colmenu__dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  border: 1.5px solid var(--royui-dt-subtle);
+  background: transparent;
+  flex: 0 0 9px;
+  transition:
+    background var(--royui-dt-dur) var(--royui-dt-ease),
+    border-color var(--royui-dt-dur) var(--royui-dt-ease);
+}
+.royui-dt-colmenu__dot--on {
+  background: var(--royui-dt-accent);
+  border-color: var(--royui-dt-accent);
+}
+
+.royui-dt-colmenu__label {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ── IO buttons ─────────────────────────────────────────── */
+
+.royui-dt-io {
+  position: relative;
+  display: inline-flex;
+}
+
+.royui-dt-io__btn {
+  background: transparent;
+  border: 1px solid var(--royui-dt-border);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font: inherit;
+  font-size: 13px;
+  color: var(--royui-dt-fg);
+  cursor: pointer;
+  transition:
+    background var(--royui-dt-dur) var(--royui-dt-ease),
+    border-color var(--royui-dt-dur) var(--royui-dt-ease);
+  min-width: 70px;
+}
+.royui-dt-io__btn:hover {
+  background: var(--royui-dt-hover-bg);
+  border-color: var(--royui-dt-border-strong);
+}
+
+.royui-dt-io__menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  z-index: 30;
+  background: var(--royui-dt-bg);
+  border: 1px solid var(--royui-dt-border);
+  border-radius: 8px;
+  padding: 4px;
+  min-width: 100px;
+  box-shadow:
+    0 0 0 0.5px rgba(20, 20, 20, 0.04),
+    0 6px 14px rgba(0, 0, 0, 0.06),
+    0 22px 44px rgba(0, 0, 0, 0.12);
+  animation: royui-dt-pop 140ms var(--royui-dt-ease);
+}
+.royui-dt-io__menu-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  border-radius: 5px;
+  padding: 6px 8px;
+  font: inherit;
+  font-size: 12.5px;
+  color: var(--royui-dt-fg);
+  cursor: pointer;
+}
+.royui-dt-io__menu-item:hover {
+  background: var(--royui-dt-hover-bg);
+}
+
+/* ── Header drag + resize affordances ───────────────────── */
+
+.royui-dt .royui-table__th {
+  position: relative;
+  cursor: default;
+  transition:
+    background var(--royui-dt-dur) var(--royui-dt-ease);
+}
+/* Persistent column boundary — hints at where the resize handle lives. */
+.royui-dt .royui-table__th + .royui-dt .royui-table__th { /* selector chain harmless */ }
+.royui-dt .royui-table__th--resizable {
+  /* a quiet hairline along the right edge so the boundary is legible,
+     making the resize handle's location implicit instead of hidden. */
+  box-shadow: inset -1px 0 0 0 var(--royui-dt-border);
+}
+
+.royui-dt .royui-table__th--reorderable {
+  cursor: grab;
+}
+.royui-dt .royui-table__th--reorderable:hover {
+  background: var(--royui-dt-hover-bg);
+}
+.royui-dt .royui-table__th--reorderable:active {
+  cursor: grabbing;
+}
+
+.royui-dt__th-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  outline: none;
+  cursor: pointer;
+}
+
+.royui-dt__th-label {
+  user-select: none;
+}
+
+.royui-dt__sort-indicator {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--royui-dt-fg);
+  opacity: 0.6;
+  transform-origin: center;
+  transition: transform 220ms var(--royui-dt-ease);
+}
+.royui-dt__sort-indicator--desc {
+  transform: scaleY(-1) translateY(1px);
+}
+
+.royui-dt__th--dragging {
+  opacity: 0.45;
+}
+
+.royui-dt__th--drop-before {
+  box-shadow: inset 2px 0 0 0 var(--royui-dt-accent);
+}
+.royui-dt__th--drop-end {
+  width: 0;
+  padding: 0;
+  border-left: 2px solid var(--royui-dt-accent);
+}
+
+/* Resize hit-target — wider than the visible bar so a 5px target catches the
+   pointer comfortably. Visible bar is 1px, sitting on top of the boundary
+   hairline; on hover it brightens, on drag it goes accent-colored. */
+.royui-dt__resize {
+  position: absolute;
+  top: 0;
+  right: -3px;
+  width: 8px;
+  height: 100%;
+  cursor: col-resize;
+  user-select: none;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.royui-dt__resize-bar {
+  width: 2px;
+  height: 50%;
+  border-radius: 999px;
+  background: var(--royui-dt-border-strong);
+  opacity: 0;
+  transition:
+    background var(--royui-dt-dur) var(--royui-dt-ease),
+    opacity var(--royui-dt-dur) var(--royui-dt-ease),
+    height var(--royui-dt-dur) var(--royui-dt-ease);
+}
+.royui-dt__resize:hover .royui-dt__resize-bar {
+  opacity: 1;
+  height: 60%;
+  background: var(--royui-dt-fg);
+}
+.royui-dt__resize:active .royui-dt__resize-bar {
+  opacity: 1;
+  background: var(--royui-dt-accent);
+  height: 70%;
+}
+
+.royui-dt__col--dragging {
+  background: var(--royui-dt-hover-bg);
+}
+
+/* ── Pagination row ─────────────────────────────────────── */
+
+.royui-dt__pagination {
+  margin-top: 12px;
+  padding: 8px 4px 0;
+}
+
+/* ── Anim ───────────────────────────────────────────────── */
+
+@keyframes royui-dt-pop {
+  from { opacity: 0; transform: translateY(-3px) scale(0.98); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ── Dark ───────────────────────────────────────────────── */
+
+@media (prefers-color-scheme: dark) {
+  .royui-dt {
+    --royui-dt-bg: #131315;
+    --royui-dt-fg: rgba(255, 255, 255, 0.94);
+    --royui-dt-muted: rgba(255, 255, 255, 0.55);
+    --royui-dt-subtle: rgba(255, 255, 255, 0.32);
+    --royui-dt-border: rgba(255, 255, 255, 0.1);
+    --royui-dt-border-strong: rgba(255, 255, 255, 0.22);
+    --royui-dt-hover-bg: rgba(255, 255, 255, 0.06);
+    --royui-dt-accent: rgba(255, 255, 255, 0.95);
+    --royui-dt-accent-fg: #0a0a0a;
+  }
+  .royui-dt-colmenu__panel,
+  .royui-dt-io__menu {
+    box-shadow:
+      0 0 0 0.5px rgba(255, 255, 255, 0.06),
+      0 6px 14px rgba(0, 0, 0, 0.4),
+      0 22px 44px rgba(0, 0, 0, 0.55);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .royui-dt-colmenu__panel,
+  .royui-dt-io__menu { animation: none; }
+}

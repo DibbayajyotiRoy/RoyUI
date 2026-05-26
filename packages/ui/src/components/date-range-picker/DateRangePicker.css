@@ -1,0 +1,335 @@
+.royui-drp {
+  --royui-drp-bg: #ffffff;
+  --royui-drp-fg: rgb(20, 20, 20);
+  --royui-drp-muted: rgba(20, 20, 20, 0.55);
+  --royui-drp-subtle: rgba(20, 20, 20, 0.35);
+  --royui-drp-border: rgba(20, 20, 20, 0.1);
+  --royui-drp-border-strong: rgba(20, 20, 20, 0.18);
+  --royui-drp-hover-bg: rgba(20, 20, 20, 0.04);
+  --royui-drp-in-bg: rgba(20, 20, 20, 0.06);
+  --royui-drp-edge-bg: rgb(20, 20, 20);
+  --royui-drp-edge-fg: #ffffff;
+  --royui-drp-today-ring: rgba(20, 20, 20, 0.55);
+  --royui-drp-preset-bg: rgba(20, 20, 20, 0.03);
+  --royui-drp-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --royui-drp-dur: 160ms;
+  --royui-drp-radius: 10px;
+
+  position: relative;
+  display: inline-block;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
+    sans-serif;
+}
+
+/* ── Trigger ────────────────────────────────────────────── */
+
+.royui-drp__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  height: 34px;
+  padding: 0 12px;
+  background: var(--royui-drp-bg);
+  border: 1px solid var(--royui-drp-border);
+  border-radius: 8px;
+  color: var(--royui-drp-fg);
+  font: inherit;
+  font-size: 13.5px;
+  letter-spacing: -0.005em;
+  cursor: pointer;
+  transition:
+    border-color var(--royui-drp-dur) var(--royui-drp-ease),
+    background var(--royui-drp-dur) var(--royui-drp-ease);
+}
+.royui-drp__trigger:hover {
+  background: var(--royui-drp-hover-bg);
+  border-color: var(--royui-drp-border-strong);
+}
+.royui-drp__trigger:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.royui-drp__trigger-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--royui-drp-subtle);
+}
+.royui-drp__trigger-label {
+  white-space: nowrap;
+}
+
+/* ── Panel ──────────────────────────────────────────────── */
+
+.royui-drp__panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  z-index: 40;
+  background: var(--royui-drp-bg);
+  border: 1px solid var(--royui-drp-border);
+  border-radius: 14px;
+  display: flex;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 0.5px rgba(20, 20, 20, 0.04),
+    0 6px 14px rgba(0, 0, 0, 0.06),
+    0 22px 44px rgba(0, 0, 0, 0.12);
+  animation: royui-drp-in var(--royui-drp-dur) var(--royui-drp-ease);
+}
+.royui-drp__panel--left { left: 0; }
+.royui-drp__panel--right { right: 0; }
+
+.royui-drp__presets {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 12px 10px;
+  background: var(--royui-drp-preset-bg);
+  border-right: 1px solid var(--royui-drp-border);
+  min-width: 130px;
+}
+.royui-drp__preset {
+  text-align: left;
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  padding: 7px 10px;
+  font: inherit;
+  font-size: 13px;
+  color: var(--royui-drp-muted);
+  cursor: pointer;
+  transition:
+    background var(--royui-drp-dur) var(--royui-drp-ease),
+    color var(--royui-drp-dur) var(--royui-drp-ease);
+}
+.royui-drp__preset:hover {
+  background: var(--royui-drp-hover-bg);
+  color: var(--royui-drp-fg);
+}
+.royui-drp__preset--active {
+  background: var(--royui-drp-in-bg);
+  color: var(--royui-drp-fg);
+  font-weight: 500;
+}
+
+.royui-drp__main {
+  display: flex;
+  flex-direction: column;
+  padding: 14px;
+  min-width: 0;
+}
+
+/* ── Nav ────────────────────────────────────────────────── */
+
+.royui-drp__nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.royui-drp__nav-btn {
+  background: transparent;
+  border: 1px solid var(--royui-drp-border);
+  border-radius: 7px;
+  padding: 4px 10px;
+  font: inherit;
+  font-size: 12px;
+  color: var(--royui-drp-muted);
+  cursor: pointer;
+  transition:
+    background var(--royui-drp-dur) var(--royui-drp-ease),
+    color var(--royui-drp-dur) var(--royui-drp-ease),
+    border-color var(--royui-drp-dur) var(--royui-drp-ease);
+}
+.royui-drp__nav-btn:hover {
+  background: var(--royui-drp-hover-bg);
+  color: var(--royui-drp-fg);
+  border-color: var(--royui-drp-border-strong);
+}
+
+/* ── Months row ─────────────────────────────────────────── */
+
+.royui-drp__months {
+  display: flex;
+  gap: 16px;
+}
+
+.royui-drp__month {
+  width: 240px;
+}
+
+.royui-drp__month-title {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  color: var(--royui-drp-fg);
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.royui-drp__weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 4px;
+}
+.royui-drp__weekday {
+  text-align: center;
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--royui-drp-muted);
+  padding: 4px 0;
+}
+
+.royui-drp__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+}
+
+.royui-drp__day {
+  position: relative;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  height: 30px;
+  font: inherit;
+  font-size: 12.5px;
+  color: var(--royui-drp-fg);
+  cursor: pointer;
+  font-variant-numeric: tabular-nums;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--royui-drp-dur) var(--royui-drp-ease);
+}
+
+.royui-drp__day:hover:not(:disabled) {
+  background: var(--royui-drp-hover-bg);
+}
+
+.royui-drp__day--out {
+  color: var(--royui-drp-subtle);
+  pointer-events: none;
+}
+
+.royui-drp__day--disabled {
+  color: var(--royui-drp-subtle);
+  cursor: not-allowed;
+}
+
+.royui-drp__day--today {
+  box-shadow: inset 0 0 0 1px var(--royui-drp-today-ring);
+}
+
+.royui-drp__day--in {
+  background: var(--royui-drp-in-bg);
+  border-radius: 0;
+}
+
+.royui-drp__day--edge {
+  background: var(--royui-drp-edge-bg);
+  color: var(--royui-drp-edge-fg);
+  z-index: 1;
+}
+.royui-drp__day--edge:hover {
+  background: var(--royui-drp-edge-bg);
+}
+.royui-drp__day--start {
+  border-top-left-radius: 999px;
+  border-bottom-left-radius: 999px;
+  border-top-right-radius: 999px;
+  border-bottom-right-radius: 999px;
+}
+.royui-drp__day--end {
+  border-top-right-radius: 999px;
+  border-bottom-right-radius: 999px;
+  border-top-left-radius: 999px;
+  border-bottom-left-radius: 999px;
+}
+
+/* ── Footer ─────────────────────────────────────────────── */
+
+.royui-drp__foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--royui-drp-border);
+}
+.royui-drp__readout {
+  font-size: 12.5px;
+  color: var(--royui-drp-muted);
+  font-variant-numeric: tabular-nums;
+}
+.royui-drp__foot-actions {
+  display: flex;
+  gap: 6px;
+}
+.royui-drp__ghost,
+.royui-drp__primary {
+  font: inherit;
+  font-size: 12.5px;
+  padding: 6px 12px;
+  border-radius: 7px;
+  cursor: pointer;
+  transition:
+    background var(--royui-drp-dur) var(--royui-drp-ease),
+    color var(--royui-drp-dur) var(--royui-drp-ease);
+}
+.royui-drp__ghost {
+  background: transparent;
+  border: 1px solid var(--royui-drp-border);
+  color: var(--royui-drp-muted);
+}
+.royui-drp__ghost:hover {
+  color: var(--royui-drp-fg);
+  background: var(--royui-drp-hover-bg);
+}
+.royui-drp__primary {
+  background: var(--royui-drp-edge-bg);
+  color: var(--royui-drp-edge-fg);
+  border: 1px solid var(--royui-drp-edge-bg);
+}
+.royui-drp__primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+@keyframes royui-drp-in {
+  from { opacity: 0; transform: translateY(-4px) scale(0.98); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ── Dark ───────────────────────────────────────────────── */
+
+@media (prefers-color-scheme: dark) {
+  .royui-drp {
+    --royui-drp-bg: #131315;
+    --royui-drp-fg: rgba(255, 255, 255, 0.94);
+    --royui-drp-muted: rgba(255, 255, 255, 0.55);
+    --royui-drp-subtle: rgba(255, 255, 255, 0.32);
+    --royui-drp-border: rgba(255, 255, 255, 0.1);
+    --royui-drp-border-strong: rgba(255, 255, 255, 0.22);
+    --royui-drp-hover-bg: rgba(255, 255, 255, 0.06);
+    --royui-drp-in-bg: rgba(255, 255, 255, 0.08);
+    --royui-drp-edge-bg: rgba(255, 255, 255, 0.95);
+    --royui-drp-edge-fg: #0a0a0a;
+    --royui-drp-today-ring: rgba(255, 255, 255, 0.55);
+    --royui-drp-preset-bg: rgba(255, 255, 255, 0.025);
+  }
+  .royui-drp__panel {
+    box-shadow:
+      0 0 0 0.5px rgba(255, 255, 255, 0.06),
+      0 6px 14px rgba(0, 0, 0, 0.4),
+      0 22px 44px rgba(0, 0, 0, 0.55);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .royui-drp__panel { animation: none; }
+}

@@ -8,6 +8,7 @@ import { PopoverDocs } from '../../../components/PopoverDocs';
 import { MadeByDocs } from '../../../components/MadeByDocs';
 import { TextMorphDocs } from '../../../components/TextMorphDocs';
 import { TreeNavDocs } from '../../../components/TreeNavDocs';
+import { DataTableDocs } from '../../../components/DataTableDocs';
 import { DocsSidebar } from '../../../components/DocsSidebar';
 import { TableOfContents, type TocItem } from '../../../components/TableOfContents';
 
@@ -124,6 +125,7 @@ const docsBySlug: Record<string, () => React.ReactNode> = {
   'made-by': () => <MadeByDocs />,
   'text-morph': () => <TextMorphDocs />,
   'tree-nav': () => <TreeNavDocs />,
+  'data-table': () => <DataTableDocs />,
 };
 
 const tocBySlug: Record<string, TocItem[]> = {
@@ -158,6 +160,19 @@ const tocBySlug: Record<string, TocItem[]> = {
     { id: 'usage', label: 'Usage' },
     { id: 'router', label: 'Router integration' },
     { id: 'theming', label: 'Theming' },
+    { id: 'props', label: 'Props' },
+  ],
+  'data-table': [
+    { id: 'full', label: 'Everything, on' },
+    { id: 'installation', label: 'Installation' },
+    { id: 'minimal', label: 'The minimum' },
+    { id: 'search', label: 'Search' },
+    { id: 'pagination', label: 'Pagination' },
+    { id: 'dates-and-times', label: 'Range + time' },
+    { id: 'columns', label: 'Reorder, resize, hide' },
+    { id: 'export-import', label: 'Export & import' },
+    { id: 'typography', label: 'Typography' },
+    { id: 'primitives', label: 'Primitives' },
     { id: 'props', label: 'Props' },
   ],
 };

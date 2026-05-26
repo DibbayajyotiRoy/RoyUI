@@ -1,0 +1,108 @@
+.royui-pagination {
+  --royui-pagination-fg: rgba(20, 20, 20, 0.95);
+  --royui-pagination-muted: rgba(20, 20, 20, 0.55);
+  --royui-pagination-bg-hover: rgba(20, 20, 20, 0.04);
+  --royui-pagination-border: rgba(20, 20, 20, 0.1);
+  --royui-pagination-current-bg: rgb(20, 20, 20);
+  --royui-pagination-current-fg: #ffffff;
+  --royui-pagination-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --royui-pagination-dur: 160ms;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
+    sans-serif;
+}
+
+.royui-pagination__summary {
+  font-size: 12.5px;
+  color: var(--royui-pagination-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.royui-pagination__group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.royui-pagination__step,
+.royui-pagination__page {
+  appearance: none;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--royui-pagination-fg);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  padding: 6px 11px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-variant-numeric: tabular-nums;
+  transition:
+    background var(--royui-pagination-dur) var(--royui-pagination-ease),
+    color var(--royui-pagination-dur) var(--royui-pagination-ease),
+    border-color var(--royui-pagination-dur) var(--royui-pagination-ease),
+    transform 220ms var(--royui-pagination-ease);
+}
+
+.royui-pagination__step {
+  color: var(--royui-pagination-muted);
+}
+
+.royui-pagination__step:hover:not(:disabled),
+.royui-pagination__page:hover:not([aria-current='page']) {
+  background: var(--royui-pagination-bg-hover);
+  color: var(--royui-pagination-fg);
+}
+
+.royui-pagination__step:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+
+.royui-pagination__pages {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.royui-pagination__gap {
+  width: 24px;
+  text-align: center;
+  color: var(--royui-pagination-muted);
+  font-size: 14px;
+  line-height: 1;
+}
+
+.royui-pagination__page--current {
+  background: var(--royui-pagination-current-bg);
+  color: var(--royui-pagination-current-fg);
+  transform: scale(1.02);
+  cursor: default;
+}
+
+.royui-pagination__page:focus-visible,
+.royui-pagination__step:focus-visible {
+  outline: 2px solid var(--royui-pagination-current-bg);
+  outline-offset: 2px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .royui-pagination {
+    --royui-pagination-fg: rgba(255, 255, 255, 0.94);
+    --royui-pagination-muted: rgba(255, 255, 255, 0.52);
+    --royui-pagination-bg-hover: rgba(255, 255, 255, 0.06);
+    --royui-pagination-border: rgba(255, 255, 255, 0.12);
+    --royui-pagination-current-bg: rgba(255, 255, 255, 0.95);
+    --royui-pagination-current-fg: #0a0a0a;
+  }
+}

@@ -2030,3 +2030,75 @@ html.js .hero__frameworks {
     transition: none;
   }
 }
+
+/* ════════════════════════════════════════════════════════
+   DataTable hero — interaction tip strip
+   Lives above the hero table so first-time visitors learn the
+   drag-reorder + edge-resize affordances explicitly instead of
+   needing to hover to discover them.
+   ════════════════════════════════════════════════════════ */
+
+.dt-hero-tips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 14px;
+  padding: 10px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 12.5px;
+  color: var(--fg-2);
+  letter-spacing: -0.005em;
+}
+
+.dt-hero-tips__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.dt-hero-tips__sep {
+  color: var(--fg-4);
+  user-select: none;
+}
+
+/* Same 2×3 grip pattern the table headers themselves render — so the tip
+   reads as a direct callout to the affordance, not as a stand-alone icon. */
+.dt-hero-tips__grip {
+  display: inline-grid;
+  grid-template-columns: repeat(2, 2px);
+  grid-template-rows: repeat(3, 2px);
+  column-gap: 2px;
+  row-gap: 2px;
+  flex: 0 0 auto;
+}
+.dt-hero-tips__grip > span {
+  width: 2px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--fg-3);
+}
+
+/* Visual stand-in for the resize hairline at the right edge of a column. */
+.dt-hero-tips__edge {
+  display: inline-block;
+  width: 2px;
+  height: 12px;
+  border-radius: 999px;
+  background: var(--fg-3);
+  flex: 0 0 auto;
+}
+
+@media (max-width: 720px) {
+  .dt-hero-tips {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .dt-hero-tips__sep {
+    display: none;
+  }
+}

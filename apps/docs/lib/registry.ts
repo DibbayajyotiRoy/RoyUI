@@ -73,6 +73,18 @@ export const components: ComponentEntry[] = [
     importStatement: `import { TreeNav, TreeNavItem } from '@roy-ui/ui';`,
   },
   {
+    slug: 'data-table',
+    name: 'DataTable',
+    tagline: 'A generic, fully-featured data table — search, range, time, sort, paginate, reorder, resize, hide, import, export.',
+    description:
+      'A single typed component that wires together search, a multi-month date-range modal, an analog or digital time picker, column reorder via drag, edge-drag resize, hide / restore through a Columns menu, text-only pagination with page numbers, per-zone fonts for headers, row-headers and cells, and one-click CSV / JSON export and import. Built on standalone primitives — Table, TableSearch, DateRangePicker, TimePicker, Pagination — that ship alongside it for use independently.',
+    category: 'Display',
+    tags: ['table', 'data', 'grid', 'sort', 'filter', 'paginate', 'export'],
+    status: 'available',
+    featured: true,
+    importStatement: `import { DataTable } from '@roy-ui/ui';`,
+  },
+  {
     slug: 'input',
     name: 'Input',
     tagline: 'Accessible text input with built-in label and helper text.',
