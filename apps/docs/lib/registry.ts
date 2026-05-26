@@ -81,7 +81,6 @@ export const components: ComponentEntry[] = [
     category: 'Display',
     tags: ['table', 'data', 'grid', 'sort', 'filter', 'paginate', 'export'],
     status: 'available',
-    featured: true,
     importStatement: `import { DataTable } from '@roy-ui/ui';`,
   },
   {

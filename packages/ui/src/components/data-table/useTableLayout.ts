@@ -86,7 +86,8 @@ export function useTableLayout<T>(columns: Column<T>[], storageKey?: string) {
       const order = [...prev.order];
       const from = order.indexOf(key);
       if (from === -1 || from === toIndex) return prev;
-      const [item] = order.splice(from, 1);
+      const item = order.splice(from, 1)[0];
+      if (item === undefined) return prev;
       const insertAt = toIndex > from ? toIndex - 1 : toIndex;
       order.splice(Math.max(0, Math.min(insertAt, order.length)), 0, item);
       return { ...prev, order };
