@@ -15,8 +15,8 @@ importers:
   apps/docs:
     dependencies:
       '@roy-ui/ui':
-        specifier: workspace:*
-        version: link:../../packages/ui
+        specifier: ^0.0.7
+        version: 0.0.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@vercel/analytics':
         specifier: ^2.0.1
         version: 2.0.1(next@15.5.18(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
@@ -755,6 +755,12 @@ packages:
     resolution: {integrity: sha512-QVTUovf40zgTqlFVrKA1uXMVvU2QWEFWfAH8Wdc48IxLvrJMQVMBRjuQyUpzZCDkakImib9eVazbWlC6ksWtJw==}
     cpu: [x64]
     os: [win32]
+
+  '@roy-ui/ui@0.0.7':
+    resolution: {integrity: sha512-pkP9Wy8JvD+tAauUZ8HSE4VTDteuRgHtZ7B1X+Tjj20FDyjvO9AcfT7DX7LQIIHb60ld8/naRp9fwr1UaMUmjQ==}
+    peerDependencies:
+      react: '>=18'
+      react-dom: '>=18'
 
   '@shikijs/core@4.1.0':
     resolution: {integrity: sha512-jLJtSJeuFffqX6/inRE1zqU5aFv2hrszvYgq3OjbAgFRZiWv7abKMDdQzYxuSDfmUPQozZvI/kuy6VMTvnvqTQ==}
@@ -1780,6 +1786,11 @@ snapshots:
 
   '@rollup/rollup-win32-x64-msvc@4.60.4':
     optional: true
+
+  '@roy-ui/ui@0.0.7(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
 
   '@shikijs/core@4.1.0':
     dependencies:

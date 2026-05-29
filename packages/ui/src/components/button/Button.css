@@ -1,10 +1,21 @@
 .royui-btn {
-  /* Surface — light grazes the top, the base sits in its own shade. */
+  /* Surface — light grazes the top, the base sits in its own shade.
+     Pass the `color` prop and these four derive from it automatically;
+     or set any of them yourself to retint by hand. */
   --royui-btn-top: #323232;
   --royui-btn-bottom: #222222;
   /* A hairline ring keeps the edge crisp on any background. */
   --royui-btn-ring: #3a3a3a;
   --royui-btn-fg: #ffffff;
+  /* The two depth overlays. These are hue-agnostic on purpose — a white
+     sheen on the top lip, a dark wall at the base — so they read as form
+     over any color. The `color` prop tunes their strength by luminance. */
+  --royui-btn-highlight: rgba(255, 255, 255, 0.15);
+  --royui-btn-shade: rgba(8, 8, 8, 0.55);
+  --royui-btn-focus: rgba(255, 255, 255, 0.7);
+  /* Interaction is brightness, not recolor — so it works for any base color. */
+  --royui-btn-hover-bright: 1.12;
+  --royui-btn-active-bright: 0.86;
   --royui-btn-radius: 14px;
   --royui-btn-pad-y: 11px;
   --royui-btn-pad-x: 22px;
@@ -31,6 +42,7 @@
   transition:
     transform 140ms cubic-bezier(0.22, 0.61, 0.36, 1),
     box-shadow 200ms cubic-bezier(0.22, 0.61, 0.36, 1),
+    filter 200ms ease,
     background 200ms ease;
   /* The whole illusion lives here — four layers, none of them loud:
      1 · ring — defines the edge without a visible border
@@ -39,8 +51,8 @@
      4 · drop shadow — it rests on the surface, barely */
   box-shadow:
     0 0 0 1px var(--royui-btn-ring),
-    inset 0 0.5px 1px rgba(255, 255, 255, 0.15),
-    inset 0 -1px 1.2px 0.4px rgba(8, 8, 8, 0.55),
+    inset 0 0.5px 1px var(--royui-btn-highlight),
+    inset 0 -1px 1.2px 0.4px var(--royui-btn-shade),
     0 2px 4px -1px rgba(0, 0, 0, 0.5);
 }
 
@@ -63,24 +75,54 @@
   width: 100%;
 }
 
-/* Hover — a half-pixel of lift and a touch more light. Restraint is the point. */
+/* Variants — all three reuse the same depth machinery, just dialed down.
+   "secondary" is a quieter raised chip; "ghost" stays flat until hovered. */
+.royui-btn--secondary {
+  --royui-btn-top: rgba(255, 255, 255, 0.1);
+  --royui-btn-bottom: rgba(255, 255, 255, 0.045);
+  --royui-btn-ring: rgba(255, 255, 255, 0.14);
+  --royui-btn-fg: rgba(255, 255, 255, 0.92);
+  --royui-btn-highlight: rgba(255, 255, 255, 0.12);
+  --royui-btn-shade: rgba(0, 0, 0, 0.22);
+  --royui-btn-focus: rgba(255, 255, 255, 0.6);
+}
+
+.royui-btn--ghost {
+  --royui-btn-fg: rgba(255, 255, 255, 0.82);
+  --royui-btn-focus: rgba(255, 255, 255, 0.6);
+  background: transparent;
+  box-shadow: none;
+}
+.royui-btn--ghost:hover:not(:disabled):not([aria-disabled='true']) {
+  background: rgba(255, 255, 255, 0.07);
+  filter: none;
+  box-shadow: none;
+  transform: none;
+}
+.royui-btn--ghost:active:not(:disabled):not([aria-disabled='true']) {
+  background: rgba(255, 255, 255, 0.11);
+  filter: none;
+  box-shadow: none;
+  transform: translateY(0.5px);
+}
+
+/* Hover — a half-pixel of lift and a touch more light. Brightness rather
+   than a hardcoded color, so it lightens whatever base color you passed. */
 .royui-btn:hover:not(:disabled) {
-  --royui-btn-top: #383838;
-  --royui-btn-bottom: #262626;
   transform: translateY(-0.5px);
+  filter: brightness(var(--royui-btn-hover-bright));
   box-shadow:
     0 0 0 1px var(--royui-btn-ring),
-    inset 0 0.5px 1px rgba(255, 255, 255, 0.18),
-    inset 0 -1px 1.2px 0.4px rgba(8, 8, 8, 0.55),
+    inset 0 0.5px 1px var(--royui-btn-highlight),
+    inset 0 -1px 1.2px 0.4px var(--royui-btn-shade),
     0 4px 8px -2px rgba(0, 0, 0, 0.55);
 }
 
 /* Press — the top highlight collapses into an inset shadow, so the face
    dips in instead of staying lit. That swap is what reads as "real". */
 .royui-btn:active:not(:disabled) {
-  --royui-btn-top: #2a2a2a;
-  --royui-btn-bottom: #1e1e1e;
   transform: translateY(0.5px);
+  filter: brightness(var(--royui-btn-active-bright));
   transition-duration: 60ms;
   box-shadow:
     0 0 0 1px var(--royui-btn-ring),
@@ -90,13 +132,18 @@
 }
 
 .royui-btn:focus-visible {
-  outline: 2px solid rgba(255, 255, 255, 0.7);
+  outline: 2px solid var(--royui-btn-focus);
   outline-offset: 2px;
 }
 
-.royui-btn:disabled {
+.royui-btn:disabled,
+.royui-btn[aria-disabled='true'] {
   opacity: 0.55;
   cursor: not-allowed;
+}
+/* asChild renders a non-button (e.g. <a>) that ignores the disabled attr. */
+.royui-btn[aria-disabled='true'] {
+  pointer-events: none;
 }
 
 .royui-btn--loading {
@@ -123,7 +170,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .royui-btn {
-    transition: box-shadow 200ms ease, background 200ms ease;
+    transition: box-shadow 200ms ease, filter 200ms ease, background 200ms ease;
   }
   .royui-btn:hover:not(:disabled),
   .royui-btn:active:not(:disabled) {

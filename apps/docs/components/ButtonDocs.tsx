@@ -1,8 +1,9 @@
-import { Button } from '@roy-ui/ui';
+import { Button } from '@roy-ui/ui/button';
 import { Code } from './Code';
 import { InstallTabs } from './InstallTabs';
 import { PreviewTabs } from './PreviewTabs';
 import { ButtonLoadingDemo } from './demos/ButtonLoadingDemo';
+import { ButtonColorPlayground } from './demos/ButtonColorPlayground';
 import type { ReactNode } from 'react';
 
 export function ButtonDocs() {
@@ -16,7 +17,13 @@ export function ButtonDocs() {
       >
         <div className="install-grid">
           <InstallTabs pkg="@roy-ui/ui" />
-          <Code label="Import" code={`import { Button } from '@roy-ui/ui';`} />
+          <Code
+            label="Import"
+            code={`import { Button } from '@roy-ui/ui';
+
+// or import just this component (its own 'use client' island):
+import { Button } from '@roy-ui/ui/button';`}
+          />
         </div>
       </DocSection>
 
@@ -47,6 +54,59 @@ export function ButtonDocs() {
             <Button size="lg">Post</Button>
           </div>
         </Example>
+
+        <Example
+          title="Variants"
+          description="Three weights for hierarchy. Primary is the solid depth button; secondary is a quieter raised chip; ghost stays flat until hovered."
+          code={`<Button variant="primary">Post</Button>
+<Button variant="secondary">Save draft</Button>
+<Button variant="ghost">Cancel</Button>`}
+        >
+          <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 12 }}>
+            <Button variant="primary">Post</Button>
+            <Button variant="secondary">Save draft</Button>
+            <Button variant="ghost">Cancel</Button>
+          </div>
+        </Example>
+
+        <Example
+          title="As a link"
+          description="Set asChild to paint the button onto a link instead of a <button> — real anchor semantics (open-in-new-tab, right-click, prefetch, a crawlable href) are preserved. Works with Next's <Link> too."
+          code={`import Link from 'next/link';
+
+<Button asChild>
+  <Link href="/components">Browse components</Link>
+</Button>
+
+// or a plain anchor
+<Button asChild variant="secondary">
+  <a href="https://github.com/DibbayajyotiRoy/RoyUI">GitHub</a>
+</Button>`}
+        >
+          <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 12 }}>
+            <Button asChild>
+              <a href="/components">Browse components</a>
+            </Button>
+            <Button asChild variant="secondary">
+              <a href="https://github.com/DibbayajyotiRoy/RoyUI" target="_blank" rel="noreferrer">
+                GitHub
+              </a>
+            </Button>
+          </div>
+        </Example>
+
+        <article className="example">
+          <header className="example__head">
+            <h3 className="example__title">Any color</h3>
+            <p className="example__desc">
+              Pass one color and the whole depth treatment derives from it — a
+              lighter top and darker base, a ring that adapts to the tone, and a
+              label color chosen for contrast. Click a swatch or open the picker,
+              then copy the config straight into your project.
+            </p>
+          </header>
+          <ButtonColorPlayground />
+        </article>
 
         <Example
           title="Loading state"
@@ -175,6 +235,24 @@ function PropsTable() {
       type: `'sm' | 'md' | 'lg'`,
       def: `'md'`,
       desc: 'Visual scale. Radius scales with the box.',
+    },
+    {
+      name: 'variant',
+      type: `'primary' | 'secondary' | 'ghost'`,
+      def: `'primary'`,
+      desc: 'Visual weight. Solid depth button, quieter raised chip, or flat-until-hover.',
+    },
+    {
+      name: 'asChild',
+      type: 'boolean',
+      def: 'false',
+      desc: 'Render the single child element (e.g. a link) with the button styles merged onto it.',
+    },
+    {
+      name: 'color',
+      type: 'string',
+      def: 'near-black',
+      desc: 'Base color (hex or rgb). Gradient, ring, label, and press all derive from it.',
     },
     {
       name: 'fullWidth',

@@ -3,6 +3,7 @@ import { Link } from '../components/Link';
 import { InstallTabs } from '../components/InstallTabs';
 import { ShowcaseCard } from '../components/ShowcaseCard';
 import { NavGradientButton } from '../components/NavGradientButton';
+import { NavButton } from '../components/NavButton';
 import { ScrollReveal } from '../components/ScrollReveal';
 import { HeroTitleMorph } from '../components/HeroTitleMorph';
 import { FeaturedTextMorph } from '../components/featured/FeaturedTextMorph';
@@ -202,12 +203,12 @@ function CtaStrip() {
           build step beyond what your framework already does.
         </p>
         <div className="cta-card__ctas">
-          <Link href="/components/gradient-button" className="btn btn-primary">
+          <NavButton href="/components/gradient-button" size="lg">
             Read the docs
-          </Link>
-          <Link href="/components" className="btn btn-ghost">
+          </NavButton>
+          <NavButton href="/components" size="lg">
             Browse all components
-          </Link>
+          </NavButton>
         </div>
       </div>
     </section>

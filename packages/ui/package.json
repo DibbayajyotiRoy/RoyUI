@@ -161,7 +161,56 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
-    }
+    },
+    "./button": {
+      "types": "./dist/components/button/index.d.ts",
+      "import": "./dist/components/button/index.js"
+    },
+    "./gradient-button": {
+      "types": "./dist/components/gradient-button/index.d.ts",
+      "import": "./dist/components/gradient-button/index.js"
+    },
+    "./popover": {
+      "types": "./dist/components/popover/index.d.ts",
+      "import": "./dist/components/popover/index.js"
+    },
+    "./made-by": {
+      "types": "./dist/components/made-by/index.d.ts",
+      "import": "./dist/components/made-by/index.js"
+    },
+    "./text-morph": {
+      "types": "./dist/components/text-morph/index.d.ts",
+      "import": "./dist/components/text-morph/index.js"
+    },
+    "./tree-nav": {
+      "types": "./dist/components/tree-nav/index.d.ts",
+      "import": "./dist/components/tree-nav/index.js"
+    },
+    "./table": {
+      "types": "./dist/components/table/index.d.ts",
+      "import": "./dist/components/table/index.js"
+    },
+    "./table-search": {
+      "types": "./dist/components/table-search/index.d.ts",
+      "import": "./dist/components/table-search/index.js"
+    },
+    "./pagination": {
+      "types": "./dist/components/pagination/index.d.ts",
+      "import": "./dist/components/pagination/index.js"
+    },
+    "./date-range-picker": {
+      "types": "./dist/components/date-range-picker/index.d.ts",
+      "import": "./dist/components/date-range-picker/index.js"
+    },
+    "./time-picker": {
+      "types": "./dist/components/time-picker/index.d.ts",
+      "import": "./dist/components/time-picker/index.js"
+    },
+    "./data-table": {
+      "types": "./dist/components/data-table/index.d.ts",
+      "import": "./dist/components/data-table/index.js"
+    },
+    "./package.json": "./package.json"
   },
   "scripts": {
     "build": "tsup",
