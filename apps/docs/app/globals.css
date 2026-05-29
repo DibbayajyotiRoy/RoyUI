@@ -1845,16 +1845,16 @@ h1, h2, h3, h4, h5, h6,
 
 @view-transition { navigation: auto; }
 
-/* Slightly longer durations + the gentler ease-calm curve give navigation
-   that "settles into place" feel instead of snapping. Shared elements take
-   a touch longer than the root cross-fade so eye-tracking stays connected. */
+/* Prefetched route content commits ~150ms after a click, so the cross-fade is
+   tuned to land in that window — snappy enough to feel instant, smooth enough
+   to avoid a hard snap. Shared elements stay a hair longer for eye-tracking. */
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation-duration: 360ms;
+  animation-duration: 180ms;
   animation-timing-function: var(--ease-calm);
 }
 ::view-transition-group(*) {
-  animation-duration: 480ms;
+  animation-duration: 220ms;
   animation-timing-function: var(--ease-calm);
 }
 ::view-transition-old(root) {
@@ -2101,4 +2101,242 @@ html.js .hero__frameworks {
   .dt-hero-tips__sep {
     display: none;
   }
+}
+
+/* ============================================================
+   RESPONSIVE LAYER — mobile & tablet (appended; later source wins)
+   ============================================================ */
+
+/* ── Tablet landscape / portrait ─────────────────────────── */
+@media (max-width: 1024px) {
+  .header__inner { padding: 0 20px; gap: 20px; }
+
+  .hero { padding: 64px 24px 72px; }
+
+  .section { padding: 80px 20px 0; }
+  .values-grid { gap: 2px; }
+
+  /* Featured cards normally let the open popover panel escape "dramatically"
+     (overflow: visible). At <=1024 that escape becomes page-level horizontal
+     scroll, so clip it to the tile here — the preview still reads as open. */
+  .showcase { overflow: hidden; }
+
+  .catalog { padding: 48px 20px 80px; }
+  .cards-grid { gap: 12px; }
+  .card__body { padding: 14px 16px 16px; }
+  .input-search { flex: 1 1 auto; min-width: auto; }
+
+  .detail { padding: 28px 20px 60px; }
+  .detail__preview { padding: 40px 20px; margin: 28px 0 40px; }
+  .detail__nav { gap: 10px; margin-top: 48px; padding-top: 24px; }
+  .doc-section + .doc-section { margin-top: 40px; }
+  .example__preview { padding: 32px 20px; min-height: 140px; }
+
+  .code-card__body { font-size: 12.5px; }
+  .tabs__list { padding: 0 12px; }
+}
+
+/* ── Tablet portrait / large phone ───────────────────────── */
+@media (max-width: 768px) {
+  /* Header — collapse search launcher to an icon-only button */
+  .header__inner { padding: 0 16px; gap: 16px; }
+  .kbd-launcher { width: 40px; padding: 6px 8px; justify-content: center; }
+  .kbd-launcher__label { display: none; }
+  .kbd { display: none; }
+
+  /* Hero */
+  .hero { padding: 56px 16px 64px; }
+  .hero__lede { font-size: 16px; }
+  .framework-marquee { max-width: 480px; }
+  .hero__frameworks-label { font-size: 10px; }
+
+  /* Home sections / grids */
+  .section { padding: 64px 16px 0; }
+  .section__head { grid-template-columns: 1fr; gap: 16px; }
+  .section--bordered { padding-top: 64px; }
+  .showcase-grid { gap: 16px; }
+  .showcase__stage { height: 220px; padding: 28px; }
+  .value { padding: 24px 20px; }
+  .cta-strip { padding: 0 16px; }
+  .cta-card { padding: 48px 40px; }
+  .footer__inner { padding: 48px 16px 20px; gap: 36px; }
+
+  /* Catalog */
+  .catalog { padding: 40px 16px 72px; }
+  .catalog-toolbar { flex-direction: column; gap: 12px; }
+  .input-search { width: 100%; flex: 1; }
+  .input-search__input { font-size: 16px; }
+  .chip-row { overflow-x: auto; -webkit-overflow-scrolling: touch; gap: 8px; }
+  .card__preview { height: 140px; }
+
+  /* Detail page */
+  .detail { padding: 24px 16px 48px; }
+  .breadcrumb { flex-wrap: wrap; gap: 6px; }
+  .detail__title { font-size: clamp(28px, 6vw, 48px); }
+  .detail__preview { padding: 28px 16px; margin: 20px 0 32px; }
+  .detail__nav { grid-template-columns: 1fr; gap: 8px; margin-top: 40px; padding-top: 20px; }
+  .detail__nav-link { padding: 12px 16px; }
+  .doc-section + .doc-section { margin-top: 32px; }
+  .doc-section__title { font-size: 22px; }
+
+  /* Code blocks, tabs & install */
+  .code-card__body { font-size: 12px; padding: 12px 14px; }
+  .install-cmd { font-size: 12px; padding: 12px 14px; }
+  .tabs__trigger { padding: 12px 14px; font-size: 12px; }
+  .install-tabs { flex-wrap: wrap; }
+  .install-tab { padding: 10px 11px; font-size: 11.5px; }
+  .code-card__copy { width: 32px; height: 32px; }
+
+  /* Examples (single source — last value wins) */
+  .example__preview { padding: 24px 16px; min-height: 120px; }
+
+  /* Props table — contain in horizontal scroll */
+  .props { font-size: 12.5px; display: block; overflow-x: auto; }
+  .props th, .props td { padding: 10px 12px; white-space: nowrap; }
+
+  /* Limit list */
+  .limit-list li { padding: 12px 14px; font-size: 12.5px; }
+
+  /* Command palette */
+  [cmdk-root] { width: 100%; max-width: calc(100vw - 16px); }
+  [cmdk-input] { font-size: 16px; padding: 18px 20px; }
+  [cmdk-item] { padding: 12px 12px; min-height: 44px; }
+}
+
+/* ── Phones ──────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  /* Header */
+  .header__inner { padding: 0 12px; gap: 12px; }
+  .brand__name { font-size: 13px; }
+
+  /* Hero */
+  .hero { padding: 48px 16px 56px; }
+  .hero__title { letter-spacing: -0.035em; }
+  .hero__lede { font-size: 15px; }
+  .hero__ctas { flex-direction: column; gap: 8px; }
+  .btn { width: 100%; justify-content: center; }
+  .install-row { width: 100%; display: flex; }
+  .install-row__cmd-stage { flex: 1; min-width: auto; overflow-x: auto; }
+  .framework-marquee { max-width: 100%; }
+  .framework-marquee__set { gap: 28px; padding-right: 28px; }
+  .hero__frameworks-label { font-size: 10px; margin-bottom: 12px; }
+  .framework-chip { font-size: 12.5px; }
+
+  /* Home sections / grids */
+  .section { padding: 56px 16px 0; }
+  .showcase-grid { gap: 12px; }
+  .showcase__stage { height: 200px; padding: 24px; }
+  .showcase__meta { padding: 16px 18px 18px; }
+  .value { padding: 20px 18px; }
+  .value__icon { width: 28px; height: 28px; margin-bottom: 14px; }
+  .value__title { font-size: 14px; }
+  .value__desc { font-size: 13px; }
+  .cta-strip { padding: 0 16px; }
+  .cta-card { padding: 40px 28px; }
+  .cta-card__title { margin-bottom: 10px; }
+  .cta-card__lede { font-size: 14px; margin-bottom: 20px; }
+  .cta-card__ctas { gap: 8px; }
+  .footer__inner { grid-template-columns: 1fr; padding: 40px 16px 16px; gap: 28px; }
+  .footer__bar {
+    padding: 16px 16px;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .footer__tag { max-width: none; }
+
+  /* Catalog */
+  .catalog { padding: 32px 12px 64px; }
+  .catalog__title { font-size: clamp(28px, 5vw, 36px); }
+  .card__preview { height: 120px; }
+  .card__body { padding: 12px 14px 14px; }
+  .card__title { font-size: 14px; }
+  .card__tagline { font-size: 12.5px; }
+  .catalog-meta { font-size: 10px; margin: 14px 0; }
+
+  /* Detail page */
+  .detail { padding: 20px 14px 40px; }
+  .breadcrumb { font-size: 11.5px; gap: 4px; }
+  .detail__preview { padding: 20px 12px; margin: 16px 0 24px; }
+  .detail__nav { margin-top: 32px; padding-top: 16px; }
+  .doc-section + .doc-section { margin-top: 24px; }
+
+  /* Code blocks, tabs & install (single source — last value wins) */
+  .code-card__body { font-size: 11px; padding: 10px 12px; }
+  .install-cmd { font-size: 11.5px; padding: 10px 12px; }
+  .tabs__trigger { padding: 11px 12px; font-size: 12px; }
+  .install-tab { padding: 9px 9px; font-size: 11px; }
+  .code-card__head { padding: 6px 10px 6px 12px; flex-wrap: wrap; }
+  .code-card__copy { width: 34px; height: 34px; }
+
+  /* Examples (single source — last value wins) */
+  .example__preview { padding: 20px 12px; min-height: 120px; }
+
+  /* Props table */
+  .props { font-size: 11.5px; }
+  .props th { padding: 8px 10px; font-size: 9.5px; }
+  .props td { padding: 10px 10px; font-size: 11px; }
+
+  /* Limit list */
+  .limit-list li { padding: 10px 12px; font-size: 12px; }
+
+  /* Command palette */
+  .cmd-item__cat { flex-shrink: 0; font-size: 9px; margin-left: 8px; }
+
+  /* Safety: keep wide media/code from forcing page-level horizontal scroll. */
+  img, video, canvas, svg, iframe { max-width: 100%; }
+  pre, table { max-width: 100%; }
+}
+
+/* ── Small phones (iPhone SE, 320–400px) ─────────────────── */
+@media (max-width: 400px) {
+  /* Header */
+  .header__inner { padding: 0 8px; gap: 8px; }
+  .header__nav-link { padding: 6px 10px; font-size: 12.5px; }
+  .kbd-launcher, .icon-btn { min-width: 40px; min-height: 40px; }
+
+  /* Hero */
+  .hero { padding: 40px 12px 48px; }
+  .hero__title { letter-spacing: -0.028em; }
+  .framework-marquee { max-width: 100%; }
+
+  /* Home sections / grids */
+  .section { padding: 48px 12px 0; }
+  .value { padding: 18px 16px; }
+  .cta-card { padding: 32px 20px; }
+  .cta-card__ctas { flex-direction: column; gap: 10px; }
+  .footer__inner { padding: 32px 12px 12px; gap: 20px; }
+  .footer__bar { padding: 12px; font-size: 11px; }
+
+  /* Catalog */
+  .catalog { padding: 28px 12px 56px; }
+  .catalog__title { font-size: clamp(24px, 6vw, 32px); margin-bottom: 10px; }
+  .catalog__lede { font-size: 14px; line-height: 1.5; }
+  .card__preview { height: 100px; padding: 14px; }
+  .card__body { padding: 10px 12px 12px; }
+  .card__title { font-size: 13px; margin-bottom: 2px; }
+  .chip { padding: 5px 10px; font-size: 11px; }
+
+  /* Detail page */
+  .detail { padding: 16px 12px 32px; }
+  .detail__title { font-size: clamp(24px, 7vw, 44px); margin-bottom: 10px; }
+  .detail__preview { padding: 16px 10px; margin: 12px 0 16px; border-radius: 10px; }
+  .detail__nav-link { padding: 10px 12px; font-size: 13px; }
+  .detail__nav-label { font-size: 9px; }
+  .doc-section + .doc-section { margin-top: 16px; }
+  .doc-section__title { font-size: 18px; }
+  .breadcrumb { font-size: 10.5px; gap: 3px; margin-bottom: 12px; }
+
+  /* Code blocks, tabs & install */
+  .code-card__body { font-size: 11px; padding: 8px 10px; line-height: 1.6; }
+  .install-cmd { font-size: 11px; padding: 8px 10px; line-height: 1.6; }
+  .tabs__trigger { padding: 10px 10px; font-size: 11.5px; }
+  .install-tab { padding: 8px 8px; font-size: 10.5px; }
+  .code-card__head { padding: 5px 8px 5px 10px; gap: 6px; }
+  .code-card__copy { width: 30px; height: 30px; }
+  .code-card__lang { font-size: 10px; }
+
+  /* Examples (single source — last value wins) */
+  .example__preview { padding: 16px 10px; min-height: 80px; }
 }

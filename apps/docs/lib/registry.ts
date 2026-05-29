@@ -26,6 +26,17 @@ export const components: ComponentEntry[] = [
     importStatement: `import { GradientButton } from '@roy-ui/ui';`,
   },
   {
+    slug: 'button',
+    name: 'Button',
+    tagline: 'Solid button with depth you feel more than see.',
+    description:
+      'A foundational button that looks flat but is not — a vertical gradient catches light on the top edge, a hairline ring keeps it crisp on any background, and twin inner shadows give it form. Press it and the highlight collapses into the face, so it dips in like a real key. Three sizes, full-width, and a built-in loading spinner. Forwards refs and spreads every native button attribute.',
+    category: 'Inputs',
+    tags: ['button', 'cta', 'form', 'depth'],
+    status: 'available',
+    importStatement: `import { Button } from '@roy-ui/ui';`,
+  },
+  {
     slug: 'popover',
     name: 'Popover',
     tagline: 'Click-toggled info panel with animated tail and dismiss handling.',

@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
@@ -23,6 +23,15 @@ const SITE_NAME = 'Roy UI';
 const SITE_TAGLINE = 'Animated components for React';
 const SITE_DESCRIPTION =
   'Animated React components for Next.js, Vite, and Remix. TypeScript. Tree-shakable. Under 12 KB.';
+
+// Explicit so phones render at device width (not a zoomed-out desktop canvas).
+// viewportFit: 'cover' lets the layout extend under notches/home indicators.
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+  themeColor: '#050507',
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

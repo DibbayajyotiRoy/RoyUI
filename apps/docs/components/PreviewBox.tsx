@@ -2,6 +2,7 @@
 
 import { useEffect, useState, type CSSProperties } from 'react';
 import {
+  Button,
   GradientButton,
   MadeBy,
   Popover,
@@ -36,6 +37,8 @@ export function PreviewBox({
 
 function renderLivePreview(entry: ComponentEntry, compact: boolean) {
   switch (entry.slug) {
+    case 'button':
+      return <Button size={compact ? 'md' : 'lg'}>Post</Button>;
     case 'gradient-button':
       return (
         <div style={{ width: compact ? 200 : 280 }}>

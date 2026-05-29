@@ -26,7 +26,7 @@ export function ShowcaseCard({
     }
   };
 
-  const onStageDoubleClick = (e: MouseEvent<HTMLDivElement>) => {
+  const onStageClick = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     navigate();
   };
@@ -35,11 +35,22 @@ export function ShowcaseCard({
     <article className="showcase">
       <div
         className="showcase__stage"
-        style={{ viewTransitionName: `preview-${entry.slug}` }}
-        onDoubleClick={onStageDoubleClick}
-        title="Double-click to open docs"
+        style={{ viewTransitionName: `preview-${entry.slug}`, cursor: 'pointer' }}
+        onClick={onStageClick}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            navigate();
+          }
+        }}
+        role="link"
+        tabIndex={0}
+        aria-label={`Open ${entry.name} documentation`}
+        title={`Open ${entry.name} docs`}
       >
-        {children}
+        {/* The live demo is a non-interactive preview here — a single click
+            anywhere on the card opens the docs (same as the catalog cards). */}
+        <div style={{ pointerEvents: 'none', display: 'contents' }}>{children}</div>
       </div>
       <div className="showcase__meta">
         <div className="showcase__head">
