@@ -11,7 +11,7 @@
     "start": "next start -p 3050"
   },
   "dependencies": {
-    "@roy-ui/ui": "^0.0.7",
+    "@roy-ui/ui": "^0.0.8",
     "@vercel/analytics": "^2.0.1",
     "cmdk": "^1.1.1",
     "geist": "^1.7.1",
