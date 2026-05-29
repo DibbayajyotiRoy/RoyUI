@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { components, getComponent } from '../../../lib/registry';
 import { Link } from '../../../components/Link';
 import { PreviewBox } from '../../../components/PreviewBox';
+import { ButtonDocs } from '../../../components/ButtonDocs';
 import { GradientButtonDocs } from '../../../components/GradientButtonDocs';
 import { PopoverDocs } from '../../../components/PopoverDocs';
 import { MadeByDocs } from '../../../components/MadeByDocs';
@@ -36,6 +37,15 @@ const baseKeywords = [
 ];
 
 const slugKeywords: Record<string, string[]> = {
+  button: [
+    'React button component',
+    'tactile button React',
+    'button with depth React',
+    'skeuomorphic button React',
+    'React button with spinner',
+    'loading button React',
+    'accessible button React',
+  ],
   'gradient-button': [
     'React gradient button',
     'animated gradient button',
@@ -120,6 +130,7 @@ export async function generateMetadata({
 }
 
 const docsBySlug: Record<string, () => React.ReactNode> = {
+  button: () => <ButtonDocs />,
   'gradient-button': () => <GradientButtonDocs />,
   popover: () => <PopoverDocs />,
   'made-by': () => <MadeByDocs />,
@@ -129,6 +140,12 @@ const docsBySlug: Record<string, () => React.ReactNode> = {
 };
 
 const tocBySlug: Record<string, TocItem[]> = {
+  button: [
+    { id: 'installation', label: 'Installation' },
+    { id: 'usage', label: 'Usage' },
+    { id: 'theming', label: 'Theming' },
+    { id: 'props', label: 'Props' },
+  ],
   'gradient-button': [
     { id: 'installation', label: 'Installation' },
     { id: 'usage', label: 'Usage' },
