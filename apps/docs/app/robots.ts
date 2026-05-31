@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 
-const SITE_URL = 'https://royui.dev';
+const SITE_URL = 'https://roy-ui-docs.vercel.app';
 
 export default function robots(): MetadataRoute.Robots {
   return {

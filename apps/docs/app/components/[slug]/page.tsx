@@ -17,7 +17,7 @@ export function generateStaticParams() {
   return components.map((c) => ({ slug: c.slug }));
 }
 
-const SITE_URL = 'https://royui.dev';
+const SITE_URL = 'https://roy-ui-docs.vercel.app';
 
 const baseKeywords = [
   'React component library',

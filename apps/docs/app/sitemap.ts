@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { components } from '../lib/registry';
 
-const SITE_URL = 'https://royui.dev';
+const SITE_URL = 'https://roy-ui-docs.vercel.app';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();

@@ -12,9 +12,9 @@
 [![types](https://img.shields.io/npm/types/@roy-ui/ui?color=3178C6&logo=typescript&logoColor=white)](https://www.npmjs.com/package/@roy-ui/ui)
 [![license](https://img.shields.io/github/license/DibbayajyotiRoy/RoyUI?color=22c55e)](./LICENSE)
 [![release](https://github.com/DibbayajyotiRoy/RoyUI/actions/workflows/release.yml/badge.svg)](https://github.com/DibbayajyotiRoy/RoyUI/actions/workflows/release.yml)
-[![live docs](https://img.shields.io/badge/docs-royui.dev-4ec6ff?logo=vercel&logoColor=white)](https://royui.dev)
+[![live docs](https://img.shields.io/badge/docs-roy--ui--docs.vercel.app-4ec6ff?logo=vercel&logoColor=white)](https://roy-ui-docs.vercel.app)
 
-### **[Open the live documentation site →](https://royui.dev)**
+### **[Open the live documentation site →](https://roy-ui-docs.vercel.app)**
 
 <br />
 
@@ -35,7 +35,7 @@
 
 Every component is **written in TypeScript**, shipped as **tree-shakable ESM**, and **fully compatible with React Server Components (RSC), Next.js 15 App Router, Vite, Remix, Astro, TanStack Start**, and any modern React 18+ runtime. One `npm install`. One import. Production-ready.
 
-Try every component live with copyable code: **[royui.dev](https://royui.dev)** — including the [full DataTable demo](https://royui.dev/components/data-table) on 60 rows of synthetic order data.
+Try every component live with copyable code: **[roy-ui-docs.vercel.app](https://roy-ui-docs.vercel.app)** — including the [full DataTable demo](https://roy-ui-docs.vercel.app/components/data-table) on 60 rows of synthetic order data.
 
 ## Key features
 

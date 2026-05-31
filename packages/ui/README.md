@@ -9,7 +9,7 @@
 [![types](https://img.shields.io/npm/types/@roy-ui/ui?color=3178C6&logo=typescript&logoColor=white)](https://www.npmjs.com/package/@roy-ui/ui)
 [![license](https://img.shields.io/npm/l/@roy-ui/ui?color=22c55e)](https://github.com/DibbayajyotiRoy/RoyUI/blob/main/LICENSE)
 
-**[Open the live documentation →](https://royui.dev/components/data-table)**
+**[Open the live documentation →](https://roy-ui-docs.vercel.app/components/data-table)**
 
 <a href="https://github.com/DibbayajyotiRoy/RoyUI/blob/main/apps/docs/lib/demo/linkedin2.mp4">
   <img
@@ -114,7 +114,7 @@ export default function OrdersTable({ orders }: { orders: Order[] }) {
 
 | Component | What it does |
 | --- | --- |
-| **[`DataTable<T>`](https://royui.dev/components/data-table)** | Generic, fully-featured **React data table**. Search across columns, sort, paginate, **drag headers to reorder**, **drag the right edge to resize**, **Columns menu** to hide & restore, **CSV / JSON export & import**, **per-zone typography** for headers / row-headers / cells, optional `fitColumns` to disable horizontal scroll, optional `localStorage` persistence. |
+| **[`DataTable<T>`](https://roy-ui-docs.vercel.app/components/data-table)** | Generic, fully-featured **React data table**. Search across columns, sort, paginate, **drag headers to reorder**, **drag the right edge to resize**, **Columns menu** to hide & restore, **CSV / JSON export & import**, **per-zone typography** for headers / row-headers / cells, optional `fitColumns` to disable horizontal scroll, optional `localStorage` persistence. |
 | **`Table`** + parts | Standalone primitive — `Table`, `TableHeader`, `TableBody`, `TableRow`, `TableHead`, `TableCell`. Scrollable rows (`visibleRows`, default 7), sticky header, density scale (compact / cozy / comfortable), inline `Spinner`. |
 | **`TableSearch`** | Debounced search input, clear button, controlled & uncontrolled modes. |
 | **`Pagination`** | Numbered pages with text Prev / Next, ellipsis, optional `Page X of Y` summary. |
@@ -325,7 +325,7 @@ Yes. `dataIO.export.enabled` adds an Export button; `dataIO.import.enabled` adds
 
 ## Links
 
-- **Live documentation:** <https://royui.dev>
+- **Live documentation:** <https://roy-ui-docs.vercel.app>
 - **Source code:** <https://github.com/DibbayajyotiRoy/RoyUI>
 - **Issues:** <https://github.com/DibbayajyotiRoy/RoyUI/issues>
 - **Releases:** <https://github.com/DibbayajyotiRoy/RoyUI/releases>

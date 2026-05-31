@@ -18,7 +18,7 @@ const articulatCF = localFont({
   style: 'normal',
 });
 
-const SITE_URL = 'https://royui.dev';
+const SITE_URL = 'https://roy-ui-docs.vercel.app';
 const SITE_NAME = 'Roy UI';
 const SITE_TAGLINE = 'Animated components for React';
 const SITE_DESCRIPTION =

@@ -38,7 +38,7 @@ export function Footer() {
           <ul className="footer__list">
             <li><a href="https://twitter.com" target="_blank" rel="noreferrer">Twitter / X</a></li>
             <li><a href="https://discord.com" target="_blank" rel="noreferrer">Discord</a></li>
-            <li><a href="mailto:hi@royui.dev">Contact</a></li>
+            <li><a href="mailto:dibbayajyoti@gmail.com">Contact</a></li>
           </ul>
         </div>
       </div>
