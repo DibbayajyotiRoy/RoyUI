@@ -1,0 +1,270 @@
+.royui-card {
+  /* Surfaces and ink — every one is a variable. The default is a premium
+     off-white (not pure white), which reads warmer and reads on a white page.
+     Opt into dark with theme="dark" (.royui-card--dark) or theme="auto". */
+  --royui-card-bg: #fafaf8;
+  --royui-card-fg: #1a1a1c;
+  --royui-card-muted: rgba(0, 0, 0, 0.52);
+  --royui-card-faint: rgba(0, 0, 0, 0.42);
+  --royui-card-line: rgba(0, 0, 0, 0.08);
+  --royui-card-radius: 24px;
+  /* A thin frame around the photo. Inner radius = radius − pad keeps the
+     corners concentric (24 − 8 = 16, the gallery's own radius). */
+  --royui-card-pad: 8px;
+  --royui-card-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  /* The price reads as premium when it's large and light, not bold. */
+  --royui-card-price-weight: 500;
+  /* Selection stays legible on the surface — a soft tint, not the browser blue. */
+  --royui-card-selection-bg: rgba(20, 20, 22, 0.12);
+  --royui-card-selection-fg: #1a1a1c;
+
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 360px;
+  /* The card is its own query container, so type scales to the card's width
+     (cqi units below) rather than the viewport — it fits in a sidebar, a
+     grid cell, or full-bleed without a media query. */
+  container-type: inline-size;
+  padding: var(--royui-card-pad);
+  background: var(--royui-card-bg);
+  color: var(--royui-card-fg);
+  border-radius: var(--royui-card-radius);
+  font-family: inherit;
+  /* A ring, a contact shadow, and a soft cast — the card rests, it doesn't
+     float. The ring is firm enough to hold the edge on a white background. */
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.07),
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 14px 34px -16px rgba(0, 0, 0, 0.22);
+  transition:
+    transform 300ms var(--royui-card-ease),
+    box-shadow 300ms var(--royui-card-ease);
+}
+
+.royui-card--interactive:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.05),
+    0 2px 4px rgba(0, 0, 0, 0.05),
+    0 22px 48px -18px rgba(0, 0, 0, 0.28);
+}
+/* The photo eases in a hair as the whole card lifts — barely there. */
+.royui-card--interactive:hover .royui-carousel__img {
+  transform: scale(1.045);
+}
+
+/* Force a legible selection — the browser default can wash text out on the
+   off-white surface. */
+.royui-card ::selection {
+  background: var(--royui-card-selection-bg);
+  color: var(--royui-card-selection-fg);
+}
+
+/* ── Badge ───────────────────────────────────────────────────────────── */
+.royui-card__badge {
+  position: absolute;
+  top: 11px;
+  left: 11px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 9px 4px 7px;
+  background: rgba(255, 255, 255, 0.9);
+  -webkit-backdrop-filter: blur(10px) saturate(1.2);
+  backdrop-filter: blur(10px) saturate(1.2);
+  border-radius: 99px;
+  color: #1a1a1c;
+  font-size: 12px;
+  font-size: clamp(11px, 3.7cqi, 12px);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1;
+  box-shadow:
+    0 0 0 0.5px rgba(0, 0, 0, 0.04),
+    0 1px 2px rgba(0, 0, 0, 0.1),
+    0 3px 10px -3px rgba(0, 0, 0, 0.22);
+}
+.royui-card__badge-icon {
+  display: inline-flex;
+  color: #f5b400;
+}
+
+/* ── Body ────────────────────────────────────────────────────────────── */
+/* Horizontal padding insets the text a touch past the photo edge; the photo
+   and button sit at the card padding so they share one clean vertical line. */
+.royui-card__body {
+  padding: 14px 6px 2px;
+}
+
+.royui-card__price-row {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  min-width: 0;
+}
+.royui-card__price {
+  font-size: 23px;
+  font-size: clamp(18px, 7.2cqi, 23px);
+  font-weight: var(--royui-card-price-weight);
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+.royui-card__price-label {
+  font-size: 14px;
+  font-size: clamp(12px, 4.4cqi, 14px);
+  font-weight: 450;
+  color: var(--royui-card-muted);
+}
+
+.royui-card__subtitle {
+  margin: 6px 0 0;
+  font-size: 14px;
+  font-size: clamp(12.5px, 4.4cqi, 14px);
+  line-height: 1.4;
+  color: var(--royui-card-muted);
+}
+
+.royui-card__divider {
+  height: 1px;
+  margin: 14px 0;
+  background: var(--royui-card-line);
+}
+
+/* Stats stay on one row and sit flush to both content edges, so the left and
+   right margins from the card border match. The hairline divider rides the
+   middle. */
+.royui-card__stats {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  gap: clamp(8px, 3.2cqi, 10px);
+  font-size: 14px;
+  font-size: clamp(12px, 4.4cqi, 14px);
+  color: var(--royui-card-fg);
+}
+.royui-card__stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: none;
+  white-space: nowrap;
+}
+.royui-card__stat-sep {
+  flex: none;
+  width: 1px;
+  height: 15px;
+  background: var(--royui-card-line);
+}
+.royui-card__stat-icon {
+  display: inline-flex;
+  flex: none;
+  color: var(--royui-card-faint);
+}
+/* The figure carries weight; the descriptor is dimmed, like the reference. */
+.royui-card__stat-value {
+  color: var(--royui-card-fg);
+}
+.royui-card__stat-label {
+  color: var(--royui-card-muted);
+}
+
+.royui-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  margin-top: 14px;
+  font-size: 14px;
+  font-size: clamp(12px, 4.4cqi, 14px);
+}
+.royui-card__author {
+  color: var(--royui-card-muted);
+  min-width: 0;
+}
+.royui-card__author-link {
+  color: var(--royui-card-fg);
+  font-weight: 550;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--royui-card-line);
+  transition: text-decoration-color 180ms var(--royui-card-ease);
+}
+a.royui-card__author-link:hover {
+  text-decoration-color: currentColor;
+}
+.royui-card__meta {
+  color: var(--royui-card-faint);
+  white-space: nowrap;
+}
+
+.royui-card__action {
+  margin-top: 16px;
+}
+
+/* ── Dark theme ──────────────────────────────────────────────────────────
+   Opt in with theme="dark" (.royui-card--dark). theme="auto" (.royui-card--auto)
+   applies the same tokens only when the OS asks for dark — so the default light
+   card is never silently swapped out from under a dark page. */
+.royui-card--dark {
+  --royui-card-bg: #161617;
+  --royui-card-fg: #f5f5f7;
+  --royui-card-muted: rgba(255, 255, 255, 0.55);
+  --royui-card-faint: rgba(255, 255, 255, 0.4);
+  --royui-card-line: rgba(255, 255, 255, 0.1);
+  --royui-card-selection-bg: rgba(245, 245, 247, 0.2);
+  --royui-card-selection-fg: #f5f5f7;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    0 14px 34px -16px rgba(0, 0, 0, 0.6);
+}
+.royui-card--dark.royui-card--interactive:hover {
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.12),
+    0 22px 48px -18px rgba(0, 0, 0, 0.7);
+}
+.royui-card--dark .royui-card__badge {
+  background: rgba(28, 28, 30, 0.82);
+  color: #f5f5f7;
+}
+
+@media (prefers-color-scheme: dark) {
+  .royui-card--auto {
+    --royui-card-bg: #161617;
+    --royui-card-fg: #f5f5f7;
+    --royui-card-muted: rgba(255, 255, 255, 0.55);
+    --royui-card-faint: rgba(255, 255, 255, 0.4);
+    --royui-card-line: rgba(255, 255, 255, 0.1);
+    --royui-card-selection-bg: rgba(245, 245, 247, 0.2);
+    --royui-card-selection-fg: #f5f5f7;
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.1),
+      0 14px 34px -16px rgba(0, 0, 0, 0.6);
+  }
+  .royui-card--auto.royui-card--interactive:hover {
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.12),
+      0 22px 48px -18px rgba(0, 0, 0, 0.7);
+  }
+  .royui-card--auto .royui-card__badge {
+    background: rgba(28, 28, 30, 0.82);
+    color: #f5f5f7;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .royui-card,
+  .royui-card--interactive:hover {
+    transition: none;
+    transform: none;
+  }
+  .royui-card--interactive:hover .royui-carousel__img {
+    transform: none;
+  }
+}

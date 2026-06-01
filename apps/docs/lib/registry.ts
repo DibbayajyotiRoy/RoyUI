@@ -106,11 +106,13 @@ export const components: ComponentEntry[] = [
   {
     slug: 'card',
     name: 'Card',
-    tagline: 'Composable container with header, body, and footer slots.',
-    description: 'Coming soon.',
+    tagline: 'Listing card with a swipeable, dot-paginated gallery.',
+    description:
+      'A listing card: a gallery up top that you swipe or drag through, with pagination dots that stretch into a pill on the active slide and a long, eased slide between photos. Below it, a price line, address, hairline-divided stats, attribution footer, and a full-width action built on the Button. The gallery ships as a standalone ImageCarousel primitive too. Every surface is a CSS variable, dark theme included.',
     category: 'Display',
-    tags: ['container', 'layout'],
-    status: 'coming-soon',
+    tags: ['card', 'gallery', 'carousel', 'listing', 'swipe', 'container'],
+    status: 'available',
+    importStatement: `import { Card } from '@roy-ui/ui';`,
   },
   {
     slug: 'dialog',

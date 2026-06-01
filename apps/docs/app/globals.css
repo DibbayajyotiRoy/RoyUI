@@ -994,6 +994,135 @@ h1, h2, h3, h4, h5, h6,
 }
 .popover-thumb__panel-body { font-size: 11px; line-height: 1.45; }
 
+/* Static thumb for the PropertyCard catalog card (real card is interactive,
+   and catalog cards are links — no nested buttons/anchors allowed). */
+/* A faithful miniature of the real <Card> — same warm off-white surface,
+   ring + contact shadow, glass badge with a gold star, light tabular price,
+   and a depth action button. Rendered at a comfortable natural size, then
+   `zoom`-fit to the preview frame so it never clips (zoom shrinks the layout
+   box, unlike transform, so overflow:hidden and flex-centering both behave).
+   The zoom is re-tuned per breakpoint alongside .card__preview height. */
+.card-thumb {
+  zoom: 0.82;
+  width: 212px;
+  padding: 8px;
+  background: #fafaf8;
+  border-radius: 18px;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.07),
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 18px 34px -18px rgba(0, 0, 0, 0.5);
+  color: #1a1a1c;
+  font-family: inherit;
+  line-height: 1.2;
+}
+.card-thumb__media {
+  position: relative;
+  height: 78px;
+  border-radius: 11px;
+  background:
+    radial-gradient(120% 90% at 22% -10%, rgba(255, 255, 255, 0.45), transparent 55%),
+    linear-gradient(158deg, #b9c8cb 0%, #8ba593 44%, #5e7359 72%, #3f4d39 100%);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+/* A slow diagonal sheen so the photo reads as glass, not a flat fill. */
+.card-thumb__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    104deg,
+    transparent 42%,
+    rgba(255, 255, 255, 0.16) 50%,
+    transparent 58%
+  );
+}
+.card-thumb__badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px 4px 7px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.9);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  color: #1a1a1c;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.12),
+    0 4px 10px -4px rgba(0, 0, 0, 0.25);
+}
+.card-thumb__star {
+  color: #f5b400;
+  font-size: 9px;
+  line-height: 1;
+}
+.card-thumb__dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 8px;
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+}
+.card-thumb__dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.55);
+}
+.card-thumb__dot--on {
+  width: 13px;
+  background: #fff;
+}
+.card-thumb__body { padding: 11px 7px 1px; }
+.card-thumb__price {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+.card-thumb__price span {
+  font-size: 10.5px;
+  font-weight: 450;
+  letter-spacing: 0;
+  color: rgba(0, 0, 0, 0.5);
+}
+.card-thumb__sub {
+  margin-top: 4px;
+  font-size: 11px;
+  color: rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.card-thumb__cta {
+  margin-top: 11px;
+  padding: 8px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #3a3a3c, #1f1f21);
+  color: #fff;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-align: center;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
 /* ════════════════════════════════════════════════════════
    Detail page — 3-column layout
    ════════════════════════════════════════════════════════ */
@@ -1109,6 +1238,69 @@ h1, h2, h3, h4, h5, h6,
   justify-content: center;
   overflow: visible;
   position: relative;
+}
+
+/* ── Route loading skeleton (app/components/[slug]/loading.tsx) ─────────── */
+.sk {
+  display: block;
+  border-radius: 7px;
+  background-color: rgba(255, 255, 255, 0.05);
+  background-image: linear-gradient(
+    100deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.07) 48%,
+    rgba(255, 255, 255, 0.09) 52%,
+    transparent 70%
+  );
+  background-size: 220% 100%;
+  background-repeat: no-repeat;
+  animation: sk-shimmer 1.5s ease-in-out infinite;
+}
+@keyframes sk-shimmer {
+  from { background-position: 180% 0; }
+  to { background-position: -120% 0; }
+}
+
+.sk-breadcrumb {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.sk-breadcrumb .sk { height: 11px; border-radius: 4px; }
+
+.sk-tag { width: 70px; height: 22px; border-radius: 6px; }
+.sk-title {
+  width: min(58%, 280px);
+  height: clamp(36px, 4.2vw, 52px);
+  border-radius: 10px;
+  margin-bottom: 18px;
+}
+.sk-line { height: 14px; }
+.detail-skeleton .detail__hero .sk-line { margin-bottom: 10px; }
+.sk-desc { margin-top: 18px; }
+.sk-desc .sk-line { height: 13px; margin-bottom: 9px; }
+
+/* Spinner sits in the real preview frame so it reads as "the live demo is
+   loading", matching the library's inline-spinner loading convention. */
+.sk-spinner {
+  display: inline-flex;
+  color: var(--fg-3);
+  animation: sk-spin 0.7s linear infinite;
+}
+@keyframes sk-spin {
+  to { transform: rotate(360deg); }
+}
+
+.sk-section { margin-top: 40px; }
+.sk-section .sk-line { margin-bottom: 16px; }
+.sk-block {
+  height: 96px;
+  border-radius: 12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sk { animation: none; }
+  .sk-spinner { animation-duration: 1.4s; }
 }
 
 .doc-section { scroll-margin-top: calc(var(--header-h) + 24px); padding-top: 8px; }
@@ -2250,6 +2442,7 @@ html.js .hero__frameworks {
   .input-search__input { font-size: 16px; }
   .chip-row { overflow-x: auto; -webkit-overflow-scrolling: touch; gap: 8px; }
   .card__preview { height: 140px; }
+  .card-thumb { zoom: 0.74; }
 
   /* Detail page */
   .detail { padding: 24px 16px 48px; }
@@ -2332,6 +2525,7 @@ html.js .hero__frameworks {
   .catalog { padding: 32px 12px 64px; }
   .catalog__title { font-size: clamp(28px, 5vw, 36px); }
   .card__preview { height: 120px; }
+  .card-thumb { zoom: 0.63; }
   .card__body { padding: 12px 14px 14px; }
   .card__title { font-size: 14px; }
   .card__tagline { font-size: 12.5px; }
@@ -2396,6 +2590,7 @@ html.js .hero__frameworks {
   .catalog__title { font-size: clamp(24px, 6vw, 32px); margin-bottom: 10px; }
   .catalog__lede { font-size: 14px; line-height: 1.5; }
   .card__preview { height: 100px; padding: 14px; }
+  .card-thumb { zoom: 0.52; }
   .card__body { padding: 10px 12px 12px; }
   .card__title { font-size: 13px; margin-bottom: 2px; }
   .chip { padding: 5px 10px; font-size: 11px; }

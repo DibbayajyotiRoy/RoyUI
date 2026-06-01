@@ -1,0 +1,148 @@
+.royui-carousel {
+  /* Tunables — radius and ratio are the ones you'll reach for most. */
+  --royui-carousel-ratio: 4 / 3;
+  --royui-carousel-radius: 16px;
+  --royui-carousel-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --royui-carousel-dot: rgba(255, 255, 255, 0.55);
+  --royui-carousel-dot-active: #ffffff;
+
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--royui-carousel-radius);
+  aspect-ratio: var(--royui-carousel-ratio);
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.royui-carousel__viewport {
+  width: 100%;
+  height: 100%;
+  /* Let the browser own vertical scroll; we only claim the horizontal axis. */
+  touch-action: pan-y;
+  cursor: grab;
+  -webkit-tap-highlight-color: transparent;
+}
+.royui-carousel__viewport:active {
+  cursor: grabbing;
+}
+.royui-carousel__viewport:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.9);
+  outline-offset: -2px;
+}
+
+.royui-carousel__track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  /* The signature slide — long, eased, with a touch of overshoot at the tail. */
+  transition: transform 520ms var(--royui-carousel-ease);
+  will-change: transform;
+}
+/* While the finger is down the track tracks the pointer 1:1, no easing. */
+.royui-carousel__track--dragging {
+  transition: none;
+}
+
+.royui-carousel__slide {
+  position: relative;
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.royui-carousel__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  /* Hover-zoom is driven by the card; the transition lives here. */
+  transition: transform 700ms var(--royui-carousel-ease);
+}
+
+/* A faint floor of shade so white dots stay legible over any photo. */
+.royui-carousel__scrim {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 38%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.3), transparent);
+  opacity: 0;
+  transition: opacity 320ms var(--royui-carousel-ease);
+  pointer-events: none;
+}
+.royui-carousel--has-dots .royui-carousel__scrim {
+  opacity: 1;
+}
+
+.royui-carousel__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+/* Re-enable interaction for whatever the overlay actually contains. */
+.royui-carousel__overlay > * {
+  pointer-events: auto;
+}
+
+.royui-carousel__dots {
+  position: absolute;
+  inset: auto 0 12px 0;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.royui-carousel__dot {
+  width: 6px;
+  height: 6px;
+  padding: 0;
+  border: none;
+  border-radius: 99px;
+  background: var(--royui-carousel-dot);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.28);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  /* The active dot doesn't pop — it stretches into a pill. */
+  transition:
+    width 380ms var(--royui-carousel-ease),
+    background 380ms var(--royui-carousel-ease),
+    opacity 380ms var(--royui-carousel-ease);
+}
+.royui-carousel__dot:hover {
+  background: rgba(255, 255, 255, 0.85);
+}
+.royui-carousel__dot--active {
+  width: 20px;
+  background: var(--royui-carousel-dot-active);
+}
+.royui-carousel__dot:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+/* Screen-reader-only live region. */
+.royui-carousel__status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .royui-carousel__track,
+  .royui-carousel__img,
+  .royui-carousel__dot,
+  .royui-carousel__scrim {
+    transition: none;
+  }
+}

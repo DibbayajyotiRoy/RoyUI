@@ -10,6 +10,7 @@ import { MadeByDocs } from '../../../components/MadeByDocs';
 import { TextMorphDocs } from '../../../components/TextMorphDocs';
 import { TreeNavDocs } from '../../../components/TreeNavDocs';
 import { DataTableDocs } from '../../../components/DataTableDocs';
+import { CardDocs } from '../../../components/CardDocs';
 import { DocsSidebar } from '../../../components/DocsSidebar';
 import { TableOfContents, type TocItem } from '../../../components/TableOfContents';
 
@@ -89,7 +90,15 @@ const slugKeywords: Record<string, string[]> = {
     'sub-nav React',
   ],
   input: ['React input component', 'accessible input React', 'form input React'],
-  card: ['React card component', 'React container card', 'layout card React'],
+  card: [
+    'React card component',
+    'listing card React',
+    'React image carousel',
+    'swipeable gallery React',
+    'image pagination React',
+    'card with carousel React',
+    'React container card',
+  ],
   dialog: ['React dialog', 'React modal', 'accessible modal React', 'Radix dialog alternative'],
 };
 
@@ -137,6 +146,7 @@ const docsBySlug: Record<string, () => React.ReactNode> = {
   'text-morph': () => <TextMorphDocs />,
   'tree-nav': () => <TreeNavDocs />,
   'data-table': () => <DataTableDocs />,
+  card: () => <CardDocs />,
 };
 
 const tocBySlug: Record<string, TocItem[]> = {
@@ -176,6 +186,12 @@ const tocBySlug: Record<string, TocItem[]> = {
     { id: 'installation', label: 'Installation' },
     { id: 'usage', label: 'Usage' },
     { id: 'router', label: 'Router integration' },
+    { id: 'theming', label: 'Theming' },
+    { id: 'props', label: 'Props' },
+  ],
+  card: [
+    { id: 'installation', label: 'Installation' },
+    { id: 'usage', label: 'Usage' },
     { id: 'theming', label: 'Theming' },
     { id: 'props', label: 'Props' },
   ],

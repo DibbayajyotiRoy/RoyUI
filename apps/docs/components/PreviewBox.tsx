@@ -6,11 +6,13 @@ import {
   GradientButton,
   MadeBy,
   Popover,
+  Card,
   TextMorph,
   TreeNav,
   TreeNavItem,
 } from '@roy-ui/ui';
 import type { ComponentEntry } from '../lib/registry';
+import { sampleContent, sampleImages, sampleStats } from './demos/card-sample';
 
 export function PreviewBox({
   entry,
@@ -55,6 +57,8 @@ function renderLivePreview(entry: ComponentEntry, compact: boolean) {
       return <TreeNavPreview compact={compact} />;
     case 'data-table':
       return <DataTableThumb compact={compact} />;
+    case 'card':
+      return <CardPreview compact={compact} />;
     default:
       return null;
   }
@@ -141,6 +145,56 @@ function DataTableThumb({ compact }: { compact: boolean }) {
           </span>
         </div>
       ))}
+    </div>
+  );
+}
+
+function CardPreview({ compact }: { compact: boolean }) {
+  // Catalog cards are wrapped in a Link, so the interactive version (dot
+  // buttons, action <button>, author <a>) can't live inside — render a
+  // static thumb instead, the way PopoverThumb does.
+  if (compact) return <CardThumb />;
+  return (
+    <div style={{ width: 320 }}>
+      <Card
+        images={sampleImages}
+        badge={sampleContent.badge}
+        price={sampleContent.price}
+        priceLabel={sampleContent.priceLabel}
+        subtitle={sampleContent.subtitle}
+        stats={sampleStats}
+        author={sampleContent.author}
+        authorHref={sampleContent.authorHref}
+        authorProps={{ target: '_blank', rel: 'noreferrer' }}
+        meta={sampleContent.meta}
+        onAction={() => {}}
+      />
+    </div>
+  );
+}
+
+function CardThumb() {
+  return (
+    <div className="card-thumb" aria-hidden>
+      <div className="card-thumb__media">
+        <span className="card-thumb__badge">
+          <span className="card-thumb__star">★</span>
+          Prime Pick
+        </span>
+        <div className="card-thumb__dots">
+          <span className="card-thumb__dot card-thumb__dot--on" />
+          <span className="card-thumb__dot" />
+          <span className="card-thumb__dot" />
+          <span className="card-thumb__dot" />
+        </div>
+      </div>
+      <div className="card-thumb__body">
+        <div className="card-thumb__price">
+          $1,450,000 <span>List price</span>
+        </div>
+        <div className="card-thumb__sub">Hawthorn, Melbourne</div>
+        <div className="card-thumb__cta">View Details</div>
+      </div>
     </div>
   );
 }
