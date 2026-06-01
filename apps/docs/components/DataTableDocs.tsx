@@ -12,10 +12,12 @@ import {
   TableRow,
   TableSearch,
   TimePicker,
+  TimeRangePicker,
   DateRangePicker,
   type Column,
   type DateRange,
   type TimeValue,
+  type TimeRangeValue,
 } from '@roy-ui/ui';
 import { Code } from './Code';
 import { InstallTabs } from './InstallTabs';
@@ -162,12 +164,12 @@ export function DataTableDocs() {
       >
         <Example
           title="Both filters wired to one column"
-          description="Time filter takes a toleranceMinutes; 0 = exact match, 30 = ±30 min window."
+          description="The time filter matches a range — pick a Start and End on the clock. Start later than End wraps past midnight."
           code={`<DataTable
   data={orders}
   columns={columns}
   dateFilter={{ column: 'placedAt', monthsVisible: 2 }}
-  timeFilter={{ column: 'placedAt', variant: 'analog', toleranceMinutes: 60 }}
+  timeFilter={{ column: 'placedAt', variant: 'analog' }}
 />`}
         >
           <DataTable<Order>
@@ -194,7 +196,7 @@ export function DataTableDocs() {
               },
             ]}
             dateFilter={{ column: 'placedAt', monthsVisible: 2 }}
-            timeFilter={{ column: 'time', variant: 'analog', toleranceMinutes: 90 }}
+            timeFilter={{ column: 'time', variant: 'analog' }}
             pagination={{ pageSize: 8 }}
           />
         </Example>
@@ -212,6 +214,14 @@ export function DataTableDocs() {
 <TimePicker variant="digital" hourCycle={12} onChange={setTime} />`}
         >
           <StandaloneTime />
+        </Example>
+        <Example
+          title="Standalone TimeRangePicker"
+          description="Pick a Start and End on one clock. Switching analog ↔ digital cross-fades and morphs the panel height. A Start later than the End wraps past midnight."
+          code={`<TimeRangePicker onChange={setRange} />
+<TimeRangePicker hourCycle={12} variant="digital" onChange={setRange} />`}
+        >
+          <StandaloneTimeRange />
         </Example>
       </DocSection>
 
@@ -534,6 +544,23 @@ function StandaloneTime() {
   );
 }
 
+function StandaloneTimeRange() {
+  const [r1, setR1] = useState<TimeRangeValue>({ from: null, to: null });
+  const [r2, setR2] = useState<TimeRangeValue>({ from: null, to: null });
+  return (
+    <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+      <TimeRangePicker value={r1} onChange={setR1} variant="analog" placeholder="Analog range" />
+      <TimeRangePicker
+        value={r2}
+        onChange={setR2}
+        variant="digital"
+        hourCycle={12}
+        placeholder="Digital range"
+      />
+    </div>
+  );
+}
+
 function ExportImportDemo() {
   const [data, setData] = useState<Order[]>(() => makeOrders(20, 13));
   return (
@@ -674,7 +701,7 @@ const dataTableProps: PropRow[] = [
   { name: 'empty', type: 'ReactNode', def: '"No results"', desc: 'Replaces the row area when zero rows are visible.' },
   { name: 'search', type: '{ enabled, placeholder?, debounceMs?, predicate? }', def: '—', desc: 'Enables the toolbar search input. Without it the toolbar slot is hidden.' },
   { name: 'dateFilter', type: '{ column, monthsVisible?, placeholder? }', def: '—', desc: 'Bind a DateRangePicker to one column (date or time-of-day accessor).' },
-  { name: 'timeFilter', type: '{ column, variant?, hourCycle?, toleranceMinutes? }', def: '—', desc: 'Bind a TimePicker to one column. toleranceMinutes widens the match window.' },
+  { name: 'timeFilter', type: '{ column, variant?, hourCycle?, minuteStep?, placeholder? }', def: '—', desc: 'Bind a TimeRangePicker to one column. Matches rows whose time-of-day falls in the Start–End window.' },
   { name: 'pagination', type: '{ pageSize?, siblingCount?, showSummary? } | false', def: '{ pageSize: 25 }', desc: 'Set to false to disable pagination and render every filtered row.' },
   { name: 'reorderable', type: 'boolean', def: 'true', desc: 'Drag a header to reorder columns. Pinned columns are skipped.' },
   { name: 'resizable', type: 'boolean', def: 'true', desc: 'Drag the right edge of a header to resize. Double-click resets.' },

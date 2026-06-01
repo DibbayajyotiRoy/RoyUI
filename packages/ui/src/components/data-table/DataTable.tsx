@@ -23,7 +23,7 @@ import { TableSearch } from '../table-search';
 import { Pagination } from '../pagination';
 import { DateRangePicker } from '../date-range-picker';
 import type { DateRange } from '../date-range-picker';
-import { TimePicker, type TimeValue } from '../time-picker';
+import { TimeRangePicker, type TimeRangeValue } from '../time-picker';
 import { ColumnMenu } from './ColumnMenu';
 import { useTableLayout } from './useTableLayout';
 import { applyFilters, applySort, paginate } from './filters';
@@ -106,7 +106,7 @@ export function DataTable<T>({
   const [filters, setFilters] = useState<FilterState>({
     search: '',
     dateRange: { from: null, to: null },
-    time: null,
+    timeRange: { from: null, to: null },
   });
   const [sort, setSort] = useState<{ key: string; dir: SortDir } | null>(null);
   const pageSize = pagination === false ? Infinity : pagination?.pageSize ?? 25;
@@ -118,10 +118,9 @@ export function DataTable<T>({
       applyFilters(data, columns, filters, {
         dateColumn: dateFilter?.column,
         timeColumn: timeFilter?.column,
-        timeTolerance: timeFilter?.toleranceMinutes,
         searchPredicate: search?.predicate,
       }),
-    [data, columns, filters, dateFilter?.column, timeFilter?.column, timeFilter?.toleranceMinutes, search?.predicate],
+    [data, columns, filters, dateFilter?.column, timeFilter?.column, search?.predicate],
   );
 
   const sorted = useMemo(() => applySort(filtered, columns, sort), [filtered, columns, sort]);
@@ -316,15 +315,16 @@ export function DataTable<T>({
               />
             )}
             {timeFilter && (
-              <TimePicker
-                value={filters.time}
-                onChange={(t: TimeValue) => {
-                  setFilters((f) => ({ ...f, time: t }));
+              <TimeRangePicker
+                value={filters.timeRange}
+                onChange={(r: TimeRangeValue) => {
+                  setFilters((f) => ({ ...f, timeRange: r }));
                   setPage(1);
                 }}
                 variant={timeFilter.variant ?? 'analog'}
                 hourCycle={timeFilter.hourCycle ?? 24}
-                placeholder={timeFilter.placeholder ?? 'Time'}
+                minuteStep={timeFilter.minuteStep ?? 1}
+                placeholder={timeFilter.placeholder ?? 'Time range'}
               />
             )}
           </div>

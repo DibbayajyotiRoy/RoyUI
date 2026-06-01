@@ -114,7 +114,7 @@ export function DataTableFullDemo() {
       visibleRows={8}
       search={{ enabled: true, placeholder: 'Search orders, customers, status' }}
       dateFilter={{ column: 'placedAt', monthsVisible: 2 }}
-      timeFilter={{ column: 'time', variant: 'analog', toleranceMinutes: 60 }}
+      timeFilter={{ column: 'time', variant: 'analog' }}
       pagination={{ pageSize: 12 }}
       dataIO={{
         export: { enabled: true, filename: 'orders' },

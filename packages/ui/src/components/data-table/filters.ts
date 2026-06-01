@@ -23,7 +23,6 @@ export function applyFilters<T>(
   cfg: {
     dateColumn?: string;
     timeColumn?: string;
-    timeTolerance?: number;
     searchPredicate?: (row: T, q: string, cols: Column<T>[]) => boolean;
   },
 ): T[] {
@@ -45,16 +44,29 @@ export function applyFilters<T>(
       }
     }
 
-    if (cfg.timeColumn && filters.time) {
+    if (cfg.timeColumn && (filters.timeRange.from || filters.timeRange.to)) {
       const col = columns.find((c) => c.key === cfg.timeColumn);
       if (col) {
         const raw = col.accessor(row);
         const d = raw instanceof Date ? raw : raw ? new Date(raw as string | number) : null;
         if (!d || isNaN(d.getTime())) return false;
         const rowMin = d.getHours() * 60 + d.getMinutes();
-        const filterMin = filters.time.hours * 60 + filters.time.minutes;
-        const tol = cfg.timeTolerance ?? 0;
-        if (Math.abs(rowMin - filterMin) > tol) return false;
+        const { from, to } = filters.timeRange;
+        const fromMin = from ? from.hours * 60 + from.minutes : null;
+        const toMin = to ? to.hours * 60 + to.minutes : null;
+
+        if (fromMin != null && toMin != null) {
+          // from <= to is a same-day window; from > to wraps past midnight.
+          const inWindow =
+            fromMin <= toMin
+              ? rowMin >= fromMin && rowMin <= toMin
+              : rowMin >= fromMin || rowMin <= toMin;
+          if (!inWindow) return false;
+        } else if (fromMin != null) {
+          if (rowMin < fromMin) return false;
+        } else if (toMin != null) {
+          if (rowMin > toMin) return false;
+        }
       }
     }
 

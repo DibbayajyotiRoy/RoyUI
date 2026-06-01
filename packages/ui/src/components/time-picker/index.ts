@@ -1,5 +1,9 @@
 export { TimePicker, formatTime } from './TimePicker';
 export type { TimePickerProps, TimePickerVariant, TimeValue } from './TimePicker';
+export { TimeRangePicker, formatTimeRange } from './TimeRangePicker';
+export type { TimeRangePickerProps, TimeRangeValue } from './TimeRangePicker';
+export { ClockSwitch } from './ClockSwitch';
+export type { ClockSwitchProps } from './ClockSwitch';
 export { AnalogClock } from './AnalogClock';
 export type { AnalogClockProps } from './AnalogClock';
 export { DigitalClock } from './DigitalClock';

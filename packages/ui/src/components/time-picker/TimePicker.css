@@ -15,7 +15,9 @@
   --royui-tp-hand-quiet: rgba(20, 20, 20, 0.4);
   --royui-tp-hand-active: rgb(20, 20, 20);
   --royui-tp-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --royui-tp-spring: cubic-bezier(0.34, 1.4, 0.5, 1);
   --royui-tp-dur: 160ms;
+  --royui-tp-dur-lg: 320ms;
 
   position: relative;
   display: inline-block;
@@ -97,12 +99,31 @@
 }
 
 .royui-tp__variants {
+  position: relative;
   display: inline-flex;
   background: var(--royui-tp-hover-bg);
   border-radius: 7px;
   padding: 2px;
 }
+/* Sliding pill — tracks the active variant. */
+.royui-tp__variant-thumb {
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  left: 2px;
+  width: calc(50% - 2px);
+  background: var(--royui-tp-bg);
+  border-radius: 5px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+  transition: transform var(--royui-tp-dur-lg) var(--royui-tp-spring);
+  pointer-events: none;
+}
+.royui-tp__variants[data-active='digital'] .royui-tp__variant-thumb {
+  transform: translateX(100%);
+}
 .royui-tp__variant {
+  position: relative;
+  z-index: 1;
   background: transparent;
   border: 0;
   padding: 4px 10px;
@@ -111,23 +132,51 @@
   color: var(--royui-tp-muted);
   cursor: pointer;
   border-radius: 5px;
-  transition:
-    background var(--royui-tp-dur) var(--royui-tp-ease),
-    color var(--royui-tp-dur) var(--royui-tp-ease);
+  transition: color var(--royui-tp-dur) var(--royui-tp-ease);
 }
 .royui-tp__variant:hover {
   color: var(--royui-tp-fg);
 }
 .royui-tp__variant--on {
-  background: var(--royui-tp-bg);
   color: var(--royui-tp-fg);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
 }
 
 .royui-tp__body {
   display: flex;
   justify-content: center;
   padding: 4px 0 8px;
+}
+
+/* ── Analog ↔ Digital crossfade ─────────────────────────── */
+
+.royui-tp__switch {
+  position: relative;
+  width: 100%;
+  transition: height var(--royui-tp-dur-lg) var(--royui-tp-ease);
+  overflow: hidden;
+}
+.royui-tp__layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  opacity: 0;
+  transform: scale(0.96);
+  filter: blur(4px);
+  pointer-events: none;
+  transition:
+    opacity var(--royui-tp-dur-lg) var(--royui-tp-ease),
+    transform var(--royui-tp-dur-lg) var(--royui-tp-ease),
+    filter var(--royui-tp-dur-lg) var(--royui-tp-ease);
+}
+.royui-tp__layer--active {
+  position: relative;
+  opacity: 1;
+  transform: none;
+  filter: none;
+  pointer-events: auto;
 }
 
 /* ── Analog ─────────────────────────────────────────────── */
@@ -373,6 +422,74 @@
   border: 1px solid var(--royui-tp-accent);
 }
 
+/* ── Range — Start / End legs ───────────────────────────── */
+
+.royui-trp__legs {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  background: var(--royui-tp-hover-bg);
+  border-radius: 9px;
+  padding: 3px;
+  margin-bottom: 12px;
+}
+.royui-trp__leg-thumb {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 3px;
+  width: calc(50% - 3px);
+  background: var(--royui-tp-bg);
+  border: 1px solid var(--royui-tp-border);
+  border-radius: 7px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.07);
+  transition: transform var(--royui-tp-dur-lg) var(--royui-tp-spring);
+  pointer-events: none;
+}
+.royui-trp__legs[data-active='to'] .royui-trp__leg-thumb {
+  transform: translateX(100%);
+}
+.royui-trp__leg {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  background: transparent;
+  border: 0;
+  padding: 6px 11px;
+  border-radius: 7px;
+  cursor: pointer;
+  font: inherit;
+}
+.royui-trp__leg-label {
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--royui-tp-subtle);
+  transition: color var(--royui-tp-dur) var(--royui-tp-ease);
+}
+.royui-trp__leg-time {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--royui-tp-muted);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+  transition: color var(--royui-tp-dur) var(--royui-tp-ease);
+}
+.royui-trp__leg[aria-selected='true'] .royui-trp__leg-label {
+  color: var(--royui-tp-muted);
+}
+.royui-trp__leg[aria-selected='true'] .royui-trp__leg-time {
+  color: var(--royui-tp-fg);
+}
+.royui-trp__leg:hover .royui-trp__leg-time {
+  color: var(--royui-tp-fg);
+}
+
 @keyframes royui-tp-in {
   from { opacity: 0; transform: translateY(-4px) scale(0.98); }
   to   { opacity: 1; transform: none; }
@@ -408,4 +525,10 @@
 
 @media (prefers-reduced-motion: reduce) {
   .royui-tp__panel { animation: none; }
+  .royui-tp__switch,
+  .royui-tp__layer,
+  .royui-tp__variant-thumb,
+  .royui-trp__leg-thumb {
+    transition: none;
+  }
 }

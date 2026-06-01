@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import type { FontSpec, TableDensity } from '../table';
 import type { DateRange } from '../date-range-picker';
-import type { TimeValue, TimePickerVariant } from '../time-picker';
+import type { TimeRangeValue, TimePickerVariant } from '../time-picker';
 
 export type ColumnType = 'text' | 'number' | 'date' | 'time';
 
@@ -89,14 +89,13 @@ export interface DataTableProps<T> {
     placeholder?: string;
   };
 
-  /** Toolbar — time filter against one column. */
+  /** Toolbar — time-of-day range filter against one column. */
   timeFilter?: {
     column: string;
     variant?: TimePickerVariant;
     hourCycle?: 12 | 24;
+    minuteStep?: number;
     placeholder?: string;
-    /** Tolerance in minutes around the chosen time. Default 0 (exact). */
-    toleranceMinutes?: number;
   };
 
   /** Pagination. Pass `false` to disable. */
@@ -141,5 +140,5 @@ export type TableLayout = {
 export interface FilterState {
   search: string;
   dateRange: DateRange;
-  time: TimeValue | null;
+  timeRange: TimeRangeValue;
 }
