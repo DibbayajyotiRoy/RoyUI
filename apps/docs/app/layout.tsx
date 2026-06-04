@@ -111,7 +111,7 @@ export const metadata: Metadata = {
   authors: [
     {
       name: 'Dibbayajyoti Roy',
-      url: 'https://github.com/DibbayajyotiRoy',
+      url: 'https://dibbayajyoti.com/about',
     },
   ],
   creator: 'Dibbayajyoti Roy',
@@ -188,8 +188,19 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               author: {
                 '@type': 'Person',
                 name: 'Dibbayajyoti Roy',
-                url: 'https://github.com/DibbayajyotiRoy',
+                url: 'https://dibbayajyoti.com/about',
               },
+              creator: {
+                '@type': 'Person',
+                name: 'Dibbayajyoti Roy',
+                url: 'https://dibbayajyoti.com/about',
+              },
+              sameAs: [
+                'https://dibbayajyoti.com/projects/roy-ui',
+                'https://dibbayajyoti.com',
+                'https://github.com/DibbayajyotiRoy/RoyUI',
+                'https://www.npmjs.com/package/@roy-ui/ui',
+              ],
               offers: {
                 '@type': 'Offer',
                 price: '0',
