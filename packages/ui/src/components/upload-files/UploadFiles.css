@@ -151,13 +151,16 @@
 }
 .royui-upload__row {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 11px;
   padding: 10px 11px;
   border-radius: 10px;
   background: var(--royui-upload-row);
   box-shadow: inset 0 0 0 1px var(--royui-upload-row-line);
   animation: royui-upload-row-in 280ms var(--royui-upload-ease) both;
+  transition:
+    background 220ms var(--royui-upload-ease),
+    box-shadow 220ms var(--royui-upload-ease);
 }
 @keyframes royui-upload-row-in {
   from {
@@ -199,14 +202,12 @@
 .royui-upload__row-main {
   flex: 1;
   min-width: 0;
-}
-.royui-upload__row-top {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  flex-direction: column;
+  justify-content: center;
 }
 .royui-upload__name {
+  display: block;
   font-size: 13px;
   font-weight: 450;
   letter-spacing: -0.005em;
@@ -217,14 +218,15 @@
 }
 .royui-upload__row-action {
   flex: none;
+  align-self: center;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
+  width: 30px;
+  height: 30px;
   padding: 0;
   border: none;
-  border-radius: 7px;
+  border-radius: 8px;
   background: transparent;
   color: var(--royui-upload-faint);
   cursor: pointer;
@@ -337,26 +339,6 @@
   padding: 14px 4px 2px;
   border-top: 1px solid var(--royui-upload-line);
 }
-.royui-upload__icon-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 26px;
-  height: 26px;
-  padding: 0;
-  border: none;
-  border-radius: 7px;
-  background: transparent;
-  color: var(--royui-upload-faint);
-  cursor: pointer;
-  transition:
-    background 140ms var(--royui-upload-ease),
-    color 140ms var(--royui-upload-ease);
-}
-.royui-upload__icon-btn:hover {
-  background: var(--royui-upload-hover);
-  color: var(--royui-upload-fg);
-}
 .royui-upload__remove-all {
   display: inline-flex;
   align-items: center;
@@ -373,11 +355,245 @@
   cursor: pointer;
   transition: color 140ms var(--royui-upload-ease);
 }
+.royui-upload__remove-all svg {
+  width: 16px;
+  height: 16px;
+}
 .royui-upload__remove-all:hover {
   color: var(--royui-upload-fg);
 }
+.royui-upload__footer-inner {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  animation: royui-upload-swap 240ms var(--royui-upload-ease);
+}
+@keyframes royui-upload-swap {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
 .royui-upload__footer-spacer {
   flex: 1;
+}
+.royui-upload__textbtn {
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: var(--royui-upload-meta-font);
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--royui-upload-muted);
+  cursor: pointer;
+  transition: color 140ms var(--royui-upload-ease);
+}
+.royui-upload__textbtn:hover {
+  color: var(--royui-upload-fg);
+}
+
+/* ── Clickable filename (preview trigger) ───────────────────────────────── */
+.royui-upload__name--button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: color 140ms var(--royui-upload-ease);
+}
+.royui-upload__name--button:hover {
+  color: var(--royui-upload-accent);
+}
+
+/* ── Selection mode ─────────────────────────────────────────────────────── */
+.royui-upload--selecting .royui-upload__row {
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+.royui-upload__row.is-selected {
+  background: color-mix(in srgb, var(--royui-upload-accent) 12%, var(--royui-upload-row));
+  box-shadow: inset 0 0 0 1px var(--royui-upload-accent);
+}
+.royui-upload__check {
+  flex: none;
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  color: #fff;
+  background: transparent;
+  box-shadow: inset 0 0 0 1.5px var(--royui-upload-line);
+  animation: royui-upload-pop-in 200ms var(--royui-upload-ease);
+  transition:
+    background 160ms var(--royui-upload-ease),
+    box-shadow 160ms var(--royui-upload-ease);
+}
+@keyframes royui-upload-pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.royui-upload__check.is-checked svg {
+  animation: royui-upload-pop-in 160ms var(--royui-upload-ease);
+}
+.royui-upload__check.is-checked {
+  background: var(--royui-upload-accent);
+  box-shadow: inset 0 0 0 1.5px var(--royui-upload-accent);
+}
+
+/* ── Preview modal ──────────────────────────────────────────────────────── */
+.royui-upload__modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.6);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  animation: royui-upload-fade 160ms var(--royui-upload-ease);
+}
+@keyframes royui-upload-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.royui-upload__modal-panel {
+  display: flex;
+  flex-direction: column;
+  width: min(640px, 100%);
+  max-height: min(80vh, 720px);
+  background: var(--royui-upload-bg);
+  color: var(--royui-upload-fg);
+  border-radius: 14px;
+  box-shadow:
+    0 0 0 1px var(--royui-upload-line),
+    0 30px 80px -28px rgba(0, 0, 0, 0.7);
+  animation: royui-upload-pop 180ms var(--royui-upload-ease);
+}
+@keyframes royui-upload-pop {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.royui-upload__modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 14px 14px 18px;
+  border-bottom: 1px solid var(--royui-upload-line);
+}
+.royui-upload__modal-title {
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.royui-upload__modal-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  overflow: auto;
+}
+.royui-upload__preview-img {
+  max-width: 100%;
+  max-height: 60vh;
+  border-radius: 8px;
+  object-fit: contain;
+}
+.royui-upload__preview-frame {
+  width: 100%;
+  height: 60vh;
+  border: none;
+  border-radius: 8px;
+  background: #fff;
+}
+.royui-upload__preview-video {
+  max-width: 100%;
+  max-height: 60vh;
+  border-radius: 8px;
+}
+.royui-upload__preview-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 24px 12px;
+  text-align: center;
+}
+.royui-upload__preview-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: var(--royui-upload-badge, #8b8b94);
+  background-image: linear-gradient(150deg, rgba(255, 255, 255, 0.28), transparent 55%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  margin-bottom: 4px;
+}
+.royui-upload__preview-badge .royui-upload__badge-label {
+  font-size: 13px;
+}
+.royui-upload__preview-name {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 500;
+}
+.royui-upload__preview-sub {
+  margin: 0;
+  font-family: var(--royui-upload-meta-font);
+  font-size: 11px;
+  font-weight: 350;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--royui-upload-muted);
+}
+.royui-upload__preview-empty {
+  margin: 6px 0 0;
+  font-size: 13px;
+  color: var(--royui-upload-faint);
+}
+.royui-upload__preview-download {
+  margin-top: 8px;
+  color: var(--royui-upload-accent);
+  font-size: 13px;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 /* Footer action — retint the depth Button per theme so the label always
@@ -474,6 +690,14 @@
 /* ── Reduced motion ─────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .royui-upload__row {
+    animation: none;
+    transition: none;
+  }
+  .royui-upload__footer-inner,
+  .royui-upload__check,
+  .royui-upload__check.is-checked svg,
+  .royui-upload__modal,
+  .royui-upload__modal-panel {
     animation: none;
   }
   .royui-upload__bar-fill {

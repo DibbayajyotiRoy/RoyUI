@@ -209,6 +209,8 @@ const tocBySlug: Record<string, TocItem[]> = {
   'upload-files': [
     { id: 'installation', label: 'Installation' },
     { id: 'usage', label: 'Usage' },
+    { id: 'selection', label: 'Selection mode' },
+    { id: 'preview', label: 'Preview' },
     { id: 'theming', label: 'Theming' },
     { id: 'props', label: 'Props' },
   ],

@@ -4,6 +4,7 @@ import { Code } from './Code';
 import { InstallTabs } from './InstallTabs';
 import { PreviewTabs } from './PreviewTabs';
 import { UploadFilesDemo } from './demos/UploadFilesDemo';
+import { UploadFilesSelectableDemo } from './demos/UploadFilesSelectableDemo';
 
 function XGlyph() {
   return (
@@ -44,7 +45,7 @@ export function UploadFilesDocs() {
         id="installation"
         eyebrow="01"
         title="Installation"
-        description="One install. The component ships its own CSS — no extra stylesheet import."
+        description="Install the package and import the component. The styles come with it — there's no extra CSS file to add."
       >
         <div className="install-grid">
           <InstallTabs pkg="@roy-ui/ui" />
@@ -56,11 +57,11 @@ export function UploadFilesDocs() {
         id="usage"
         eyebrow="02"
         title="Usage"
-        description="UploadFiles is controlled: you hand it a files array and wire the callbacks. The dropzone and browse button hand you back native File objects via onFilesSelected — you own the actual upload and feed progress back through the files prop. While a file is in flight, its status line morphs through a rotating upload vocabulary under a Claude-style shimmer, and the segmented bar fills."
+        description="You give UploadFiles a list of files to show. When someone drops or browses for files, you get them back through onFilesSelected — you do the uploading and update the list with the new progress. While a file is uploading, the status text animates and the bar fills up."
       >
         <Example
           title="Drag, drop, upload"
-          description="A self-running demo: the seeded files climb to 100%, then it resets. Drop or browse to add your own — they start at 0% and animate up."
+          description="This demo runs on its own: the files fill up to 100%, then start over. Drop or browse to add your own — they begin at 0% and climb."
           code={`const MB = 1024 * 1024;
 const [files, setFiles] = useState<UploadFile[]>([
   { id: '1', name: 'investor-pitch-deck.pdf', size: 14 * MB,
@@ -99,10 +100,59 @@ const [files, setFiles] = useState<UploadFile[]>([
       </DocSection>
 
       <DocSection
-        id="theming"
+        id="selection"
         eyebrow="03"
+        title="Selecting and deleting many"
+        description="Add the selectable prop to let people pick several files and delete them at once. To start picking: long-press a row on a phone, or click a row's trash on a computer. Then tap rows to check or uncheck them and press Delete. You get the chosen file ids in onRemoveSelected."
+      >
+        <Example
+          title="Pick a few, then delete"
+          description="All four files are done. Start picking (long-press a row, or click its trash), check a few, and press Delete. Click a file's name to preview it. A Reset button shows up once the list is empty."
+          code={`const [files, setFiles] = useState<UploadFile[]>(initial);
+
+<UploadFiles
+  selectable
+  files={files}
+  onRemoveSelected={(ids) =>
+    setFiles((prev) => prev.filter((f) => !ids.includes(f.id)))
+  }
+  onRemove={(id) => setFiles((prev) => prev.filter((f) => f.id !== id))}
+  onRemoveAll={() => setFiles([])}
+/>`}
+        >
+          <UploadFilesSelectableDemo />
+        </Example>
+      </DocSection>
+
+      <DocSection
+        id="preview"
+        eyebrow="04"
+        title="Previewing a file"
+        description="Click a file's name to open it in a pop-up. If you give the file a url, the pop-up shows the image, PDF, or video. If not, it shows a simple card with the file's name and size. Close it with Escape or by clicking outside. Turn this off with previewable={false}, or supply your own pop-up content with renderPreview."
+      >
+        <Example
+          title="Click a filename"
+          description="These files have no url, so the pop-up shows the simple info card. In the example above, hero-shot.png and cover.jpg have a url, so they show a real image."
+          code={`<UploadFiles
+  files={files}
+  // previewable is true by default
+  onPreview={(file) => {
+    // optionally fetch + attach file.url here
+  }}
+  renderPreview={(file) => <MyViewer file={file} />} // optional
+/>`}
+        >
+          <div style={{ width: '100%', maxWidth: 460 }}>
+            <UploadFilesDemo theme="dark" />
+          </div>
+        </Example>
+      </DocSection>
+
+      <DocSection
+        id="theming"
+        eyebrow="05"
         title="Theming"
-        description="Dark by default. Pass theme=&quot;light&quot; for the light surface, or theme=&quot;auto&quot; to follow the OS. Every surface, the accent, and the progress track are CSS variables (--royui-upload-*) you can override inline."
+        description="It's dark by default. Use theme=&quot;light&quot; for a light look, or theme=&quot;auto&quot; to match the user's system. Colors are CSS variables (the --royui-upload-* names), so you can change any of them inline."
       >
         <Example
           title="Light surface"
@@ -115,8 +165,8 @@ const [files, setFiles] = useState<UploadFile[]>([
         </Example>
 
         <Example
-          title="Recolor the accent"
-          description="Override --royui-upload-accent to retheme the link, dropzone highlight, and progress fill in one line."
+          title="Change the accent color"
+          description="Set --royui-upload-accent to recolor the link, the dropzone highlight, and the progress bar — all in one line."
           code={`<UploadFiles
   files={files}
   style={{ ['--royui-upload-accent' as string]: '#6366f1' }}
@@ -136,7 +186,7 @@ const [files, setFiles] = useState<UploadFile[]>([
 
       <DocSection
         id="props"
-        eyebrow="04"
+        eyebrow="06"
         title="Props"
         description="Every native div attribute is forwarded — id, style, className, data-*, ref."
       >
@@ -199,85 +249,115 @@ function PropsTable() {
       name: 'files',
       type: 'UploadFile[]',
       def: '—',
-      desc: 'The controlled list of files to render. Each: { id, name, size, uploaded?, progress?, status, icon? }.',
+      desc: 'The list of files to show. Each one: { id, name, size, status, and optionally uploaded, progress, url, icon }.',
     },
     {
       name: 'onFilesSelected',
       type: '(files: File[]) => void',
       def: '—',
-      desc: 'Fired with the native File objects from drag-drop and the browse button.',
+      desc: 'Called with the files the user dropped or browsed for. Start your upload here, then update the files list.',
     },
     {
       name: 'onRemove',
       type: '(id: string) => void',
       def: '—',
-      desc: "A row's trash (complete) or × (uploading) control was pressed.",
+      desc: "Called when a row's trash (done) or × (uploading) is clicked.",
     },
     {
       name: 'onRemoveAll',
       type: '() => void',
       def: '—',
-      desc: 'The footer "Remove all" control was pressed.',
+      desc: 'Called when the footer "All" button is clicked.',
+    },
+    {
+      name: 'selectable',
+      type: 'boolean',
+      def: 'false',
+      desc: 'Let users pick several files and delete them together. Long-press a row on touch, or click a row trash on a computer.',
+    },
+    {
+      name: 'onRemoveSelected',
+      type: '(ids: string[]) => void',
+      def: '—',
+      desc: 'Called with the picked file ids when Delete is pressed. If you skip it, onRemove is called once per id.',
+    },
+    {
+      name: 'previewable',
+      type: 'boolean',
+      def: 'true',
+      desc: 'Make filenames clickable to open the preview pop-up.',
+    },
+    {
+      name: 'renderPreview',
+      type: '(file: UploadFile) => ReactNode',
+      def: '—',
+      desc: "Your own content for the preview pop-up. Without it, the file's url is shown as an image, PDF, or video, or a simple info card.",
+    },
+    {
+      name: 'onPreview',
+      type: '(file: UploadFile) => void',
+      def: '—',
+      desc: 'Called when a filename is clicked. Good for loading the file url just in time. The pop-up still opens.',
     },
     {
       name: 'onClose',
       type: '() => void',
       def: '—',
-      desc: 'When provided, the header close (×) button renders and calls this.',
+      desc: 'If set, a close (×) button shows in the header and calls this.',
     },
     {
       name: 'onAction',
       type: '() => void',
       def: '—',
-      desc: 'The footer action button was pressed.',
+      desc: 'Called when the footer button (Done / Uploading…) is clicked.',
     },
     {
       name: 'title',
       type: 'ReactNode',
       def: "'Upload files'",
-      desc: 'Panel heading.',
+      desc: 'The heading at the top.',
     },
     {
       name: 'maxSizeLabel',
       type: 'string',
       def: "'MAX FILE SIZE: 20 MB'",
-      desc: 'Mono caption under the dropzone.',
+      desc: 'The small caption under the dropzone.',
     },
     {
       name: 'accept',
       type: 'string',
       def: '—',
-      desc: "Forwarded to the hidden file input's accept attribute.",
+      desc: 'Which file types the file picker allows (e.g. "image/*").',
     },
     {
       name: 'multiple',
       type: 'boolean',
       def: 'true',
-      desc: 'Allow selecting more than one file at a time.',
+      desc: 'Allow picking more than one file at a time.',
     },
     {
       name: 'theme',
       type: "'auto' | 'light' | 'dark'",
       def: "'dark'",
-      desc: 'Color scheme. "auto" follows prefers-color-scheme.',
+      desc: 'Color scheme. "auto" follows the system setting.',
     },
     {
       name: 'statusWords',
       type: 'string[]',
       def: '15-word default set',
-      desc: 'Words cycled and morphed in the per-file status while uploading. Shuffled per mount.',
+      desc: 'The words that cycle in the status line while a file uploads.',
     },
     {
       name: 'actionLabel',
       type: 'ReactNode',
-      def: 'state-derived',
-      desc: 'Footer button content. Defaults to "Uploading…" while in flight, else "Done".',
+      def: 'auto',
+      desc: 'The footer button text. Defaults to "Uploading…" while files upload, otherwise "Done".',
     },
     {
       name: '...rest',
       type: 'HTMLAttributes<HTMLDivElement>',
       def: '—',
-      desc: 'All native div props (className, style, id, data-*, ref).',
+      desc: 'Any extra div props (className, style, id, data-*, ref).',
     },
   ];
   return (
