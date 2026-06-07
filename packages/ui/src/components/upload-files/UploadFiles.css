@@ -372,6 +372,20 @@
   flex: 1;
 }
 
+/* Footer action — retint the depth Button per theme so the label always
+   reads. Dark panel: a light pill with dark ink (matches the reference).
+   Light panel (below): a dark pill with light ink. Three-class specificity
+   beats .royui-btn--secondary. */
+.royui-upload .royui-upload__action.royui-btn {
+  --royui-btn-top: #f4f4f6;
+  --royui-btn-bottom: #e4e4e9;
+  --royui-btn-ring: rgba(0, 0, 0, 0.12);
+  --royui-btn-fg: #1a1a1c;
+  --royui-btn-highlight: rgba(255, 255, 255, 0.6);
+  --royui-btn-shade: rgba(0, 0, 0, 0.18);
+  --royui-btn-focus: rgba(0, 0, 0, 0.45);
+}
+
 /* ── Light theme ────────────────────────────────────────────────────────── */
 .royui-upload--light {
   --royui-upload-bg: #ffffff;
@@ -399,6 +413,15 @@
   box-shadow:
     inset 0 0 0 1px var(--royui-upload-line),
     0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.royui-upload--light .royui-upload__action.royui-btn {
+  --royui-btn-top: #2c2c2e;
+  --royui-btn-bottom: #1a1a1c;
+  --royui-btn-ring: rgba(0, 0, 0, 0.22);
+  --royui-btn-fg: #ffffff;
+  --royui-btn-highlight: rgba(255, 255, 255, 0.16);
+  --royui-btn-shade: rgba(0, 0, 0, 0.5);
+  --royui-btn-focus: rgba(0, 0, 0, 0.45);
 }
 
 @media (prefers-color-scheme: light) {
@@ -428,6 +451,15 @@
     box-shadow:
       inset 0 0 0 1px var(--royui-upload-line),
       0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+  .royui-upload--auto .royui-upload__action.royui-btn {
+    --royui-btn-top: #2c2c2e;
+    --royui-btn-bottom: #1a1a1c;
+    --royui-btn-ring: rgba(0, 0, 0, 0.22);
+    --royui-btn-fg: #ffffff;
+    --royui-btn-highlight: rgba(255, 255, 255, 0.16);
+    --royui-btn-shade: rgba(0, 0, 0, 0.5);
+    --royui-btn-focus: rgba(0, 0, 0, 0.45);
   }
 }
 

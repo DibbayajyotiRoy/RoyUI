@@ -451,6 +451,7 @@ export const UploadFiles = forwardRef<HTMLDivElement, UploadFilesProps>(
             <Button
               size="sm"
               variant="secondary"
+              className="royui-upload__action"
               disabled={anyUploading}
               onClick={onAction}
             >
