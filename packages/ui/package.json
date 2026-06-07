@@ -214,6 +214,10 @@
       "types": "./dist/components/card/index.d.ts",
       "import": "./dist/components/card/index.js"
     },
+    "./upload-files": {
+      "types": "./dist/components/upload-files/index.d.ts",
+      "import": "./dist/components/upload-files/index.js"
+    },
     "./package.json": "./package.json"
   },
   "scripts": {

@@ -13,6 +13,7 @@ import {
 } from '@roy-ui/ui';
 import type { ComponentEntry } from '../lib/registry';
 import { sampleContent, sampleImages, sampleStats } from './demos/card-sample';
+import { UploadFilesDemo } from './demos/UploadFilesDemo';
 
 export function PreviewBox({
   entry,
@@ -59,6 +60,8 @@ function renderLivePreview(entry: ComponentEntry, compact: boolean) {
       return <DataTableThumb compact={compact} />;
     case 'card':
       return <CardPreview compact={compact} />;
+    case 'upload-files':
+      return <UploadFilesPreview compact={compact} />;
     default:
       return null;
   }
@@ -145,6 +148,52 @@ function DataTableThumb({ compact }: { compact: boolean }) {
           </span>
         </div>
       ))}
+    </div>
+  );
+}
+
+function UploadFilesPreview({ compact }: { compact: boolean }) {
+  // Catalog cards wrap the preview in a Link, so the interactive demo (buttons,
+  // file input) can't live inside — render a static thumb there, the live demo
+  // on the detail page.
+  if (compact) return <UploadThumb />;
+  return (
+    <div style={{ width: '100%', maxWidth: 420 }}>
+      <UploadFilesDemo theme="dark" />
+    </div>
+  );
+}
+
+function UploadThumb() {
+  return (
+    <div className="upload-thumb" aria-hidden>
+      <div className="upload-thumb__drop">
+        <span className="upload-thumb__icon">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none">
+            <path
+              d="M12 15V4m0 0L7.5 8.5M12 4l4.5 4.5"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M4 14v3.5A2.5 2.5 0 0 0 6.5 20h11a2.5 2.5 0 0 0 2.5-2.5V14"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+            />
+          </svg>
+        </span>
+        <span className="upload-thumb__hint">Drag and drop</span>
+      </div>
+      <div className="upload-thumb__row">
+        <span className="upload-thumb__badge">FIG</span>
+        <div className="upload-thumb__bar">
+          <span className="upload-thumb__fill" style={{ width: '64%' }} />
+        </div>
+        <span className="upload-thumb__pct">64%</span>
+      </div>
     </div>
   );
 }

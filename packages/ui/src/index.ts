@@ -11,3 +11,4 @@ export * from './components/date-range-picker';
 export * from './components/time-picker';
 export * from './components/data-table';
 export * from './components/card';
+export * from './components/upload-files';

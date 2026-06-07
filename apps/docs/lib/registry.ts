@@ -95,6 +95,18 @@ export const components: ComponentEntry[] = [
     importStatement: `import { DataTable } from '@roy-ui/ui';`,
   },
   {
+    slug: 'upload-files',
+    name: 'UploadFiles',
+    tagline: 'Drag-and-drop uploader with morphing, shimmering progress.',
+    description:
+      'A controlled file uploader: a clean dashed dropzone (drag-drop + browse), per-file rows with type-colored badges, complete and uploading states, and a distinctive segmented progress bar. While a file is in flight, its status line morphs through a long, varied upload vocabulary under a Claude-style shimmer sweep — so the wait stays alive. Dark by default, light and auto themes, every surface a CSS variable.',
+    category: 'Inputs',
+    tags: ['upload', 'file', 'drag-drop', 'progress', 'dropzone', 'form'],
+    status: 'available',
+    featured: true,
+    importStatement: `import { UploadFiles } from '@roy-ui/ui';`,
+  },
+  {
     slug: 'input',
     name: 'Input',
     tagline: 'Accessible text input with built-in label and helper text.',

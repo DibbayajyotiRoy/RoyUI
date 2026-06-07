@@ -11,6 +11,7 @@ import { TextMorphDocs } from '../../../components/TextMorphDocs';
 import { TreeNavDocs } from '../../../components/TreeNavDocs';
 import { DataTableDocs } from '../../../components/DataTableDocs';
 import { CardDocs } from '../../../components/CardDocs';
+import { UploadFilesDocs } from '../../../components/UploadFilesDocs';
 import { DocsSidebar } from '../../../components/DocsSidebar';
 import { TableOfContents, type TocItem } from '../../../components/TableOfContents';
 
@@ -100,6 +101,15 @@ const slugKeywords: Record<string, string[]> = {
     'React container card',
   ],
   dialog: ['React dialog', 'React modal', 'accessible modal React', 'Radix dialog alternative'],
+  'upload-files': [
+    'React file upload',
+    'React upload component',
+    'drag and drop upload React',
+    'React dropzone',
+    'file upload progress React',
+    'animated upload progress',
+    'react-dropzone alternative',
+  ],
 };
 
 export async function generateMetadata({
@@ -147,6 +157,7 @@ const docsBySlug: Record<string, () => React.ReactNode> = {
   'tree-nav': () => <TreeNavDocs />,
   'data-table': () => <DataTableDocs />,
   card: () => <CardDocs />,
+  'upload-files': () => <UploadFilesDocs />,
 };
 
 const tocBySlug: Record<string, TocItem[]> = {
@@ -190,6 +201,12 @@ const tocBySlug: Record<string, TocItem[]> = {
     { id: 'props', label: 'Props' },
   ],
   card: [
+    { id: 'installation', label: 'Installation' },
+    { id: 'usage', label: 'Usage' },
+    { id: 'theming', label: 'Theming' },
+    { id: 'props', label: 'Props' },
+  ],
+  'upload-files': [
     { id: 'installation', label: 'Installation' },
     { id: 'usage', label: 'Usage' },
     { id: 'theming', label: 'Theming' },
