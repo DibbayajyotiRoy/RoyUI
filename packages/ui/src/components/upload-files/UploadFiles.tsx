@@ -169,7 +169,7 @@ const CloseGlyph = () => (
 );
 
 const TrashGlyph = () => (
-  <svg viewBox="0 0 24 24" width="17" height="17" fill="none" aria-hidden="true">
+  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true">
     <path
       d="M4 7h16M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7m2 0v11.5A1.5 1.5 0 0 1 15.5 20h-7A1.5 1.5 0 0 1 7 18.5V7m3 3.5v6m4-6v6"
       stroke="currentColor"

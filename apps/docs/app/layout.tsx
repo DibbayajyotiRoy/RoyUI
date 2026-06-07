@@ -160,6 +160,19 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       suppressHydrationWarning
     >
       <head>
+        {/* Inter — used by the UploadFiles component's meta/caption text
+            (it names "Inter" with a sans fallback). Load it here so the docs
+            render the intended thin weights. */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;350;400;500&display=swap"
+          rel="stylesheet"
+        />
         {/* Synchronous, before paint — marks JS as active so the CSS
             initial-hidden states (.reveal-pre, .hero-stage) gate on .js.
             Without JS the class never lands and content renders fully

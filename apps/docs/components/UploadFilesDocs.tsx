@@ -1,12 +1,45 @@
 import type { ReactNode } from 'react';
+import { MadeBy } from '@roy-ui/ui';
 import { Code } from './Code';
 import { InstallTabs } from './InstallTabs';
 import { PreviewTabs } from './PreviewTabs';
 import { UploadFilesDemo } from './demos/UploadFilesDemo';
 
+function XGlyph() {
+  return (
+    <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817-5.967 6.817H1.68l7.73-8.835L1.254 2.25h6.83l4.713 6.231 5.447-6.231Zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77Z" />
+    </svg>
+  );
+}
+
+function CreditNote() {
+  return (
+    <div className="credit-note">
+      <p className="credit-note__text">
+        This pattern is a faithful rebuild of a concept by{' '}
+        <strong>Maxim Kuznetsov</strong> — the layout, the segmented upload bars,
+        the light and dark themes, and the drag-and-drop flow are all his design.
+        I turned it into a controlled React component and added one tiny
+        refinement of my own: the morphing, shimmering status line while a file
+        uploads.
+      </p>
+      <MadeBy
+        name="Maxim Kuznetsov"
+        href="https://x.com/disarto_max"
+        prefix="Originally designed by"
+        icon={<XGlyph />}
+        style={{ position: 'static' }}
+      />
+    </div>
+  );
+}
+
 export function UploadFilesDocs() {
   return (
     <>
+      <CreditNote />
+
       <DocSection
         id="installation"
         eyebrow="01"
