@@ -320,6 +320,26 @@ h1, h2, h3, h4, h5, h6,
   background-clip: text;
   color: transparent;
 }
+/* Fixed-width slot for the morphing framework word so the heading never
+   reflows mid-animation (prevents the page jumping on small viewports).
+   Every ghost name + the live word share one grid cell: the slot's width
+   is the widest framework name (from real font metrics), but its height
+   stays a single text line because the cells overlap rather than stack. */
+.hero-morph {
+  display: inline-grid;
+  vertical-align: baseline;
+}
+.hero-morph > * {
+  grid-area: 1 / 1;
+  white-space: nowrap;
+}
+.hero-morph__ghost {
+  visibility: hidden;
+}
+.hero-morph__live {
+  text-align: left;
+}
+
 .hero__lede {
   font-size: 18px;
   line-height: 1.5;
