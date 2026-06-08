@@ -320,11 +320,13 @@ h1, h2, h3, h4, h5, h6,
   background-clip: text;
   color: transparent;
 }
-/* Fixed-width slot for the morphing framework word so the heading never
-   reflows mid-animation (prevents the page jumping on small viewports).
-   Every ghost name + the live word share one grid cell: the slot's width
-   is the widest framework name (from real font metrics), but its height
-   stays a single text line because the cells overlap rather than stack. */
+/* Slot for the morphing framework word. On wide screens the whole heading
+   stays on one line, so the word sizes naturally (no dead gap before "era.").
+   On narrow screens the line wraps and a changing word width would shift the
+   wrap point and jump the page — there we reserve a fixed slot sized to the
+   widest framework name (see the @media block). The ghost names + the live
+   word share one grid cell, so the reserved slot is the widest name's width
+   but only one text line tall (the cells overlap rather than stack). */
 .hero-morph {
   display: inline-grid;
   vertical-align: baseline;
@@ -334,7 +336,7 @@ h1, h2, h3, h4, h5, h6,
   white-space: nowrap;
 }
 .hero-morph__ghost {
-  visibility: hidden;
+  display: none;
 }
 .hero-morph__live {
   text-align: left;
@@ -2629,6 +2631,8 @@ html.js .hero__frameworks {
   /* Hero */
   .hero { padding: 48px 16px 56px; }
   .hero__title { letter-spacing: -0.035em; }
+  /* Heading wraps here — reserve a fixed slot so the morph can't jump it. */
+  .hero-morph__ghost { display: block; visibility: hidden; }
   .hero__lede { font-size: 15px; }
   .hero__ctas { flex-direction: column; gap: 8px; }
   .btn { width: 100%; justify-content: center; }
