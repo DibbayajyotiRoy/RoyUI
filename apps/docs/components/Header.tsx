@@ -37,7 +37,7 @@ export function Header() {
           <button type="button" className="kbd-launcher" onClick={openCommand}>
             <span className="kbd-launcher__label">
               <SearchIcon />
-              Search
+              <span className="kbd-launcher__text">Search</span>
             </span>
             <kbd className="kbd">{isMac ? '⌘' : 'Ctrl'} K</kbd>
           </button>

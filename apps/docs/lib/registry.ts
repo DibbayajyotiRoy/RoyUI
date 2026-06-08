@@ -103,7 +103,6 @@ export const components: ComponentEntry[] = [
     category: 'Inputs',
     tags: ['upload', 'file', 'drag-drop', 'progress', 'dropzone', 'form'],
     status: 'available',
-    featured: true,
     importStatement: `import { UploadFiles } from '@roy-ui/ui';`,
   },
   {

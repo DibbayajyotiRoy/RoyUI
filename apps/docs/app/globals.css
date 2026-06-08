@@ -2548,8 +2548,16 @@ html.js .hero__frameworks {
 @media (max-width: 768px) {
   /* Header — collapse search launcher to an icon-only button */
   .header__inner { padding: 0 16px; gap: 16px; }
-  .kbd-launcher { width: 40px; padding: 6px 8px; justify-content: center; }
-  .kbd-launcher__label { display: none; }
+  /* Collapse to a bare search icon (no surface/border) to match GitHub. */
+  .kbd-launcher {
+    width: 40px;
+    padding: 6px 8px;
+    justify-content: center;
+    background: transparent;
+    border: 0;
+  }
+  .kbd-launcher:hover { background: var(--surface); }
+  .kbd-launcher__text { display: none; }
   .kbd { display: none; }
 
   /* Hero */
@@ -2624,8 +2632,25 @@ html.js .hero__frameworks {
   .hero__lede { font-size: 15px; }
   .hero__ctas { flex-direction: column; gap: 8px; }
   .btn { width: 100%; justify-content: center; }
-  .install-row { width: 100%; display: flex; }
-  .install-row__cmd-stage { flex: 1; min-width: auto; overflow-x: auto; }
+  /* Stack into 2 rows: package-manager tabs on top, command + copy below. */
+  .install-row {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    height: auto;
+    align-items: center;
+    padding: 4px;
+  }
+  .install-row__tabs {
+    flex: 0 0 100%;
+    gap: 2px;
+    padding-bottom: 6px;
+    margin-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+  .install-row__tab { flex: 1; justify-content: center; }
+  .install-row__sep { display: none; }
+  .install-row__cmd-stage { flex: 1; min-width: 0; overflow-x: auto; padding: 0 4px; justify-content: center; }
   .framework-marquee { max-width: 100%; }
   .framework-marquee__set { gap: 28px; padding-right: 28px; }
   .hero__frameworks-label { font-size: 10px; margin-bottom: 12px; }
