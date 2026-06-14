@@ -31,6 +31,12 @@ export function Header() {
           >
             Components
           </Link>
+          <Link
+            href="/about"
+            className={`header__nav-link ${pathname === '/about' ? 'is-active' : ''}`}
+          >
+            About
+          </Link>
         </nav>
 
         <div className="header__actions">

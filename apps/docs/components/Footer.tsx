@@ -21,6 +21,7 @@ export function Footer() {
             <li><Link href="/components">All components</Link></li>
             <li><Link href="/components/gradient-button">GradientButton</Link></li>
             <li><Link href="/components/popover">Popover</Link></li>
+            <li><Link href="/about">About</Link></li>
           </ul>
         </div>
 

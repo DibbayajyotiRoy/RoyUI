@@ -195,7 +195,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               description: SITE_DESCRIPTION,
               url: SITE_URL,
               downloadUrl: 'https://www.npmjs.com/package/@roy-ui/ui',
-              softwareVersion: '0.0.3',
+              softwareVersion: '0.0.16',
               license: 'https://opensource.org/licenses/MIT',
               programmingLanguage: 'TypeScript',
               author: {
