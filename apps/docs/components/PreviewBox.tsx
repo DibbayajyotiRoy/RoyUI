@@ -7,6 +7,7 @@ import {
   MadeBy,
   Popover,
   Card,
+  StatCard,
   TextMorph,
   TreeNav,
   TreeNavItem,
@@ -60,6 +61,8 @@ function renderLivePreview(entry: ComponentEntry, compact: boolean) {
       return <DataTableThumb compact={compact} />;
     case 'card':
       return <CardPreview compact={compact} />;
+    case 'stat-card':
+      return <StatCardPreview compact={compact} />;
     case 'upload-files':
       return <UploadFilesPreview compact={compact} />;
     default:
@@ -244,6 +247,45 @@ function CardThumb() {
         <div className="card-thumb__sub">Hawthorn, Melbourne</div>
         <div className="card-thumb__cta">View Details</div>
       </div>
+    </div>
+  );
+}
+
+/* The StatCard is a plain <div> when it has no onClick/href, so it nests safely
+   inside the catalog Link (unlike Card, which carries its own buttons). Render
+   the real component here, dark to read on the docs stage. */
+function CoinIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="none" aria-hidden>
+      <ellipse cx="12" cy="6" rx="7.5" ry="3" stroke="currentColor" strokeWidth="1.6" />
+      <path
+        d="M4.5 6v6c0 1.66 3.36 3 7.5 3s7.5-1.34 7.5-3V6"
+        stroke="currentColor"
+        strokeWidth="1.6"
+      />
+      <path
+        d="M4.5 12v6c0 1.66 3.36 3 7.5 3s7.5-1.34 7.5-3v-6"
+        stroke="currentColor"
+        strokeWidth="1.6"
+      />
+    </svg>
+  );
+}
+
+function StatCardPreview({ compact }: { compact: boolean }) {
+  return (
+    <div style={{ width: compact ? 172 : 224 }}>
+      <StatCard
+        theme="dark"
+        compact={compact}
+        label="Revenue"
+        value="$125.4K"
+        sub="+$42.1K 30d"
+        delta={12.4}
+        color="#ffd27f"
+        icon={<CoinIcon />}
+        data={[56, 47, 42, 52, 66, 83, 98]}
+      />
     </div>
   );
 }

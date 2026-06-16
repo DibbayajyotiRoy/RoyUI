@@ -126,6 +126,17 @@ export const components: ComponentEntry[] = [
     importStatement: `import { Card } from '@roy-ui/ui';`,
   },
   {
+    slug: 'stat-card',
+    name: 'StatCard',
+    tagline: 'Compact KPI tile with an inline sparkline and trend chip.',
+    description:
+      'A calm KPI / stat tile: a neutral hero number, a faint tinted icon, and a sentiment-aware trend chip (green for good, red for bad, set per metric with goodDirection). Its optional pure-line sparkline is drawn as inline SVG, so the card pulls in no chart library. Renders a real keyboard-focusable button or anchor when interactive, a shimmer skeleton while loading, and ships its own light / dark tokens. It never fabricates data — omit the series and the chart simply does not draw.',
+    category: 'Display',
+    tags: ['kpi', 'stat', 'metric', 'sparkline', 'dashboard', 'card'],
+    status: 'available',
+    importStatement: `import { StatCard } from '@roy-ui/ui';`,
+  },
+  {
     slug: 'dialog',
     name: 'Dialog',
     tagline: 'Accessible modal built on Radix primitives.',

@@ -1,0 +1,309 @@
+.royui-statcard {
+  /* Every surface, ink, and accent is a variable. The light default is a clean
+     neutral surface (Vercel-style: near-white card, hairline border, near-black
+     ink) rather than a warm off-white, so a wall of KPIs reads crisp. Opt into
+     dark with theme="dark" (.royui-statcard--dark) or theme="auto". */
+  --royui-statcard-bg: #ffffff;
+  --royui-statcard-bg-hover: #fafafa;
+  --royui-statcard-fg: #171717;
+  --royui-statcard-label: #666666;
+  --royui-statcard-faint: #8f8f8f;
+  --royui-statcard-line: #ededed;
+  --royui-statcard-line-hover: #dcdcdc;
+  --royui-statcard-accent: #b8880a;
+  --royui-statcard-good: #15803d;
+  --royui-statcard-bad: #c4332b;
+  --royui-statcard-skeleton: #f1f1f1;
+  --royui-statcard-skeleton-sheen: rgba(0, 0, 0, 0.05);
+  --royui-statcard-radius: 12px;
+  --royui-statcard-radius-compact: 8px;
+  --royui-statcard-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  /* The column layout pins the sparkline to the bottom (margin-top:auto on the
+     chart) so a row of tiles shares one baseline even with different sub lines. */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 12px 14px 8px;
+  border: 1px solid var(--royui-statcard-line);
+  border-radius: var(--royui-statcard-radius);
+  background: var(--royui-statcard-bg);
+  color: var(--royui-statcard-fg);
+  font-family: inherit;
+}
+
+.royui-statcard--compact {
+  padding: 10px 12px 6px;
+  border-radius: var(--royui-statcard-radius-compact);
+}
+
+/* ── Interactive root reset ──────────────────────────────────────────────
+   The root may be a native <a> or <button>; strip their defaults so the card
+   looks identical to the <div> form, then layer the affordances back on. */
+.royui-statcard--interactive {
+  border-width: 1px;
+  margin: 0;
+  font: inherit;
+  text-align: inherit;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  transition:
+    transform 150ms ease,
+    border-color 150ms ease,
+    background 150ms ease;
+}
+.royui-statcard--interactive:hover {
+  border-color: var(--royui-statcard-line-hover);
+  background: var(--royui-statcard-bg-hover);
+  transform: translateY(-1px);
+}
+/* A clearly visible keyboard ring — only on keyboard focus, never on click. */
+.royui-statcard--interactive:focus-visible {
+  outline: 2px solid var(--royui-statcard-fg);
+  outline-offset: 2px;
+}
+
+/* ── Header row ──────────────────────────────────────────────────────────
+   Icon + label on the left, the trend chip pushed to the right edge. */
+.royui-statcard__header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.royui-statcard__icon {
+  display: inline-flex;
+  flex: none;
+  width: 12px;
+  height: 12px;
+  /* Slightly held back so the figure stays the hero; tinted via `color`. */
+  opacity: 0.85;
+}
+.royui-statcard__icon > svg {
+  width: 100%;
+  height: 100%;
+}
+/* The label is a quiet caption that truncates rather than wraps the header. */
+.royui-statcard__label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--royui-statcard-label);
+}
+
+/* ── Trend chip ──────────────────────────────────────────────────────────
+   Pushed right; the arrow shows the real direction, the color shows sentiment. */
+.royui-statcard__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  flex: none;
+  margin-left: auto;
+  font-size: 9.5px;
+  font-weight: 600;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.royui-statcard__arrow {
+  flex: none;
+}
+.royui-statcard__chip-text {
+  font-variant-numeric: tabular-nums;
+}
+.royui-statcard__chip--good {
+  color: var(--royui-statcard-good);
+}
+.royui-statcard__chip--bad {
+  color: var(--royui-statcard-bad);
+}
+.royui-statcard__chip--flat {
+  color: var(--royui-statcard-faint);
+}
+
+/* ── Value (the hero metric) ─────────────────────────────────────────────
+   Medium weight, not bold: like the Card's price, a big number reads more
+   premium when it's large and light. Tight tracking and tabular figures keep a
+   column of cards dense and aligned. */
+.royui-statcard__value {
+  margin-top: 8px;
+  font-size: 23px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  color: var(--royui-statcard-fg);
+}
+.royui-statcard--compact .royui-statcard__value {
+  margin-top: 6px;
+  font-size: 18px;
+}
+
+.royui-statcard__sub {
+  margin-top: 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 10px;
+  line-height: 1.3;
+  color: var(--royui-statcard-faint);
+}
+.royui-statcard--compact .royui-statcard__sub {
+  margin-top: 4px;
+}
+
+/* ── No-chart layout ─────────────────────────────────────────────────────
+   Without a sparkline the card would top-load and leave the bottom empty when
+   a grid stretches it to a charted neighbour's height. Center the figure in the
+   free space so it reads deliberate rather than unfinished. (When the card
+   isn't stretched, these autos collapse to zero and nothing moves.) */
+.royui-statcard--no-chart .royui-statcard__value {
+  margin-top: auto;
+}
+.royui-statcard--no-chart .royui-statcard__sub {
+  margin-bottom: auto;
+}
+/* No sub line: the value is the last child, so push it off the bottom too and
+   it lands centered instead of pinned under the header. */
+.royui-statcard--no-chart .royui-statcard__value:last-child {
+  margin-bottom: auto;
+}
+
+/* ── Sparkline ───────────────────────────────────────────────────────────
+   Pinned to the bottom (margin-top:auto). A smooth monotone curve, drawn in
+   real pixel space so the 1.75px stroke is uniform at any width, and animated
+   in on hover (see StatCard.tsx). */
+.royui-statcard__chart {
+  margin-top: auto;
+  padding-top: 10px;
+  line-height: 0;
+}
+.royui-statcard--compact .royui-statcard__chart {
+  padding-top: 8px;
+}
+/* The draw area is measured (its width is the card's, its height is fixed here)
+   so the path can be laid out in pixels rather than a stretched viewBox. */
+.royui-statcard__spark-wrap {
+  height: 28px;
+}
+.royui-statcard--compact .royui-statcard__spark-wrap {
+  height: 18px;
+}
+.royui-statcard__spark {
+  display: block;
+}
+
+/* ── Loading skeleton ────────────────────────────────────────────────────
+   A moving sheen sweeps across muted blocks. The value block and a chart-height
+   strip are always present so the busy card keeps its real shape. */
+.royui-statcard__skeleton {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  background: var(--royui-statcard-skeleton);
+}
+.royui-statcard__skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--royui-statcard-skeleton-sheen) 50%,
+    transparent 100%
+  );
+  transform: translateX(-100%);
+  animation: royui-statcard-shimmer 1.4s ease-in-out infinite;
+}
+.royui-statcard__skeleton--value {
+  margin-top: 8px;
+  width: 62%;
+  height: 23px;
+}
+.royui-statcard--compact .royui-statcard__skeleton--value {
+  margin-top: 6px;
+  height: 18px;
+}
+.royui-statcard__skeleton--sub {
+  margin-top: 6px;
+  width: 40%;
+  height: 8px;
+}
+.royui-statcard--compact .royui-statcard__skeleton--sub {
+  margin-top: 4px;
+}
+.royui-statcard__skeleton--chart {
+  /* The chart strip carries its own height, so use a fixed top gap rather than
+     padding (padding wouldn't show the muted fill in the gap). */
+  margin-top: 10px;
+  height: 38px;
+  border-radius: 6px;
+}
+.royui-statcard--compact .royui-statcard__skeleton--chart {
+  height: 26px;
+  margin-top: 8px;
+}
+
+@keyframes royui-statcard-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* ── Dark theme ──────────────────────────────────────────────────────────
+   Opt in with theme="dark"; theme="auto" re-applies the same tokens only when
+   the OS asks for dark, so a default light card is never silently swapped. */
+.royui-statcard--dark {
+  --royui-statcard-bg: #161617;
+  --royui-statcard-bg-hover: #1d1d1f;
+  --royui-statcard-fg: #f5f5f7;
+  --royui-statcard-label: rgba(255, 255, 255, 0.6);
+  --royui-statcard-faint: rgba(255, 255, 255, 0.42);
+  --royui-statcard-line: rgba(255, 255, 255, 0.1);
+  --royui-statcard-line-hover: rgba(255, 255, 255, 0.18);
+  --royui-statcard-accent: #ffd27f;
+  --royui-statcard-good: #34d399;
+  --royui-statcard-bad: #f87171;
+  --royui-statcard-skeleton: rgba(255, 255, 255, 0.06);
+  --royui-statcard-skeleton-sheen: rgba(255, 255, 255, 0.13);
+}
+
+@media (prefers-color-scheme: dark) {
+  .royui-statcard--auto {
+    --royui-statcard-bg: #161617;
+    --royui-statcard-bg-hover: #1d1d1f;
+    --royui-statcard-fg: #f5f5f7;
+    --royui-statcard-label: rgba(255, 255, 255, 0.6);
+    --royui-statcard-faint: rgba(255, 255, 255, 0.42);
+    --royui-statcard-line: rgba(255, 255, 255, 0.1);
+    --royui-statcard-line-hover: rgba(255, 255, 255, 0.18);
+    --royui-statcard-accent: #ffd27f;
+    --royui-statcard-good: #34d399;
+    --royui-statcard-bad: #f87171;
+    --royui-statcard-skeleton: rgba(255, 255, 255, 0.06);
+    --royui-statcard-skeleton-sheen: rgba(255, 255, 255, 0.13);
+  }
+}
+
+/* ── Reduced motion ──────────────────────────────────────────────────────
+   Drop the hover lift and transition, and freeze the shimmer to a static tint
+   so the loading state doesn't pulse for motion-sensitive users. */
+@media (prefers-reduced-motion: reduce) {
+  .royui-statcard--interactive {
+    transition: none;
+  }
+  .royui-statcard--interactive:hover {
+    transform: none;
+  }
+  .royui-statcard__skeleton::after {
+    animation: none;
+    transform: none;
+  }
+}

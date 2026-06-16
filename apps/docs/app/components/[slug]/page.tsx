@@ -11,6 +11,7 @@ import { TextMorphDocs } from '../../../components/TextMorphDocs';
 import { TreeNavDocs } from '../../../components/TreeNavDocs';
 import { DataTableDocs } from '../../../components/DataTableDocs';
 import { CardDocs } from '../../../components/CardDocs';
+import { StatCardDocs } from '../../../components/StatCardDocs';
 import { UploadFilesDocs } from '../../../components/UploadFilesDocs';
 import { DocsSidebar } from '../../../components/DocsSidebar';
 import { TableOfContents, type TocItem } from '../../../components/TableOfContents';
@@ -100,6 +101,15 @@ const slugKeywords: Record<string, string[]> = {
     'card with carousel React',
     'React container card',
   ],
+  'stat-card': [
+    'React KPI card',
+    'React stat card',
+    'metric card React',
+    'React sparkline component',
+    'dashboard KPI React',
+    'trend indicator React',
+    'sparkline without recharts',
+  ],
   dialog: ['React dialog', 'React modal', 'accessible modal React', 'Radix dialog alternative'],
   'upload-files': [
     'React file upload',
@@ -157,6 +167,7 @@ const docsBySlug: Record<string, () => React.ReactNode> = {
   'tree-nav': () => <TreeNavDocs />,
   'data-table': () => <DataTableDocs />,
   card: () => <CardDocs />,
+  'stat-card': () => <StatCardDocs />,
   'upload-files': () => <UploadFilesDocs />,
 };
 
@@ -201,6 +212,12 @@ const tocBySlug: Record<string, TocItem[]> = {
     { id: 'props', label: 'Props' },
   ],
   card: [
+    { id: 'installation', label: 'Installation' },
+    { id: 'usage', label: 'Usage' },
+    { id: 'theming', label: 'Theming' },
+    { id: 'props', label: 'Props' },
+  ],
+  'stat-card': [
     { id: 'installation', label: 'Installation' },
     { id: 'usage', label: 'Usage' },
     { id: 'theming', label: 'Theming' },

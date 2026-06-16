@@ -218,6 +218,10 @@
       "types": "./dist/components/upload-files/index.d.ts",
       "import": "./dist/components/upload-files/index.js"
     },
+    "./stat-card": {
+      "types": "./dist/components/stat-card/index.d.ts",
+      "import": "./dist/components/stat-card/index.js"
+    },
     "./package.json": "./package.json"
   },
   "scripts": {
