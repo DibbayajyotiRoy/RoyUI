@@ -13,3 +13,4 @@ export * from './components/data-table';
 export * from './components/card';
 export * from './components/upload-files';
 export * from './components/stat-card';
+export * from './components/input';

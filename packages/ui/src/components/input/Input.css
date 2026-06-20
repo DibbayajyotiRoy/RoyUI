@@ -1,0 +1,367 @@
+.royui-input {
+  /* Every ink and accent is a variable. The light default is a clean neutral
+     field — slate ink, a hairline rest line, an azure focus accent — in the
+     "bottom line, no base" style. Opt into dark with theme="dark"
+     (.royui-input--dark) or theme="auto". */
+  --royui-input-fg: #0f172a; /* what the user types */
+  --royui-input-label: #98a2b3; /* resting label + the faint focus hint */
+  --royui-input-label-filled: #475467; /* floated, blurred, has a value — calm slate */
+  --royui-input-faint: #667085; /* helper text + the checking spinner */
+  --royui-input-icon: #98a2b3; /* leading glyph at rest */
+  --royui-input-line-rest: #d0d5dd; /* the always-there hairline */
+  --royui-input-accent: #2575f0; /* focus: label, icon, the line that draws in */
+  --royui-input-glow: rgba(37, 117, 240, 0.28); /* soft bloom under the focused line */
+  --royui-input-error: #d92d20;
+  --royui-input-success: #15a34a;
+
+  --royui-input-font: 16px;
+  --royui-input-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  /* How far the resting label sits in from the left — past the icon when there
+     is one, flush left when there isn't. The float collapses this back to 0. */
+  --royui-input-indent: 0px;
+
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: inherit;
+  color: var(--royui-input-fg);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.royui-input--with-icon {
+  --royui-input-indent: 30px; /* 20px icon + 10px gap */
+}
+
+/* When a state is set, the accent the field reaches for becomes that state's
+   colour — so the line, the floated label, and the icon all shift together.
+   The doubled class lifts specificity above the theme blocks (.--dark / .--auto),
+   which also set --royui-input-accent; without it, a later theme rule would win
+   on source order and the state colour would never reach the line. */
+.royui-input.royui-input--error {
+  --royui-input-accent: var(--royui-input-error);
+  --royui-input-label-filled: var(--royui-input-error);
+  --royui-input-glow: transparent;
+}
+.royui-input.royui-input--success {
+  --royui-input-accent: var(--royui-input-success);
+  --royui-input-label-filled: var(--royui-input-success);
+  --royui-input-glow: transparent;
+}
+
+/* ── The field ───────────────────────────────────────────────────────────
+   A baseline-only input: no box, just a row of icon + input with the label
+   floating over it and the underline drawn by two stacked pseudo-elements. */
+.royui-input__field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  /* Top padding reserves the air the label lifts into; bottom padding is the
+     gap between the text and the underline. */
+  padding: 18px 0 9px;
+}
+
+/* The rest hairline (::before) is always there; the accent line (::after) is
+   parked at scaleX(0) and grows in from the left on focus or a set state. */
+.royui-input__field::before,
+.royui-input__field::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1.5px;
+  border-radius: 2px;
+}
+.royui-input__field::before {
+  background: var(--royui-input-line-rest);
+}
+.royui-input__field::after {
+  background: var(--royui-input-accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition:
+    transform 0.34s var(--royui-input-ease),
+    box-shadow 0.3s var(--royui-input-ease),
+    background 0.2s linear;
+}
+.royui-input__field:focus-within::after {
+  transform: scaleX(1);
+  box-shadow: 0 2px 12px -4px var(--royui-input-glow);
+}
+/* A set state pins the line open even when the field isn't focused. */
+.royui-input--error .royui-input__field::after,
+.royui-input--success .royui-input__field::after {
+  transform: scaleX(1);
+}
+
+/* ── Leading icon ────────────────────────────────────────────────────────
+   Greyed at rest; on focus it tints to the accent and gives a small, single
+   "pop" so the field acknowledges the cursor without shouting. */
+.royui-input__icon {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  color: var(--royui-input-icon);
+  transition: color 0.2s var(--royui-input-ease);
+}
+.royui-input__icon > svg {
+  width: 100%;
+  height: 100%;
+}
+.royui-input__field:focus-within .royui-input__icon {
+  color: var(--royui-input-accent);
+  animation: royui-input-pop 0.4s var(--royui-input-ease);
+}
+.royui-input--error .royui-input__icon,
+.royui-input--success .royui-input__icon {
+  color: var(--royui-input-accent);
+}
+
+/* ── Input ───────────────────────────────────────────────────────────────
+   Stripped to nothing — the field's chrome is the label and the line. */
+.royui-input__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font: inherit;
+  font-size: var(--royui-input-font);
+  line-height: 1.4;
+  color: var(--royui-input-fg);
+}
+/* Hold the real placeholder hidden until the label has floated, so the two
+   never sit on top of each other; on focus it fades in as a faint hint. */
+.royui-input__input::placeholder {
+  color: transparent;
+  transition: color 0.2s var(--royui-input-ease);
+}
+.royui-input__input:focus::placeholder {
+  color: var(--royui-input-label);
+}
+.royui-input--trailing .royui-input__input {
+  padding-right: 26px; /* clear the trailing check / spinner */
+}
+
+/* ── Floating label ──────────────────────────────────────────────────────
+   Rests over the placeholder (indented past the icon). On focus or when the
+   field carries a value it lifts up-and-left, shrinks, and recolours. */
+.royui-input__label {
+  position: absolute;
+  left: 0;
+  top: 18px; /* aligned with the input's text */
+  transform: translateX(var(--royui-input-indent));
+  transform-origin: left top;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--royui-input-font);
+  line-height: 1.4;
+  color: var(--royui-input-label);
+  pointer-events: none;
+  transition:
+    transform 0.24s var(--royui-input-ease),
+    color 0.2s var(--royui-input-ease);
+}
+.royui-input__input:focus ~ .royui-input__label,
+.royui-input__input:not(:placeholder-shown) ~ .royui-input__label {
+  transform: translateX(0) translateY(-16px) scale(0.75);
+}
+/* Floated colour: accent while focused, a calm slate once blurred-but-filled. */
+.royui-input__input:focus ~ .royui-input__label {
+  color: var(--royui-input-accent);
+}
+.royui-input__input:not(:placeholder-shown):not(:focus) ~ .royui-input__label {
+  color: var(--royui-input-label-filled);
+}
+/* In a set state the label takes the state colour even at rest. */
+.royui-input--error .royui-input__label,
+.royui-input--success .royui-input__label {
+  color: var(--royui-input-accent);
+}
+
+/* ── Trailing badges ─────────────────────────────────────────────────────
+   The check mounts only on success, so the stroke-dash sweep runs once as it
+   appears; the spinner spins while a check is pending. Both share the slot. */
+.royui-input__check,
+.royui-input__spinner {
+  position: absolute;
+  right: 0;
+  top: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+}
+.royui-input__check {
+  color: var(--royui-input-success);
+}
+.royui-input__check svg path {
+  stroke-dasharray: 24;
+  stroke-dashoffset: 24;
+  animation: royui-input-draw 0.45s var(--royui-input-ease) 0.04s forwards;
+}
+.royui-input__spinner {
+  color: var(--royui-input-faint);
+}
+.royui-input__spinner svg {
+  animation: royui-input-spin 0.7s linear infinite;
+}
+
+/* ── Helper line ─────────────────────────────────────────────────────────
+   Info icon + text at rest; recoloured for error / success. The text fades on
+   each change because the span is keyed on its copy. */
+.royui-input__helper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 8px 0 0;
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: var(--royui-input-faint);
+}
+.royui-input__helper-icon {
+  flex: none;
+  display: inline-flex;
+  width: 14px;
+  height: 14px;
+}
+.royui-input__helper-text {
+  animation: royui-input-fade 0.28s var(--royui-input-ease);
+}
+.royui-input--error .royui-input__helper {
+  color: var(--royui-input-error);
+}
+.royui-input--success .royui-input__helper {
+  color: var(--royui-input-success);
+}
+
+/* ── Shake (error entry) ─────────────────────────────────────────────────
+   A short, low-amplitude nudge — a wince, not a wobble. */
+.royui-input--shake .royui-input__field {
+  animation: royui-input-shake 0.4s var(--royui-input-ease);
+}
+
+/* ── Disabled ────────────────────────────────────────────────────────────*/
+.royui-input--disabled {
+  opacity: 0.55;
+}
+.royui-input--disabled .royui-input__field,
+.royui-input__input:disabled {
+  cursor: not-allowed;
+}
+
+@keyframes royui-input-pop {
+  0% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.14);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes royui-input-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes royui-input-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes royui-input-fade {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes royui-input-shake {
+  10%,
+  90% {
+    transform: translateX(-1px);
+  }
+  20%,
+  80% {
+    transform: translateX(2px);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translateX(-3px);
+  }
+  40%,
+  60% {
+    transform: translateX(3px);
+  }
+}
+
+/* ── Dark theme ──────────────────────────────────────────────────────────
+   theme="dark" forces it; theme="auto" re-applies the same tokens only when
+   the OS asks for dark, so a default light field is never silently swapped. */
+.royui-input--dark {
+  --royui-input-fg: #f5f5f7;
+  --royui-input-label: rgba(255, 255, 255, 0.45);
+  --royui-input-label-filled: rgba(255, 255, 255, 0.72);
+  --royui-input-faint: rgba(255, 255, 255, 0.5);
+  --royui-input-icon: rgba(255, 255, 255, 0.45);
+  --royui-input-line-rest: rgba(255, 255, 255, 0.16);
+  --royui-input-accent: #5b9bff;
+  --royui-input-glow: rgba(91, 155, 255, 0.35);
+  --royui-input-error: #f87171;
+  --royui-input-success: #34d399;
+}
+
+@media (prefers-color-scheme: dark) {
+  .royui-input--auto {
+    --royui-input-fg: #f5f5f7;
+    --royui-input-label: rgba(255, 255, 255, 0.45);
+    --royui-input-label-filled: rgba(255, 255, 255, 0.72);
+    --royui-input-faint: rgba(255, 255, 255, 0.5);
+    --royui-input-icon: rgba(255, 255, 255, 0.45);
+    --royui-input-line-rest: rgba(255, 255, 255, 0.16);
+    --royui-input-accent: #5b9bff;
+    --royui-input-glow: rgba(91, 155, 255, 0.35);
+    --royui-input-error: #f87171;
+    --royui-input-success: #34d399;
+  }
+}
+
+/* ── Reduced motion ──────────────────────────────────────────────────────
+   Keep every end state, drop the travel: the label still lifts and the line
+   still shows, they just don't animate, and the shake / check-draw are off.
+   The spinner keeps turning — it's the only signal that a check is in flight. */
+@media (prefers-reduced-motion: reduce) {
+  .royui-input__label,
+  .royui-input__field::after,
+  .royui-input__icon,
+  .royui-input__input::placeholder,
+  .royui-input__helper-text {
+    transition: none;
+    animation: none;
+  }
+  .royui-input__field:focus-within .royui-input__icon {
+    animation: none;
+  }
+  .royui-input--shake .royui-input__field {
+    animation: none;
+  }
+  .royui-input__check svg path {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}

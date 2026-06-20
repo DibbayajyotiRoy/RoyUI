@@ -13,6 +13,7 @@ import { DataTableDocs } from '../../../components/DataTableDocs';
 import { CardDocs } from '../../../components/CardDocs';
 import { StatCardDocs } from '../../../components/StatCardDocs';
 import { UploadFilesDocs } from '../../../components/UploadFilesDocs';
+import { InputDocs } from '../../../components/InputDocs';
 import { DocsSidebar } from '../../../components/DocsSidebar';
 import { TableOfContents, type TocItem } from '../../../components/TableOfContents';
 
@@ -91,7 +92,18 @@ const slugKeywords: Record<string, string[]> = {
     'router-agnostic nav React',
     'sub-nav React',
   ],
-  input: ['React input component', 'accessible input React', 'form input React'],
+  input: [
+    'React input component',
+    'accessible input React',
+    'form input React',
+    'React floating label input',
+    'floating label input React',
+    'animated input React',
+    'underline input React',
+    'email input React',
+    'username availability input React',
+    'React form field animation',
+  ],
   card: [
     'React card component',
     'listing card React',
@@ -169,6 +181,7 @@ const docsBySlug: Record<string, () => React.ReactNode> = {
   card: () => <CardDocs />,
   'stat-card': () => <StatCardDocs />,
   'upload-files': () => <UploadFilesDocs />,
+  input: () => <InputDocs />,
 };
 
 const tocBySlug: Record<string, TocItem[]> = {
@@ -218,6 +231,12 @@ const tocBySlug: Record<string, TocItem[]> = {
     { id: 'props', label: 'Props' },
   ],
   'stat-card': [
+    { id: 'installation', label: 'Installation' },
+    { id: 'usage', label: 'Usage' },
+    { id: 'theming', label: 'Theming' },
+    { id: 'props', label: 'Props' },
+  ],
+  input: [
     { id: 'installation', label: 'Installation' },
     { id: 'usage', label: 'Usage' },
     { id: 'theming', label: 'Theming' },

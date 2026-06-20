@@ -108,11 +108,13 @@ export const components: ComponentEntry[] = [
   {
     slug: 'input',
     name: 'Input',
-    tagline: 'Accessible text input with built-in label and helper text.',
-    description: 'Coming soon.',
+    tagline: 'Baseline text field with a floating label and custom-CSS micro-motion.',
+    description:
+      'A "bottom line, no base" text field for any value — email, username, password, search. A label rests over the input and lifts up-and-left on focus, an underline draws in from the left, a leading icon tints and pops, and a faint placeholder hint only appears once the label has cleared. Built-in error, success, and async-loading states bring their own micro-motion — a one-time shake on error, a stroke-drawn check on success, a trailing spinner while a live check (like username availability) is in flight. Every surface is a CSS variable, it ships light / dark / auto themes, and every animation is custom CSS that respects prefers-reduced-motion. Forwards refs and spreads every native input attribute.',
     category: 'Inputs',
-    tags: ['form', 'text', 'input'],
-    status: 'coming-soon',
+    tags: ['form', 'input', 'text', 'floating-label', 'email', 'username', 'animation'],
+    status: 'available',
+    importStatement: `import { Input } from '@roy-ui/ui';`,
   },
   {
     slug: 'card',

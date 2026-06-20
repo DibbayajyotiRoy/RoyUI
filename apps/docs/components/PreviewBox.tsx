@@ -11,10 +11,12 @@ import {
   TextMorph,
   TreeNav,
   TreeNavItem,
+  Input,
 } from '@roy-ui/ui';
 import type { ComponentEntry } from '../lib/registry';
 import { sampleContent, sampleImages, sampleStats } from './demos/card-sample';
 import { UploadFilesDemo } from './demos/UploadFilesDemo';
+import { AtIcon, InputEmailDemo } from './demos/InputDemo';
 
 export function PreviewBox({
   entry,
@@ -65,6 +67,8 @@ function renderLivePreview(entry: ComponentEntry, compact: boolean) {
       return <StatCardPreview compact={compact} />;
     case 'upload-files':
       return <UploadFilesPreview compact={compact} />;
+    case 'input':
+      return <InputPreview compact={compact} />;
     default:
       return null;
   }
@@ -288,6 +292,27 @@ function StatCardPreview({ compact }: { compact: boolean }) {
       />
     </div>
   );
+}
+
+function InputPreview({ compact }: { compact: boolean }) {
+  // Catalog cards wrap the preview in a Link, so the interactive field can't
+  // live inside — render a static, non-focusable snapshot there (floated label
+  // + success check) and the live, validating demo on the detail page.
+  if (compact) {
+    return (
+      <div style={{ width: 220, pointerEvents: 'none' }} aria-hidden>
+        <Input
+          theme="dark"
+          label="Email address"
+          icon={<AtIcon />}
+          defaultValue="hi@royui.dev"
+          success
+          tabIndex={-1}
+        />
+      </div>
+    );
+  }
+  return <InputEmailDemo theme="dark" />;
 }
 
 function TreeNavPreview({ compact }: { compact: boolean }) {
