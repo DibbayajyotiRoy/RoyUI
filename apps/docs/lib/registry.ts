@@ -117,6 +117,72 @@ export const components: ComponentEntry[] = [
     importStatement: `import { Input } from '@roy-ui/ui';`,
   },
   {
+    slug: 'form',
+    name: 'Form',
+    tagline: 'Schema-driven form with built-in validation, sections, and a headless core.',
+    description:
+      'A complete form from a fields config — text, number, textarea, select, checkbox, radio, and switch controls, built-in validation, titled sections, a responsive grid, an error summary, and submit states. Built on a headless external-store core, so typing in one field only re-renders that field; an optional resolver lets you swap the built-in rules for zod / yup later without touching the field config. RSC-safe and dependency-free.',
+    category: 'Inputs',
+    tags: ['form', 'schema', 'validation', 'fields', 'sections', 'submit'],
+    status: 'available',
+    importStatement: `import { Form } from '@roy-ui/ui';`,
+  },
+  {
+    slug: 'dropdown',
+    name: 'Dropdown',
+    tagline: 'Custom select / action menu with a pill trigger and keyboard nav.',
+    description:
+      'An accessible listbox dropdown with a soft pill trigger, an optional leading icon, and a floating panel that lights options in the accent on hover or arrow-key focus. Works as an action menu (fixed label) or a value select (shows the chosen option). Full keyboard support — arrows, Home / End, type-ahead, Enter, Escape — and themeable via CSS variables. Powers every single-select field in Form.',
+    category: 'Inputs',
+    tags: ['dropdown', 'select', 'menu', 'combobox', 'listbox', 'form'],
+    status: 'available',
+    importStatement: `import { Dropdown } from '@roy-ui/ui';`,
+  },
+  {
+    slug: 'textarea',
+    name: 'Textarea',
+    tagline: 'Multiline field with floating label, auto-grow, and a character count.',
+    description:
+      "A multiline companion to Input — the same floating label and underline motion, plus optional auto-grow and a character counter. Built-in error and success states, light / dark / auto themes, zero dependencies.",
+    category: 'Inputs',
+    tags: ['form', 'textarea', 'multiline', 'input'],
+    status: 'available',
+    importStatement: `import { Textarea } from '@roy-ui/ui';`,
+  },
+  {
+    slug: 'checkbox',
+    name: 'Checkbox',
+    tagline: 'Accessible checkbox with an indeterminate state and a drawn check.',
+    description:
+      'A single checkbox with an indeterminate (tri-state) mode, a stroke-drawn tick, a focus ring, and inline error / helper text. A real native input under the hood for keyboard and form semantics; light / dark / auto themes.',
+    category: 'Inputs',
+    tags: ['form', 'checkbox', 'indeterminate'],
+    status: 'available',
+    importStatement: `import { Checkbox } from '@roy-ui/ui';`,
+  },
+  {
+    slug: 'radio-group',
+    name: 'RadioGroup',
+    tagline: 'Grouped radios with native keyboard navigation.',
+    description:
+      'A radiogroup rendered from an options array, with arrow-key selection and roving focus for free via native radios. Vertical or horizontal layout, inline error / helper text, and light / dark / auto themes. Ships a standalone Radio too.',
+    category: 'Inputs',
+    tags: ['form', 'radio', 'radio-group', 'options'],
+    status: 'available',
+    importStatement: `import { RadioGroup } from '@roy-ui/ui';`,
+  },
+  {
+    slug: 'number-input',
+    name: 'NumberInput',
+    tagline: 'Numeric field with steppers, min / max clamping, and precision.',
+    description:
+      "A number field with Input's floating-label chrome plus stepper buttons, arrow-key and PageUp / PageDown stepping, min / max clamping, and decimal precision. Error and success states, light / dark / auto themes.",
+    category: 'Inputs',
+    tags: ['form', 'number', 'stepper', 'input'],
+    status: 'available',
+    importStatement: `import { NumberInput } from '@roy-ui/ui';`,
+  },
+  {
     slug: 'card',
     name: 'Card',
     tagline: 'Listing card with a swipeable, dot-paginated gallery.',
@@ -177,11 +243,13 @@ export const components: ComponentEntry[] = [
   {
     slug: 'switch',
     name: 'Switch',
-    tagline: 'Binary toggle with animated thumb.',
-    description: 'Coming soon.',
+    tagline: 'Binary toggle with an animated thumb.',
+    description:
+      'An accessible on/off switch (role="switch") with an eased thumb slide, a focus ring, an optional start or end label, and inline error / helper text. A native checkbox under the hood for keyboard and form semantics; light / dark / auto themes.',
     category: 'Inputs',
-    tags: ['form', 'toggle'],
-    status: 'coming-soon',
+    tags: ['form', 'toggle', 'switch'],
+    status: 'available',
+    importStatement: `import { Switch } from '@roy-ui/ui';`,
   },
 ];
 

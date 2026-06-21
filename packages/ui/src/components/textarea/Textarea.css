@@ -1,0 +1,244 @@
+.royui-textarea {
+  /* Same neutral-field palette as Input so the two read as one family. */
+  --royui-textarea-fg: #0f172a;
+  --royui-textarea-label: #98a2b3;
+  --royui-textarea-label-filled: #475467;
+  --royui-textarea-faint: #667085;
+  --royui-textarea-line-rest: #d0d5dd;
+  --royui-textarea-accent: #2575f0;
+  --royui-textarea-glow: rgba(37, 117, 240, 0.28);
+  --royui-textarea-error: #d92d20;
+  --royui-textarea-success: #15a34a;
+
+  --royui-textarea-font: 16px;
+  --royui-textarea-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: inherit;
+  color: var(--royui-textarea-fg);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.royui-textarea.royui-textarea--error {
+  --royui-textarea-accent: var(--royui-textarea-error);
+  --royui-textarea-label-filled: var(--royui-textarea-error);
+  --royui-textarea-glow: transparent;
+}
+.royui-textarea.royui-textarea--success {
+  --royui-textarea-accent: var(--royui-textarea-success);
+  --royui-textarea-label-filled: var(--royui-textarea-success);
+  --royui-textarea-glow: transparent;
+}
+
+.royui-textarea__field {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  padding: 20px 0 9px;
+}
+.royui-textarea__field::before,
+.royui-textarea__field::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1.5px;
+  border-radius: 2px;
+}
+.royui-textarea__field::before {
+  background: var(--royui-textarea-line-rest);
+}
+.royui-textarea__field::after {
+  background: var(--royui-textarea-accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition:
+    transform 0.34s var(--royui-textarea-ease),
+    box-shadow 0.3s var(--royui-textarea-ease),
+    background 0.2s linear;
+}
+.royui-textarea__field:focus-within::after {
+  transform: scaleX(1);
+  box-shadow: 0 2px 12px -4px var(--royui-textarea-glow);
+}
+.royui-textarea--error .royui-textarea__field::after,
+.royui-textarea--success .royui-textarea__field::after {
+  transform: scaleX(1);
+}
+
+.royui-textarea__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font: inherit;
+  font-size: var(--royui-textarea-font);
+  line-height: 1.5;
+  color: var(--royui-textarea-fg);
+  resize: vertical;
+}
+.royui-textarea__input::placeholder {
+  color: transparent;
+  transition: color 0.2s var(--royui-textarea-ease);
+}
+.royui-textarea__input:focus::placeholder {
+  color: var(--royui-textarea-label);
+}
+
+.royui-textarea__label {
+  position: absolute;
+  left: 0;
+  top: 20px;
+  transform-origin: left top;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--royui-textarea-font);
+  line-height: 1.4;
+  color: var(--royui-textarea-label);
+  pointer-events: none;
+  transition:
+    transform 0.24s var(--royui-textarea-ease),
+    color 0.2s var(--royui-textarea-ease);
+}
+.royui-textarea__input:focus ~ .royui-textarea__label,
+.royui-textarea__input:not(:placeholder-shown) ~ .royui-textarea__label {
+  transform: translateY(-16px) scale(0.75);
+}
+.royui-textarea__input:focus ~ .royui-textarea__label {
+  color: var(--royui-textarea-accent);
+}
+.royui-textarea__input:not(:placeholder-shown):not(:focus) ~ .royui-textarea__label {
+  color: var(--royui-textarea-label-filled);
+}
+.royui-textarea--error .royui-textarea__label,
+.royui-textarea--success .royui-textarea__label {
+  color: var(--royui-textarea-accent);
+}
+
+.royui-textarea__count {
+  position: absolute;
+  right: 0;
+  bottom: 9px;
+  font-size: 12px;
+  color: var(--royui-textarea-faint);
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+}
+.royui-textarea--over .royui-textarea__count {
+  color: var(--royui-textarea-error);
+}
+
+/* ── Helper line (shared structure with Input) ───────────────────────────── */
+.royui-textarea__helper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 8px 0 0;
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: var(--royui-textarea-faint);
+}
+.royui-textarea__helper-icon {
+  flex: none;
+  display: inline-flex;
+  width: 14px;
+  height: 14px;
+}
+.royui-textarea__helper-text {
+  animation: royui-textarea-fade 0.28s var(--royui-textarea-ease);
+}
+.royui-textarea--error .royui-textarea__helper {
+  color: var(--royui-textarea-error);
+}
+.royui-textarea--success .royui-textarea__helper {
+  color: var(--royui-textarea-success);
+}
+
+.royui-textarea--shake .royui-textarea__field {
+  animation: royui-textarea-shake 0.4s var(--royui-textarea-ease);
+}
+
+.royui-textarea--disabled {
+  opacity: 0.55;
+}
+.royui-textarea--disabled .royui-textarea__input:disabled {
+  cursor: not-allowed;
+}
+
+@keyframes royui-textarea-fade {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes royui-textarea-shake {
+  10%,
+  90% {
+    transform: translateX(-1px);
+  }
+  20%,
+  80% {
+    transform: translateX(2px);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translateX(-3px);
+  }
+  40%,
+  60% {
+    transform: translateX(3px);
+  }
+}
+
+/* ── Dark theme ──────────────────────────────────────────────────────────── */
+.royui-textarea--dark {
+  --royui-textarea-fg: #f5f5f7;
+  --royui-textarea-label: rgba(255, 255, 255, 0.45);
+  --royui-textarea-label-filled: rgba(255, 255, 255, 0.72);
+  --royui-textarea-faint: rgba(255, 255, 255, 0.5);
+  --royui-textarea-line-rest: rgba(255, 255, 255, 0.16);
+  --royui-textarea-accent: #5b9bff;
+  --royui-textarea-glow: rgba(91, 155, 255, 0.35);
+  --royui-textarea-error: #f87171;
+  --royui-textarea-success: #34d399;
+}
+@media (prefers-color-scheme: dark) {
+  .royui-textarea--auto {
+    --royui-textarea-fg: #f5f5f7;
+    --royui-textarea-label: rgba(255, 255, 255, 0.45);
+    --royui-textarea-label-filled: rgba(255, 255, 255, 0.72);
+    --royui-textarea-faint: rgba(255, 255, 255, 0.5);
+    --royui-textarea-line-rest: rgba(255, 255, 255, 0.16);
+    --royui-textarea-accent: #5b9bff;
+    --royui-textarea-glow: rgba(91, 155, 255, 0.35);
+    --royui-textarea-error: #f87171;
+    --royui-textarea-success: #34d399;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .royui-textarea__label,
+  .royui-textarea__field::after,
+  .royui-textarea__input::placeholder,
+  .royui-textarea__helper-text {
+    transition: none;
+    animation: none;
+  }
+  .royui-textarea--shake .royui-textarea__field {
+    animation: none;
+  }
+}

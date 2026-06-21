@@ -14,6 +14,13 @@ import { CardDocs } from '../../../components/CardDocs';
 import { StatCardDocs } from '../../../components/StatCardDocs';
 import { UploadFilesDocs } from '../../../components/UploadFilesDocs';
 import { InputDocs } from '../../../components/InputDocs';
+import { FormDocs } from '../../../components/FormDocs';
+import { TextareaDocs } from '../../../components/TextareaDocs';
+import { CheckboxDocs } from '../../../components/CheckboxDocs';
+import { SwitchDocs } from '../../../components/SwitchDocs';
+import { RadioGroupDocs } from '../../../components/RadioGroupDocs';
+import { NumberInputDocs } from '../../../components/NumberInputDocs';
+import { DropdownDocs } from '../../../components/DropdownDocs';
 import { DocsSidebar } from '../../../components/DocsSidebar';
 import { TableOfContents, type TocItem } from '../../../components/TableOfContents';
 
@@ -182,6 +189,13 @@ const docsBySlug: Record<string, () => React.ReactNode> = {
   'stat-card': () => <StatCardDocs />,
   'upload-files': () => <UploadFilesDocs />,
   input: () => <InputDocs />,
+  form: () => <FormDocs />,
+  textarea: () => <TextareaDocs />,
+  checkbox: () => <CheckboxDocs />,
+  switch: () => <SwitchDocs />,
+  'radio-group': () => <RadioGroupDocs />,
+  'number-input': () => <NumberInputDocs />,
+  dropdown: () => <DropdownDocs />,
 };
 
 const tocBySlug: Record<string, TocItem[]> = {
@@ -239,6 +253,45 @@ const tocBySlug: Record<string, TocItem[]> = {
   input: [
     { id: 'installation', label: 'Installation' },
     { id: 'usage', label: 'Usage' },
+    { id: 'theming', label: 'Theming' },
+    { id: 'props', label: 'Props' },
+  ],
+  form: [
+    { id: 'installation', label: 'Installation' },
+    { id: 'usage', label: 'Usage' },
+    { id: 'validation', label: 'Validation' },
+    { id: 'architecture', label: 'How it renders' },
+    { id: 'props', label: 'Props' },
+  ],
+  textarea: [
+    { id: 'installation', label: 'Installation' },
+    { id: 'usage', label: 'Usage' },
+    { id: 'props', label: 'Props' },
+  ],
+  checkbox: [
+    { id: 'installation', label: 'Installation' },
+    { id: 'usage', label: 'Usage' },
+    { id: 'props', label: 'Props' },
+  ],
+  switch: [
+    { id: 'installation', label: 'Installation' },
+    { id: 'usage', label: 'Usage' },
+    { id: 'props', label: 'Props' },
+  ],
+  'radio-group': [
+    { id: 'installation', label: 'Installation' },
+    { id: 'usage', label: 'Usage' },
+    { id: 'props', label: 'Props' },
+  ],
+  'number-input': [
+    { id: 'installation', label: 'Installation' },
+    { id: 'usage', label: 'Usage' },
+    { id: 'props', label: 'Props' },
+  ],
+  dropdown: [
+    { id: 'installation', label: 'Installation' },
+    { id: 'usage', label: 'Usage' },
+    { id: 'in-forms', label: 'In a Form' },
     { id: 'theming', label: 'Theming' },
     { id: 'props', label: 'Props' },
   ],

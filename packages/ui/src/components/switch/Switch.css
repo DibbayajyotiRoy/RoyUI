@@ -1,0 +1,180 @@
+.royui-switch {
+  --royui-switch-fg: #0f172a;
+  --royui-switch-faint: #667085;
+  --royui-switch-track-off: #cbd2dc;
+  --royui-switch-accent: #2575f0;
+  --royui-switch-thumb: #ffffff;
+  --royui-switch-glow: rgba(37, 117, 240, 0.28);
+  --royui-switch-error: #d92d20;
+  --royui-switch-w: 40px;
+  --royui-switch-h: 22px;
+  --royui-switch-pad: 2px;
+  --royui-switch-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  display: block;
+  font-family: inherit;
+  color: var(--royui-switch-fg);
+  -webkit-tap-highlight-color: transparent;
+}
+.royui-switch--sm {
+  --royui-switch-w: 34px;
+  --royui-switch-h: 19px;
+}
+.royui-switch--error {
+  --royui-switch-track-off: var(--royui-switch-error);
+}
+
+.royui-switch__row {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1.4;
+}
+.royui-switch--disabled .royui-switch__row {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.royui-switch__input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--royui-switch-w);
+  height: var(--royui-switch-h);
+  margin: 0;
+  opacity: 0;
+  cursor: inherit;
+}
+.royui-switch--label-start .royui-switch__input {
+  left: auto;
+  right: 0;
+}
+
+.royui-switch__track {
+  position: relative;
+  flex: none;
+  width: var(--royui-switch-w);
+  height: var(--royui-switch-h);
+  border-radius: 999px;
+  background: var(--royui-switch-track-off);
+  transition:
+    background 0.22s var(--royui-switch-ease),
+    box-shadow 0.18s var(--royui-switch-ease);
+}
+.royui-switch__thumb {
+  position: absolute;
+  top: var(--royui-switch-pad);
+  left: var(--royui-switch-pad);
+  width: calc(var(--royui-switch-h) - 2 * var(--royui-switch-pad));
+  height: calc(var(--royui-switch-h) - 2 * var(--royui-switch-pad));
+  border-radius: 50%;
+  background: var(--royui-switch-thumb);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  transition: transform 0.24s var(--royui-switch-ease);
+}
+.royui-switch__input:focus-visible ~ .royui-switch__track {
+  box-shadow: 0 0 0 4px var(--royui-switch-glow);
+}
+.royui-switch__input:checked ~ .royui-switch__track {
+  background: var(--royui-switch-accent);
+}
+.royui-switch__input:checked ~ .royui-switch__track .royui-switch__thumb {
+  transform: translateX(calc(var(--royui-switch-w) - var(--royui-switch-h)));
+}
+
+.royui-switch__label {
+  color: var(--royui-switch-fg);
+}
+
+/* ── Helper line ─────────────────────────────────────────────────────────── */
+.royui-switch__helper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 7px 0 0;
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: var(--royui-switch-faint);
+}
+.royui-switch__helper-icon {
+  flex: none;
+  display: inline-flex;
+  width: 14px;
+  height: 14px;
+}
+.royui-switch__helper-text {
+  animation: royui-switch-fade 0.28s var(--royui-switch-ease);
+}
+.royui-switch--error .royui-switch__helper {
+  color: var(--royui-switch-error);
+}
+
+.royui-switch--shake .royui-switch__track {
+  animation: royui-switch-shake 0.4s var(--royui-switch-ease);
+}
+
+@keyframes royui-switch-fade {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes royui-switch-shake {
+  10%,
+  90% {
+    transform: translateX(-1px);
+  }
+  20%,
+  80% {
+    transform: translateX(2px);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translateX(-2px);
+  }
+  40%,
+  60% {
+    transform: translateX(2px);
+  }
+}
+
+.royui-switch--dark {
+  --royui-switch-fg: #f5f5f7;
+  --royui-switch-faint: rgba(255, 255, 255, 0.5);
+  --royui-switch-track-off: rgba(255, 255, 255, 0.24);
+  --royui-switch-accent: #5b9bff;
+  --royui-switch-thumb: #ffffff;
+  --royui-switch-glow: rgba(91, 155, 255, 0.35);
+  --royui-switch-error: #f87171;
+}
+@media (prefers-color-scheme: dark) {
+  .royui-switch--auto {
+    --royui-switch-fg: #f5f5f7;
+    --royui-switch-faint: rgba(255, 255, 255, 0.5);
+    --royui-switch-track-off: rgba(255, 255, 255, 0.24);
+    --royui-switch-accent: #5b9bff;
+    --royui-switch-thumb: #ffffff;
+    --royui-switch-glow: rgba(91, 155, 255, 0.35);
+    --royui-switch-error: #f87171;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .royui-switch__track,
+  .royui-switch__thumb,
+  .royui-switch__helper-text {
+    transition: none;
+    animation: none;
+  }
+  .royui-switch--shake .royui-switch__track {
+    animation: none;
+  }
+}
