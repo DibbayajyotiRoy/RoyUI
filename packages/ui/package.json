@@ -1,6 +1,6 @@
 {
   "name": "@roy-ui/ui",
-  "version": "0.0.17",
+  "version": "0.1.0",
   "description": "Free, animated React components built with TypeScript. Zero config, RSC-safe, sub-12 KB core (the form system is opt-in and tree-shakeable per subpath). Gradient button, popover, schema-driven forms and more.",
   "keywords": [
     "react",
