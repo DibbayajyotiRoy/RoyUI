@@ -1,0 +1,206 @@
+/* Tokens live on both the group and the standalone radio so each works alone. */
+.royui-radio-group,
+.royui-radio {
+  --royui-radio-fg: #0f172a;
+  --royui-radio-faint: #667085;
+  --royui-radio-line-rest: #cbd2dc;
+  --royui-radio-accent: #2575f0;
+  --royui-radio-glow: rgba(37, 117, 240, 0.28);
+  --royui-radio-error: #d92d20;
+  --royui-radio-size: 18px;
+  --royui-radio-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  font-family: inherit;
+  color: var(--royui-radio-fg);
+  -webkit-tap-highlight-color: transparent;
+}
+.royui-radio-group--sm,
+.royui-radio--sm {
+  --royui-radio-size: 16px;
+}
+.royui-radio-group--error {
+  --royui-radio-accent: var(--royui-radio-error);
+  --royui-radio-line-rest: var(--royui-radio-error);
+}
+
+/* Reset the fieldset chrome. */
+.royui-radio-group {
+  display: block;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.royui-radio-group__legend {
+  margin: 0 0 10px;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--royui-radio-fg);
+}
+.royui-radio-group__items {
+  display: flex;
+  gap: 12px 20px;
+}
+.royui-radio-group--vertical .royui-radio-group__items {
+  flex-direction: column;
+}
+.royui-radio-group--horizontal .royui-radio-group__items {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.royui-radio-group--disabled {
+  opacity: 0.55;
+}
+
+.royui-radio__row {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  cursor: pointer;
+  font-size: 15px;
+  line-height: 1.4;
+}
+.royui-radio-group--disabled .royui-radio__row {
+  cursor: not-allowed;
+}
+
+.royui-radio__input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--royui-radio-size);
+  height: var(--royui-radio-size);
+  margin: 0;
+  opacity: 0;
+  cursor: inherit;
+}
+
+.royui-radio__dot {
+  position: relative;
+  flex: none;
+  width: var(--royui-radio-size);
+  height: var(--royui-radio-size);
+  border-radius: 50%;
+  border: 1.5px solid var(--royui-radio-line-rest);
+  transition:
+    border-color 0.18s var(--royui-radio-ease),
+    box-shadow 0.18s var(--royui-radio-ease);
+}
+.royui-radio__dot::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 52%;
+  height: 52%;
+  border-radius: 50%;
+  background: var(--royui-radio-accent);
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.18s var(--royui-radio-ease);
+}
+.royui-radio__input:focus-visible ~ .royui-radio__dot {
+  box-shadow: 0 0 0 4px var(--royui-radio-glow);
+  border-color: var(--royui-radio-accent);
+}
+.royui-radio__input:checked ~ .royui-radio__dot {
+  border-color: var(--royui-radio-accent);
+}
+.royui-radio__input:checked ~ .royui-radio__dot::after {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.royui-radio__label {
+  color: var(--royui-radio-fg);
+}
+
+/* ── Helper line ─────────────────────────────────────────────────────────── */
+.royui-radio-group__helper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 9px 0 0;
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: var(--royui-radio-faint);
+}
+.royui-radio-group__helper-icon {
+  flex: none;
+  display: inline-flex;
+  width: 14px;
+  height: 14px;
+}
+.royui-radio-group__helper-text {
+  animation: royui-radio-fade 0.28s var(--royui-radio-ease);
+}
+.royui-radio-group--error .royui-radio-group__helper {
+  color: var(--royui-radio-error);
+}
+
+.royui-radio-group--shake .royui-radio-group__items {
+  animation: royui-radio-shake 0.4s var(--royui-radio-ease);
+}
+
+@keyframes royui-radio-fade {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes royui-radio-shake {
+  10%,
+  90% {
+    transform: translateX(-1px);
+  }
+  20%,
+  80% {
+    transform: translateX(2px);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translateX(-2px);
+  }
+  40%,
+  60% {
+    transform: translateX(2px);
+  }
+}
+
+.royui-radio-group--dark,
+.royui-radio--dark {
+  --royui-radio-fg: #f5f5f7;
+  --royui-radio-faint: rgba(255, 255, 255, 0.5);
+  --royui-radio-line-rest: rgba(255, 255, 255, 0.28);
+  --royui-radio-accent: #5b9bff;
+  --royui-radio-glow: rgba(91, 155, 255, 0.35);
+  --royui-radio-error: #f87171;
+}
+@media (prefers-color-scheme: dark) {
+  .royui-radio-group--auto,
+  .royui-radio--auto {
+    --royui-radio-fg: #f5f5f7;
+    --royui-radio-faint: rgba(255, 255, 255, 0.5);
+    --royui-radio-line-rest: rgba(255, 255, 255, 0.28);
+    --royui-radio-accent: #5b9bff;
+    --royui-radio-glow: rgba(91, 155, 255, 0.35);
+    --royui-radio-error: #f87171;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .royui-radio__dot,
+  .royui-radio__dot::after,
+  .royui-radio-group__helper-text {
+    transition: none;
+    animation: none;
+  }
+  .royui-radio-group--shake .royui-radio-group__items {
+    animation: none;
+  }
+}

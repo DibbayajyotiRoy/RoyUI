@@ -12,11 +12,18 @@ import {
   TreeNav,
   TreeNavItem,
   Input,
+  Textarea,
+  Checkbox,
+  Switch,
+  RadioGroup,
+  NumberInput,
 } from '@roy-ui/ui';
 import type { ComponentEntry } from '../lib/registry';
 import { sampleContent, sampleImages, sampleStats } from './demos/card-sample';
 import { UploadFilesDemo } from './demos/UploadFilesDemo';
 import { AtIcon, InputEmailDemo } from './demos/InputDemo';
+import { SignInFormDemo } from './demos/FormDemo';
+import { ExportDropdownDemo } from './demos/DropdownDemo';
 
 export function PreviewBox({
   entry,
@@ -69,9 +76,129 @@ function renderLivePreview(entry: ComponentEntry, compact: boolean) {
       return <UploadFilesPreview compact={compact} />;
     case 'input':
       return <InputPreview compact={compact} />;
+    case 'form':
+      return compact ? <FormThumb /> : <SignInFormDemo theme="dark" />;
+    case 'dropdown':
+      return (
+        <div aria-hidden={compact || undefined} style={{ pointerEvents: compact ? 'none' : undefined }}>
+          <ExportDropdownDemo theme="dark" />
+        </div>
+      );
+    case 'textarea':
+      return (
+        <PreviewWrap compact={compact} width={compact ? 220 : 340}>
+          <Textarea
+            theme="dark"
+            label="About your team"
+            defaultValue="We build developer tools for fast-moving teams."
+            autoGrow
+            showCount
+            maxLength={120}
+          />
+        </PreviewWrap>
+      );
+    case 'checkbox':
+      return (
+        <PreviewWrap compact={compact} width={compact ? 200 : 280}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+            <Checkbox theme="dark" label="Subscribe to updates" defaultChecked />
+            <Checkbox theme="dark" label="Select all" indeterminate />
+          </div>
+        </PreviewWrap>
+      );
+    case 'switch':
+      return (
+        <PreviewWrap compact={compact} width={compact ? 220 : 280}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <Switch theme="dark" label="Email me product updates" defaultChecked />
+            <Switch theme="dark" label="Two-factor authentication" />
+          </div>
+        </PreviewWrap>
+      );
+    case 'radio-group':
+      return (
+        <PreviewWrap compact={compact} width={compact ? 200 : 260}>
+          <RadioGroup
+            theme="dark"
+            label="Plan"
+            name={`plan-preview-${compact ? 'c' : 'f'}`}
+            defaultValue="growth"
+            options={[
+              { label: 'Starter', value: 'starter' },
+              { label: 'Growth', value: 'growth' },
+              { label: 'Scale', value: 'scale' },
+            ]}
+          />
+        </PreviewWrap>
+      );
+    case 'number-input':
+      return (
+        <PreviewWrap compact={compact} width={compact ? 180 : 240}>
+          <NumberInput theme="dark" label="Seats" defaultValue={5} min={1} max={200} />
+        </PreviewWrap>
+      );
     default:
       return null;
   }
+}
+
+/** Wrap interactive previews so they stay inert inside the catalog Link
+ *  (compact), but remain live on the detail page. */
+function PreviewWrap({
+  compact,
+  width,
+  children,
+}: {
+  compact: boolean;
+  width: number;
+  children: React.ReactNode;
+}) {
+  return (
+    <div
+      aria-hidden={compact || undefined}
+      style={{ width, pointerEvents: compact ? 'none' : undefined }}
+    >
+      {children}
+    </div>
+  );
+}
+
+/** Static form mock for catalog cards (the live form lives on the detail page). */
+function FormThumb() {
+  return (
+    <div className="card-thumb" aria-hidden style={{ width: 240 }}>
+      <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
+        {['Email', 'Password'].map((label) => (
+          <div key={label} style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+            <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.5)' }}>{label}</span>
+            <span
+              style={{
+                height: 1.5,
+                background: 'rgba(255,255,255,0.18)',
+                width: '100%',
+              }}
+            />
+          </div>
+        ))}
+        <div
+          style={{
+            marginTop: 4,
+            height: 30,
+            borderRadius: 8,
+            background: 'rgba(255,255,255,0.92)',
+            color: '#111',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: 12,
+            fontWeight: 600,
+          }}
+        >
+          Create account
+        </div>
+      </div>
+    </div>
+  );
 }
 
 function DataTableThumb({ compact }: { compact: boolean }) {

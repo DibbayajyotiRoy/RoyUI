@@ -1,0 +1,219 @@
+.royui-dropdown {
+  /* Purple accent to match the reference; override --royui-dropdown-accent to
+     re-tint. The trigger is a soft white pill, the panel a floating card. */
+  --royui-dropdown-fg: #1f2330;
+  --royui-dropdown-faint: #6b7280;
+  --royui-dropdown-surface: #ffffff;
+  --royui-dropdown-ring: rgba(20, 23, 40, 0.08);
+  --royui-dropdown-trigger-shadow: 0 10px 26px -10px rgba(20, 23, 40, 0.28);
+  --royui-dropdown-panel-shadow: 0 18px 44px -14px rgba(20, 23, 40, 0.26);
+  --royui-dropdown-icon-bg: #1e2233;
+  --royui-dropdown-icon-fg: #ffffff;
+  --royui-dropdown-accent: #6d4afe;
+  --royui-dropdown-accent-bg: #f1ecfe;
+  --royui-dropdown-error: #d92d20;
+  --royui-dropdown-radius: 999px;
+  --royui-dropdown-panel-radius: 20px;
+  --royui-dropdown-option-radius: 12px;
+  --royui-dropdown-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  position: relative;
+  display: inline-block;
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+.royui-dropdown--full {
+  display: block;
+  width: 100%;
+}
+
+/* ── Trigger ─────────────────────────────────────────────────────────────── */
+.royui-dropdown__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 11px 18px;
+  border: none;
+  border-radius: var(--royui-dropdown-radius);
+  background: var(--royui-dropdown-surface);
+  box-shadow:
+    var(--royui-dropdown-trigger-shadow),
+    inset 0 0 0 1px var(--royui-dropdown-ring);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--royui-dropdown-fg);
+  cursor: pointer;
+  transition:
+    box-shadow 0.18s var(--royui-dropdown-ease),
+    transform 0.12s var(--royui-dropdown-ease);
+}
+.royui-dropdown--full .royui-dropdown__trigger {
+  justify-content: space-between;
+}
+.royui-dropdown__trigger:focus-visible {
+  outline: none;
+  box-shadow:
+    var(--royui-dropdown-trigger-shadow),
+    inset 0 0 0 1.5px var(--royui-dropdown-accent),
+    0 0 0 4px var(--royui-dropdown-accent-bg);
+}
+.royui-dropdown__trigger:active {
+  transform: translateY(0.5px);
+}
+.royui-dropdown--invalid .royui-dropdown__trigger {
+  box-shadow:
+    var(--royui-dropdown-trigger-shadow),
+    inset 0 0 0 1.5px var(--royui-dropdown-error);
+}
+.royui-dropdown--disabled .royui-dropdown__trigger {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.royui-dropdown__icon {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--royui-dropdown-icon-bg);
+  color: var(--royui-dropdown-icon-fg);
+}
+.royui-dropdown__value {
+  flex: 1 1 auto;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.royui-dropdown__value--placeholder {
+  font-weight: 500;
+  color: var(--royui-dropdown-faint);
+}
+.royui-dropdown__chevron {
+  flex: none;
+  display: inline-flex;
+  color: var(--royui-dropdown-fg);
+  transition: transform 0.24s var(--royui-dropdown-ease);
+}
+.royui-dropdown--open .royui-dropdown__chevron {
+  transform: rotate(180deg);
+}
+
+/* ── Panel ───────────────────────────────────────────────────────────────── */
+.royui-dropdown__panel {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 10px);
+  z-index: 40;
+  min-width: 100%;
+  margin: 0;
+  padding: 8px;
+  list-style: none;
+  border-radius: var(--royui-dropdown-panel-radius);
+  background: var(--royui-dropdown-surface);
+  box-shadow:
+    var(--royui-dropdown-panel-shadow),
+    inset 0 0 0 1px var(--royui-dropdown-ring);
+  animation: royui-dropdown-pop 0.16s var(--royui-dropdown-ease);
+  transform-origin: top center;
+}
+.royui-dropdown--align-right .royui-dropdown__panel {
+  left: auto;
+  right: 0;
+}
+.royui-dropdown--full .royui-dropdown__panel {
+  width: 100%;
+}
+
+.royui-dropdown__option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: var(--royui-dropdown-option-radius);
+  font-size: 15px;
+  line-height: 1.3;
+  color: var(--royui-dropdown-fg);
+  cursor: pointer;
+  transition:
+    background 0.12s var(--royui-dropdown-ease),
+    color 0.12s var(--royui-dropdown-ease);
+}
+.royui-dropdown__option--active {
+  background: var(--royui-dropdown-accent-bg);
+  color: var(--royui-dropdown-accent);
+}
+.royui-dropdown__option--selected {
+  color: var(--royui-dropdown-accent);
+  font-weight: 500;
+}
+.royui-dropdown__option--disabled {
+  color: var(--royui-dropdown-faint);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+.royui-dropdown__option-check {
+  flex: none;
+  display: inline-flex;
+  color: var(--royui-dropdown-accent);
+}
+
+@keyframes royui-dropdown-pop {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ── Dark theme ──────────────────────────────────────────────────────────── */
+.royui-dropdown--dark {
+  --royui-dropdown-fg: #f5f5f7;
+  --royui-dropdown-faint: rgba(255, 255, 255, 0.5);
+  --royui-dropdown-surface: #1c1f26;
+  --royui-dropdown-ring: rgba(255, 255, 255, 0.1);
+  --royui-dropdown-trigger-shadow: 0 10px 26px -10px rgba(0, 0, 0, 0.6);
+  --royui-dropdown-panel-shadow: 0 18px 44px -14px rgba(0, 0, 0, 0.65);
+  --royui-dropdown-icon-bg: #f5f5f7;
+  --royui-dropdown-icon-fg: #1c1f26;
+  --royui-dropdown-accent: #b4a2ff;
+  --royui-dropdown-accent-bg: rgba(124, 92, 255, 0.2);
+  --royui-dropdown-error: #f87171;
+}
+@media (prefers-color-scheme: dark) {
+  .royui-dropdown--auto {
+    --royui-dropdown-fg: #f5f5f7;
+    --royui-dropdown-faint: rgba(255, 255, 255, 0.5);
+    --royui-dropdown-surface: #1c1f26;
+    --royui-dropdown-ring: rgba(255, 255, 255, 0.1);
+    --royui-dropdown-trigger-shadow: 0 10px 26px -10px rgba(0, 0, 0, 0.6);
+    --royui-dropdown-panel-shadow: 0 18px 44px -14px rgba(0, 0, 0, 0.65);
+    --royui-dropdown-icon-bg: #f5f5f7;
+    --royui-dropdown-icon-fg: #1c1f26;
+    --royui-dropdown-accent: #b4a2ff;
+    --royui-dropdown-accent-bg: rgba(124, 92, 255, 0.2);
+    --royui-dropdown-error: #f87171;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .royui-dropdown__chevron,
+  .royui-dropdown__trigger,
+  .royui-dropdown__option {
+    transition: none;
+  }
+  .royui-dropdown__panel {
+    animation: none;
+  }
+}

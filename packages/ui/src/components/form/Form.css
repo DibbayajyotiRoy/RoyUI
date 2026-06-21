@@ -1,0 +1,240 @@
+.royui-form {
+  --royui-form-fg: #0f172a;
+  --royui-form-faint: #667085;
+  --royui-form-line: #e4e7ec;
+  --royui-form-accent: #2575f0;
+  --royui-form-glow: rgba(37, 117, 240, 0.22);
+  --royui-form-error: #d92d20;
+  --royui-form-error-bg: rgba(217, 45, 32, 0.06);
+  --royui-form-success: #15a34a;
+  --royui-form-select-bg: #ffffff;
+  --royui-form-select-line: #d0d5dd;
+  --royui-form-label: #475467;
+  --royui-form-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --royui-form-gap-x: 16px;
+  --royui-form-gap-y: 22px;
+
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: inherit;
+  color: var(--royui-form-fg);
+}
+
+/* ── Grid ────────────────────────────────────────────────────────────────── */
+.royui-form__grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--royui-form-gap-x);
+  row-gap: var(--royui-form-gap-y);
+}
+.royui-form__field--full {
+  grid-column: span 12;
+}
+.royui-form__field--half {
+  grid-column: span 6;
+}
+.royui-form__field--third {
+  grid-column: span 4;
+}
+
+/* ── Sections ────────────────────────────────────────────────────────────── */
+.royui-form__section {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--royui-form-line);
+}
+.royui-form__section:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+.royui-form__section-title {
+  margin: 0 0 4px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--royui-form-fg);
+}
+.royui-form__section-desc {
+  margin: 0 0 18px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--royui-form-faint);
+  max-width: 60ch;
+}
+
+/* ── Native select (Phase-1 stopgap) ─────────────────────────────────────── */
+.royui-form__native {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.royui-form__native-label {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--royui-form-label);
+}
+.royui-form__select-wrap {
+  position: relative;
+  display: flex;
+}
+.royui-form__select {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 11px 36px 11px 13px;
+  border: 1.5px solid var(--royui-form-select-line);
+  border-radius: 10px;
+  background: var(--royui-form-select-bg);
+  font: inherit;
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--royui-form-fg);
+  cursor: pointer;
+  transition:
+    border-color 0.18s var(--royui-form-ease),
+    box-shadow 0.18s var(--royui-form-ease);
+}
+.royui-form__select[multiple] {
+  padding-right: 13px;
+  min-height: 120px;
+}
+.royui-form__select:focus-visible {
+  outline: none;
+  border-color: var(--royui-form-accent);
+  box-shadow: 0 0 0 4px var(--royui-form-glow);
+}
+.royui-form__native--error .royui-form__select {
+  border-color: var(--royui-form-error);
+}
+.royui-form__select:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* The native select borrows Input's helper-line styling via FieldMessage. */
+.royui-form__helper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: var(--royui-form-faint);
+}
+.royui-form__helper-icon {
+  flex: none;
+  display: inline-flex;
+  width: 14px;
+  height: 14px;
+}
+.royui-form__native--error .royui-form__helper {
+  color: var(--royui-form-error);
+}
+
+/* ── Error summary ───────────────────────────────────────────────────────── */
+.royui-form__error-summary {
+  margin-bottom: 22px;
+  padding: 14px 16px;
+  border: 1px solid var(--royui-form-error);
+  border-radius: 12px;
+  background: var(--royui-form-error-bg);
+}
+.royui-form__error-summary-title {
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--royui-form-error);
+}
+.royui-form__error-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.royui-form__error-link {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+  color: var(--royui-form-fg);
+  cursor: pointer;
+  text-decoration: none;
+}
+.royui-form__error-link:hover {
+  text-decoration: underline;
+}
+.royui-form__error-field {
+  font-weight: 600;
+}
+
+/* ── Actions + status ────────────────────────────────────────────────────── */
+.royui-form__actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 26px;
+}
+.royui-form__status {
+  margin: 0;
+  font-size: 13.5px;
+}
+.royui-form__status--success {
+  color: var(--royui-form-success);
+}
+.royui-form__status--error {
+  color: var(--royui-form-error);
+}
+
+/* ── Mobile: everything collapses to one column ──────────────────────────── */
+@media (max-width: 640px) {
+  .royui-form__field--full,
+  .royui-form__field--half,
+  .royui-form__field--third {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ── Dark theme ──────────────────────────────────────────────────────────── */
+.royui-form--dark {
+  --royui-form-fg: #f5f5f7;
+  --royui-form-faint: rgba(255, 255, 255, 0.5);
+  --royui-form-line: rgba(255, 255, 255, 0.12);
+  --royui-form-accent: #5b9bff;
+  --royui-form-glow: rgba(91, 155, 255, 0.3);
+  --royui-form-error: #f87171;
+  --royui-form-error-bg: rgba(248, 113, 113, 0.1);
+  --royui-form-success: #34d399;
+  --royui-form-select-bg: #14171c;
+  --royui-form-select-line: rgba(255, 255, 255, 0.18);
+  --royui-form-label: rgba(255, 255, 255, 0.72);
+}
+@media (prefers-color-scheme: dark) {
+  .royui-form--auto {
+    --royui-form-fg: #f5f5f7;
+    --royui-form-faint: rgba(255, 255, 255, 0.5);
+    --royui-form-line: rgba(255, 255, 255, 0.12);
+    --royui-form-accent: #5b9bff;
+    --royui-form-glow: rgba(91, 155, 255, 0.3);
+    --royui-form-error: #f87171;
+    --royui-form-error-bg: rgba(248, 113, 113, 0.1);
+    --royui-form-success: #34d399;
+    --royui-form-select-bg: #14171c;
+    --royui-form-select-line: rgba(255, 255, 255, 0.18);
+    --royui-form-label: rgba(255, 255, 255, 0.72);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .royui-form__select {
+    transition: none;
+  }
+}
