@@ -21,3 +21,4 @@ export * from './components/radio-group';
 export * from './components/number-input';
 export * from './components/dropdown';
 export * from './components/form';
+export * from './components/notification-bell';

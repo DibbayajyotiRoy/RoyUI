@@ -251,6 +251,18 @@ export const components: ComponentEntry[] = [
     status: 'available',
     importStatement: `import { Switch } from '@roy-ui/ui';`,
   },
+  {
+    slug: 'notification-bell',
+    name: 'NotificationBell',
+    tagline: 'A bell that rings itself — count, hover pill, sound, and a modal.',
+    description:
+      'A notification bell that shows an unread count, expands into a dark "Notifications" pill on hover, and periodically rings (a damped bell-wobble) while there are unread items — pausing when its modal is open and ringing on every new arrival. Ships its own chime (opt-in, swappable) and opens a centered, focus-trapped modal whose body is a headless slot you fill with rows and badges. Counts cap at 9+, light / dark / auto themes, reduced-motion safe.',
+    category: 'Feedback',
+    tags: ['notification', 'bell', 'badge', 'modal', 'toast'],
+    status: 'available',
+    featured: true,
+    importStatement: `import { NotificationBell } from '@roy-ui/ui';`,
+  },
 ];
 
 export const categories = ['All', 'Inputs', 'Display', 'Overlay', 'Feedback'] as const;
