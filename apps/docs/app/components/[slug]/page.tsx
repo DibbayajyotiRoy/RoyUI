@@ -21,6 +21,7 @@ import { SwitchDocs } from '../../../components/SwitchDocs';
 import { RadioGroupDocs } from '../../../components/RadioGroupDocs';
 import { NumberInputDocs } from '../../../components/NumberInputDocs';
 import { DropdownDocs } from '../../../components/DropdownDocs';
+import { NotificationBellDocs } from '../../../components/NotificationBellDocs';
 import { DocsSidebar } from '../../../components/DocsSidebar';
 import { TableOfContents, type TocItem } from '../../../components/TableOfContents';
 
@@ -196,6 +197,7 @@ const docsBySlug: Record<string, () => React.ReactNode> = {
   'radio-group': () => <RadioGroupDocs />,
   'number-input': () => <NumberInputDocs />,
   dropdown: () => <DropdownDocs />,
+  'notification-bell': () => <NotificationBellDocs />,
 };
 
 const tocBySlug: Record<string, TocItem[]> = {
@@ -292,6 +294,13 @@ const tocBySlug: Record<string, TocItem[]> = {
     { id: 'installation', label: 'Installation' },
     { id: 'usage', label: 'Usage' },
     { id: 'in-forms', label: 'In a Form' },
+    { id: 'theming', label: 'Theming' },
+    { id: 'props', label: 'Props' },
+  ],
+  'notification-bell': [
+    { id: 'installation', label: 'Installation' },
+    { id: 'usage', label: 'Usage' },
+    { id: 'ring-and-sound', label: 'Ring & sound' },
     { id: 'theming', label: 'Theming' },
     { id: 'props', label: 'Props' },
   ],

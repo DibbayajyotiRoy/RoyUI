@@ -17,6 +17,7 @@ import {
   Switch,
   RadioGroup,
   NumberInput,
+  NotificationBell,
 } from '@roy-ui/ui';
 import type { ComponentEntry } from '../lib/registry';
 import { sampleContent, sampleImages, sampleStats } from './demos/card-sample';
@@ -137,9 +138,140 @@ function renderLivePreview(entry: ComponentEntry, compact: boolean) {
           <NumberInput theme="dark" label="Seats" defaultValue={5} min={1} max={200} />
         </PreviewWrap>
       );
+    case 'notification-bell':
+      return <NotificationBellPreview compact={compact} />;
     default:
       return null;
   }
+}
+
+/* The bell is a <button> with a portal modal, so it can't nest inside the
+   catalog <a>. On cards we render a static pill (the signature hover state);
+   on the detail stage we render the real, self-ringing component. */
+function NotificationBellPreview({ compact }: { compact: boolean }) {
+  if (compact) return <NotificationBellThumb />;
+
+  const rows: Array<[string, string, string, boolean]> = [
+    ['New comment on your PR', 'Priya left a review on “Add bell”.', '2m', true],
+    ['Deployment succeeded', 'docs-site shipped to production.', '18m', true],
+    ['Payment failed', 'Card ending 4242 was declined.', '3h', false],
+  ];
+
+  return (
+    <NotificationBell theme="dark" count={2} title="Notifications">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+        {rows.map(([title, msg, time, unread]) => (
+          <div
+            key={title}
+            style={{
+              display: 'flex',
+              alignItems: 'flex-start',
+              gap: 10,
+              padding: '10px 12px',
+              borderRadius: 12,
+              background: unread
+                ? 'color-mix(in srgb, var(--royui-modal-accent) 8%, transparent)'
+                : 'transparent',
+            }}
+          >
+            <span style={{ flex: '1 1 auto', minWidth: 0 }}>
+              <span style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
+                <span
+                  style={{
+                    flex: '1 1 auto',
+                    fontSize: 13.5,
+                    fontWeight: 600,
+                    color: 'var(--royui-modal-fg)',
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                  }}
+                >
+                  {title}
+                </span>
+                <span style={{ flex: 'none', fontSize: 11, color: 'var(--royui-modal-faint)' }}>
+                  {time}
+                </span>
+              </span>
+              <span
+                style={{
+                  display: 'block',
+                  marginTop: 2,
+                  fontSize: 12,
+                  color: 'var(--royui-modal-faint)',
+                }}
+              >
+                {msg}
+              </span>
+            </span>
+            {unread && (
+              <span
+                style={{
+                  flex: 'none',
+                  marginTop: 6,
+                  width: 7,
+                  height: 7,
+                  borderRadius: 999,
+                  background: 'var(--royui-modal-accent)',
+                }}
+              />
+            )}
+          </div>
+        ))}
+      </div>
+    </NotificationBell>
+  );
+}
+
+const BellGlyph = () => (
+  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+    strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M18 8.4A6 6 0 1 0 6 8.4c0 4.4-1.1 6.4-2 7.4a1 1 0 0 0 .74 1.68h14.52A1 1 0 0 0 20 15.8c-.9-1-2-3-2-7.4Z" />
+    <path d="M10 20.5a2.3 2.3 0 0 0 4 0" />
+  </svg>
+);
+
+/** Static dark "Notifications" pill — the component's signature hover state,
+ *  safe to nest inside the catalog Link. */
+function NotificationBellThumb() {
+  return (
+    <div
+      aria-hidden
+      style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 9,
+        height: 44,
+        padding: '0 16px 0 14px',
+        borderRadius: 999,
+        background: '#16181d',
+        color: '#ffffff',
+        boxShadow: '0 12px 28px -12px rgba(0,0,0,0.6)',
+      }}
+    >
+      <BellGlyph />
+      <span style={{ fontSize: 14.5, fontWeight: 600, letterSpacing: '-0.01em' }}>
+        Notifications
+      </span>
+      <span
+        style={{
+          minWidth: 18,
+          height: 18,
+          padding: '0 5px',
+          boxSizing: 'border-box',
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderRadius: 999,
+          background: 'rgba(255,255,255,0.16)',
+          fontSize: 11,
+          fontWeight: 700,
+        }}
+      >
+        3
+      </span>
+    </div>
+  );
 }
 
 /** Wrap interactive previews so they stay inert inside the catalog Link

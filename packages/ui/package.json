@@ -250,6 +250,10 @@
       "types": "./dist/components/form/index.d.ts",
       "import": "./dist/components/form/index.js"
     },
+    "./notification-bell": {
+      "types": "./dist/components/notification-bell/index.d.ts",
+      "import": "./dist/components/notification-bell/index.js"
+    },
     "./package.json": "./package.json"
   },
   "scripts": {

@@ -1,0 +1,401 @@
+.royui-bell {
+  /* Theming surface — override any of these on .royui-bell (or :root) to
+     re-skin. Light scheme by default; .royui-bell--dark / --auto flip them. */
+  --royui-bell-icon: #5b6170;
+  --royui-bell-surface: #ffffff;
+  --royui-bell-line: rgba(20, 23, 40, 0.09);
+  --royui-bell-shadow: 0 8px 22px -12px rgba(20, 23, 40, 0.35);
+  --royui-bell-pill-bg: #16181d;
+  --royui-bell-pill-fg: #ffffff;
+  --royui-bell-chip-bg: rgba(255, 255, 255, 0.16);
+  --royui-bell-chip-fg: #ffffff;
+  --royui-bell-accent: #f43f5e;
+  --royui-bell-accent-fg: #ffffff;
+  --royui-bell-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --royui-bell-dur: 0.26s;
+
+  display: inline-block;
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ── Trigger: a circle at rest, expands into the dark pill on hover/focus ── */
+.royui-bell__trigger {
+  display: inline-flex;
+  align-items: center;
+  height: 44px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: var(--royui-bell-surface);
+  color: var(--royui-bell-icon);
+  box-shadow:
+    inset 0 0 0 1px var(--royui-bell-line),
+    var(--royui-bell-shadow);
+  cursor: pointer;
+  font: inherit;
+  transition:
+    background var(--royui-bell-dur) var(--royui-bell-ease),
+    color var(--royui-bell-dur) var(--royui-bell-ease),
+    box-shadow var(--royui-bell-dur) var(--royui-bell-ease);
+}
+
+.royui-bell__trigger:hover,
+.royui-bell__trigger:focus-visible,
+.royui-bell__trigger--open {
+  background: var(--royui-bell-pill-bg);
+  color: var(--royui-bell-pill-fg);
+  box-shadow:
+    inset 0 0 0 1px transparent,
+    0 12px 28px -12px rgba(20, 23, 40, 0.5);
+}
+
+.royui-bell__trigger:focus-visible {
+  outline: none;
+  box-shadow:
+    inset 0 0 0 1px transparent,
+    0 0 0 3px color-mix(in srgb, var(--royui-bell-pill-bg) 26%, transparent),
+    0 12px 28px -12px rgba(20, 23, 40, 0.5);
+}
+
+.royui-bell__icon-wrap {
+  position: relative;
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+}
+
+.royui-bell__icon-spin {
+  display: grid;
+  place-items: center;
+  transform-origin: 50% 13%;
+}
+
+.royui-bell__icon {
+  display: block;
+}
+
+/* ── Corner count badge (resting state) ── */
+.royui-bell__badge {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 4px;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--royui-bell-accent);
+  color: var(--royui-bell-accent-fg);
+  font-size: 10.5px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  box-shadow: 0 0 0 2px var(--royui-bell-surface);
+  transition:
+    opacity 0.16s var(--royui-bell-ease),
+    box-shadow var(--royui-bell-dur) var(--royui-bell-ease);
+}
+
+/* Once the pill is open, the count lives inline — fade the corner badge out. */
+.royui-bell__trigger:hover .royui-bell__badge,
+.royui-bell__trigger:focus-visible .royui-bell__badge,
+.royui-bell__trigger--open .royui-bell__badge {
+  opacity: 0;
+}
+
+/* ── Expanding label + inline count ── */
+.royui-bell__reveal {
+  display: grid;
+  grid-template-columns: 0fr;
+  transition: grid-template-columns var(--royui-bell-dur) var(--royui-bell-ease);
+}
+
+.royui-bell__trigger:hover .royui-bell__reveal,
+.royui-bell__trigger:focus-visible .royui-bell__reveal,
+.royui-bell__trigger--open .royui-bell__reveal {
+  grid-template-columns: 1fr;
+}
+
+.royui-bell__reveal-inner {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+  overflow: hidden;
+  padding-right: 4px;
+}
+
+.royui-bell__trigger:hover .royui-bell__reveal-inner,
+.royui-bell__trigger:focus-visible .royui-bell__reveal-inner,
+.royui-bell__trigger--open .royui-bell__reveal-inner {
+  padding-right: 16px;
+}
+
+.royui-bell__label {
+  white-space: nowrap;
+  font-size: 14.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--royui-bell-pill-fg);
+}
+
+.royui-bell__count {
+  flex: none;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--royui-bell-chip-bg);
+  color: var(--royui-bell-chip-fg);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+/* ── Ring / shake — a damped bell wobble around the top pivot ── */
+@keyframes royui-bell-ring {
+  0% { transform: rotate(0); }
+  10% { transform: rotate(16deg); }
+  24% { transform: rotate(-14deg); }
+  38% { transform: rotate(11deg); }
+  52% { transform: rotate(-8deg); }
+  66% { transform: rotate(5deg); }
+  80% { transform: rotate(-2.5deg); }
+  100% { transform: rotate(0); }
+}
+
+.royui-bell__icon-spin--ringing {
+  animation: royui-bell-ring 0.9s var(--royui-bell-ease);
+}
+
+/* ── Modal (portaled to <body>) ── */
+.royui-bell-modal {
+  --royui-modal-surface: #ffffff;
+  --royui-modal-fg: #1b1e27;
+  --royui-modal-faint: #6b7280;
+  --royui-modal-title: #8a909c;
+  --royui-modal-line: rgba(20, 23, 40, 0.08);
+  --royui-modal-backdrop: rgba(15, 17, 21, 0.42);
+  --royui-modal-shadow: 0 32px 80px -24px rgba(15, 17, 21, 0.5);
+  --royui-modal-accent: #f43f5e;
+  --royui-modal-accent-fg: #ffffff;
+  --royui-modal-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  font-family: inherit;
+}
+
+.royui-bell-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: var(--royui-modal-backdrop);
+  backdrop-filter: blur(2px);
+  animation: royui-bell-fade 0.2s var(--royui-modal-ease);
+}
+
+.royui-bell-modal__dialog {
+  position: relative;
+  width: min(420px, 100%);
+  max-height: min(78vh, 640px);
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  background: var(--royui-modal-surface);
+  color: var(--royui-modal-fg);
+  box-shadow:
+    inset 0 0 0 1px var(--royui-modal-line),
+    var(--royui-modal-shadow);
+  overflow: hidden;
+  animation: royui-bell-pop 0.22s var(--royui-modal-ease);
+  transform-origin: center;
+}
+
+.royui-bell-modal__head {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 18px 14px 22px;
+  border-bottom: 1px solid var(--royui-modal-line);
+}
+
+.royui-bell-modal__title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+/* Deliberately muted: the header is chrome, so the actual notification rows in
+   the body stay the focal point. Override --royui-modal-title to change it. */
+.royui-bell-modal__title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--royui-modal-title);
+}
+
+.royui-bell-modal__count {
+  flex: none;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--royui-modal-accent);
+  color: var(--royui-modal-accent-fg);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.royui-bell-modal__close {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--royui-modal-faint);
+  cursor: pointer;
+  transition:
+    background 0.15s var(--royui-modal-ease),
+    color 0.15s var(--royui-modal-ease);
+}
+
+.royui-bell-modal__close:hover {
+  background: var(--royui-modal-line);
+  color: var(--royui-modal-fg);
+}
+
+.royui-bell-modal__close:focus-visible {
+  outline: 2px solid var(--royui-modal-accent);
+  outline-offset: 2px;
+}
+
+.royui-bell-modal__body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 8px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.royui-bell-modal__footer {
+  flex: none;
+  padding: 12px 18px;
+  border-top: 1px solid var(--royui-modal-line);
+  font-size: 13px;
+  color: var(--royui-modal-faint);
+}
+
+@keyframes royui-bell-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes royui-bell-pop {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ── Dark theme ── */
+.royui-bell--dark {
+  --royui-bell-icon: #b8bdca;
+  --royui-bell-surface: #1c1f26;
+  --royui-bell-line: rgba(255, 255, 255, 0.12);
+  --royui-bell-shadow: 0 8px 22px -12px rgba(0, 0, 0, 0.7);
+  --royui-bell-pill-bg: #f4f5f7;
+  --royui-bell-pill-fg: #16181d;
+  --royui-bell-chip-bg: rgba(20, 23, 40, 0.12);
+  --royui-bell-chip-fg: #16181d;
+  --royui-bell-accent: #fb7185;
+  --royui-bell-accent-fg: #1c1f26;
+}
+
+.royui-bell-modal.royui-bell--dark,
+.royui-bell-modal--dark {
+  --royui-modal-surface: #1c1f26;
+  --royui-modal-fg: #f4f5f7;
+  --royui-modal-faint: rgba(255, 255, 255, 0.52);
+  --royui-modal-title: rgba(255, 255, 255, 0.5);
+  --royui-modal-line: rgba(255, 255, 255, 0.1);
+  --royui-modal-backdrop: rgba(0, 0, 0, 0.6);
+  --royui-modal-shadow: 0 32px 80px -24px rgba(0, 0, 0, 0.8);
+  --royui-modal-accent: #fb7185;
+  --royui-modal-accent-fg: #1c1f26;
+}
+
+@media (prefers-color-scheme: dark) {
+  .royui-bell--auto {
+    --royui-bell-icon: #b8bdca;
+    --royui-bell-surface: #1c1f26;
+    --royui-bell-line: rgba(255, 255, 255, 0.12);
+    --royui-bell-shadow: 0 8px 22px -12px rgba(0, 0, 0, 0.7);
+    --royui-bell-pill-bg: #f4f5f7;
+    --royui-bell-pill-fg: #16181d;
+    --royui-bell-chip-bg: rgba(20, 23, 40, 0.12);
+    --royui-bell-chip-fg: #16181d;
+    --royui-bell-accent: #fb7185;
+    --royui-bell-accent-fg: #1c1f26;
+  }
+  .royui-bell-modal.royui-bell--auto {
+    --royui-modal-surface: #1c1f26;
+    --royui-modal-fg: #f4f5f7;
+    --royui-modal-faint: rgba(255, 255, 255, 0.52);
+    --royui-modal-title: rgba(255, 255, 255, 0.5);
+    --royui-modal-line: rgba(255, 255, 255, 0.1);
+    --royui-modal-backdrop: rgba(0, 0, 0, 0.6);
+    --royui-modal-shadow: 0 32px 80px -24px rgba(0, 0, 0, 0.8);
+    --royui-modal-accent: #fb7185;
+    --royui-modal-accent-fg: #1c1f26;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .royui-bell__trigger,
+  .royui-bell__reveal,
+  .royui-bell__reveal-inner,
+  .royui-bell__badge {
+    transition: none;
+  }
+  .royui-bell__icon-spin--ringing {
+    animation: none;
+  }
+  .royui-bell-modal__backdrop,
+  .royui-bell-modal__dialog {
+    animation: none;
+  }
+}
