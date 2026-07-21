@@ -18,6 +18,7 @@ import {
   RadioGroup,
   NumberInput,
   NotificationBell,
+  ProgressPill,
 } from '@roy-ui/ui';
 import type { ComponentEntry } from '../lib/registry';
 import { sampleContent, sampleImages, sampleStats } from './demos/card-sample';
@@ -140,9 +141,26 @@ function renderLivePreview(entry: ComponentEntry, compact: boolean) {
       );
     case 'notification-bell':
       return <NotificationBellPreview compact={compact} />;
+    case 'progress-pill':
+      return <ProgressPillPreview compact={compact} />;
     default:
       return null;
   }
+}
+
+/* Compact (catalog card): a single active pill. Detail stage: an active
+   pill with a live caption next to a settled one. */
+function ProgressPillPreview({ compact }: { compact: boolean }) {
+  if (compact) {
+    return <ProgressPill label="Deploying…" tone="info" caption="Uploading assets" />;
+  }
+  return (
+    <div style={{ display: 'flex', alignItems: 'flex-start', gap: 24, flexWrap: 'wrap' }}>
+      <ProgressPill label="Deleting…" tone="danger" caption="Purging retained data" />
+      <ProgressPill label="Syncing…" tone="info" caption="Fetching remote changes" />
+      <ProgressPill label="Completed" tone="success" active={false} />
+    </div>
+  );
 }
 
 /* The bell is a <button> with a portal modal, so it can't nest inside the
