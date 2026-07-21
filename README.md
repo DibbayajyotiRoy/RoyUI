@@ -12,9 +12,9 @@
 [![types](https://img.shields.io/npm/types/@roy-ui/ui?color=3178C6&logo=typescript&logoColor=white)](https://www.npmjs.com/package/@roy-ui/ui)
 [![license](https://img.shields.io/github/license/DibbayajyotiRoy/RoyUI?color=22c55e)](./LICENSE)
 [![release](https://github.com/DibbayajyotiRoy/RoyUI/actions/workflows/release.yml/badge.svg)](https://github.com/DibbayajyotiRoy/RoyUI/actions/workflows/release.yml)
-[![live docs](https://img.shields.io/badge/docs-roy--ui--docs.vercel.app-4ec6ff?logo=vercel&logoColor=white)](https://roy-ui-docs.vercel.app)
+[![live docs](https://img.shields.io/badge/docs-royui.dibbayajyoti.com-4ec6ff?logo=vercel&logoColor=white)](https://royui.dibbayajyoti.com)
 
-### **[Open the live documentation site →](https://roy-ui-docs.vercel.app)**
+### **[Open the live documentation site →](https://royui.dibbayajyoti.com)**
 
 <br />
 
@@ -35,7 +35,7 @@
 
 Every component is **written in TypeScript**, shipped as **tree-shakable ESM**, and **fully compatible with React Server Components (RSC), Next.js 15 App Router, Vite, Remix, Astro, TanStack Start**, and any modern React 18+ runtime. One `npm install`. One import. Production-ready.
 
-Try every component live with copyable code: **[roy-ui-docs.vercel.app](https://roy-ui-docs.vercel.app)** — including the [full DataTable demo](https://roy-ui-docs.vercel.app/components/data-table) on 60 rows of synthetic order data.
+Try every component live with copyable code: **[royui.dibbayajyoti.com](https://royui.dibbayajyoti.com)** — including the [full DataTable demo](https://royui.dibbayajyoti.com/components/data-table) on 60 rows of synthetic order data.
 
 ## Key features
 
@@ -156,13 +156,28 @@ export default function OrdersPage({ orders }: { orders: Order[] }) {
 | **`TreeNav` + `TreeNavItem`** | [`tree-nav`](./packages/ui/src/components/tree-nav) | Sidebar sub-nav with file-explorer L-shaped branch connectors. Router-agnostic via `asChild`. |
 | **`TextMorph`** | [`text-morph`](./packages/ui/src/components/text-morph) | Character-by-character text diff animation for live counters, currency tickers, status text. |
 | **`MadeBy`** | [`made-by`](./packages/ui/src/components/made-by) | Floating "Made by ___" attribution badge with corner positioning. |
+| **`Card`** | [`card`](./packages/ui/src/components/card) | Content card with image, body, and footer slots. |
+| **`StatCard`** | [`stat-card`](./packages/ui/src/components/stat-card) | KPI / metric card with delta indicator — optionally clickable. |
 
 ### Inputs / Overlay
 
 | Component | Source | What it does |
 | --- | --- | --- |
+| **`Button`** | [`button`](./packages/ui/src/components/button) | Solid button with gradient depth, press-in feel, three sizes, and a built-in loading spinner. |
 | **`GradientButton`** | [`gradient-button`](./packages/ui/src/components/gradient-button) | Animated blue → cyan → blue gradient CTA with a built-in loading spinner. |
+| **`Input`** | [`input`](./packages/ui/src/components/input) | Floating-label text field with error / success / async-loading micro-motion. |
+| **`Textarea`** | [`textarea`](./packages/ui/src/components/textarea) | Auto-growing textarea with character count. |
+| **`Checkbox`**, **`Switch`**, **`RadioGroup`**, **`NumberInput`**, **`Dropdown`** | [`components/*`](./packages/ui/src/components) | Themed form controls that also plug into `Form`. |
+| **`Form`** | [`form`](./packages/ui/src/components/form) | Schema-driven form — fields config in, validation, sections, grid, and submit states out. Headless external-store core. |
+| **`UploadFiles`** | [`upload-files`](./packages/ui/src/components/upload-files) | Drag-and-drop uploader with per-file rows and a shimmering, morphing progress state. |
 | **`Popover`** | [`popover`](./packages/ui/src/components/popover) | Accessible click-to-open popover with corner alignment and width presets. |
+
+### Feedback
+
+| Component | Source | What it does |
+| --- | --- | --- |
+| **`NotificationBell`** | [`notification-bell`](./packages/ui/src/components/notification-bell) | Unread-count bell that rings itself — hover pill, opt-in chime, and a focus-trapped modal with a headless body. |
+| **`ProgressPill`** | [`progress-pill`](./packages/ui/src/components/progress-pill) | Status pill for long-running operations — braille spinner, shimmer sweep while `active`, five tones, and an optional current-step caption. |
 
 Each component lives in its own folder with the source `.tsx`, its CSS, and an `index.ts` re-export — so you can read the whole implementation in one click.
 

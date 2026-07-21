@@ -124,13 +124,28 @@ export default function OrdersTable({ orders }: { orders: Order[] }) {
 | **`TreeNav`** + `TreeNavItem` | Sidebar sub-nav with file-explorer-style L-shaped branch connectors. Router-agnostic via `asChild`, active state driven by `aria-current`. |
 | **`TextMorph`** | Character-by-character text diff animation — great for live counters, currency tickers, status text. |
 | **`MadeBy`** | Floating "Made by ___" attribution badge with corner positioning. |
+| **`Card`** | Content card with image, body, and footer slots. |
+| **`StatCard`** | KPI / metric card with delta indicator — optionally clickable. |
 
 ### Inputs / Overlay
 
 | Component | What it does |
 | --- | --- |
+| **`Button`** | Solid button with gradient depth, press-in feel, three sizes, and a built-in loading spinner. |
 | **`GradientButton`** | Animated blue → cyan → blue gradient CTA with a built-in loading spinner. |
+| **`Input`** | Floating-label text field with error / success / async-loading micro-motion. |
+| **`Textarea`** | Auto-growing textarea with character count. |
+| **`Checkbox`**, **`Switch`**, **`RadioGroup`**, **`NumberInput`**, **`Dropdown`** | Themed form controls that also plug into `Form`. |
+| **`Form`** | Schema-driven form — fields config in, validation, sections, grid, and submit states out. Headless external-store core. |
+| **`UploadFiles`** | Drag-and-drop uploader with per-file rows and a shimmering, morphing progress state. |
 | **`Popover`** | Accessible click-to-open popover with corner alignment (`left` / `right`) and width presets. |
+
+### Feedback
+
+| Component | What it does |
+| --- | --- |
+| **`NotificationBell`** | Unread-count bell that rings itself — hover pill, opt-in chime, and a focus-trapped modal with a headless body. |
+| **`ProgressPill`** | Status pill for long-running operations — braille spinner, shimmer sweep while `active`, five tones, and an optional current-step caption. |
 
 ## DataTable feature matrix
 
