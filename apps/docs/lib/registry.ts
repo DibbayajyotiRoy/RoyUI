@@ -263,6 +263,17 @@ export const components: ComponentEntry[] = [
     featured: true,
     importStatement: `import { NotificationBell } from '@roy-ui/ui';`,
   },
+  {
+    slug: 'progress-pill',
+    name: 'ProgressPill',
+    tagline: 'A live status pill — spinner, shimmer sweep, and a step caption.',
+    description:
+      'A reusable status pill for long-running operations: a tinted bordered chip with an inline braille spinner, an animated gradient shimmer sweep while active, and an optional muted caption line describing the current step. Purely presentational — map your own state machine to label, tone, active, and caption, and use it for deletes, deploys, imports, syncs, or batch jobs. Five tones, reduced-motion safe, announces changes via role="status".',
+    category: 'Feedback',
+    tags: ['progress', 'status', 'pill', 'badge', 'loading', 'shimmer'],
+    status: 'available',
+    importStatement: `import { ProgressPill } from '@roy-ui/ui';`,
+  },
 ];
 
 export const categories = ['All', 'Inputs', 'Display', 'Overlay', 'Feedback'] as const;
