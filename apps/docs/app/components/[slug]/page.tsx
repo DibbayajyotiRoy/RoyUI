@@ -22,6 +22,7 @@ import { RadioGroupDocs } from '../../../components/RadioGroupDocs';
 import { NumberInputDocs } from '../../../components/NumberInputDocs';
 import { DropdownDocs } from '../../../components/DropdownDocs';
 import { NotificationBellDocs } from '../../../components/NotificationBellDocs';
+import { ProgressPillDocs } from '../../../components/ProgressPillDocs';
 import { DocsSidebar } from '../../../components/DocsSidebar';
 import { TableOfContents, type TocItem } from '../../../components/TableOfContents';
 
@@ -29,7 +30,7 @@ export function generateStaticParams() {
   return components.map((c) => ({ slug: c.slug }));
 }
 
-const SITE_URL = 'https://roy-ui-docs.vercel.app';
+const SITE_URL = 'https://royui.dibbayajyoti.com';
 
 const baseKeywords = [
   'React component library',
@@ -198,6 +199,7 @@ const docsBySlug: Record<string, () => React.ReactNode> = {
   'number-input': () => <NumberInputDocs />,
   dropdown: () => <DropdownDocs />,
   'notification-bell': () => <NotificationBellDocs />,
+  'progress-pill': () => <ProgressPillDocs />,
 };
 
 const tocBySlug: Record<string, TocItem[]> = {
@@ -302,6 +304,13 @@ const tocBySlug: Record<string, TocItem[]> = {
     { id: 'usage', label: 'Usage' },
     { id: 'ring-and-sound', label: 'Ring & sound' },
     { id: 'theming', label: 'Theming' },
+    { id: 'props', label: 'Props' },
+  ],
+  'progress-pill': [
+    { id: 'installation', label: 'Installation' },
+    { id: 'usage', label: 'Usage' },
+    { id: 'tones', label: 'Tones & states' },
+    { id: 'behavior', label: 'Behavior & a11y' },
     { id: 'props', label: 'Props' },
   ],
   'upload-files': [

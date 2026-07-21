@@ -1,6 +1,6 @@
 import { components } from '../../lib/registry';
 
-const SITE_URL = 'https://roy-ui-docs.vercel.app';
+const SITE_URL = 'https://royui.dibbayajyoti.com';
 
 export const dynamic = 'force-static';
 

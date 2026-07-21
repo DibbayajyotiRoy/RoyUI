@@ -1,0 +1,155 @@
+.royui-progresspill {
+  /* Tone surfaces — override on .royui-progresspill or :root to retheme. */
+  --royui-progresspill-danger-fg: #f87171;
+  --royui-progresspill-danger-bg: rgba(248, 113, 113, 0.1);
+  --royui-progresspill-danger-border: rgba(248, 113, 113, 0.32);
+  --royui-progresspill-warning-fg: #fbbf24;
+  --royui-progresspill-warning-bg: rgba(251, 191, 36, 0.1);
+  --royui-progresspill-warning-border: rgba(251, 191, 36, 0.32);
+  --royui-progresspill-success-fg: #4ade80;
+  --royui-progresspill-success-bg: rgba(74, 222, 128, 0.1);
+  --royui-progresspill-success-border: rgba(74, 222, 128, 0.32);
+  --royui-progresspill-info-fg: #60a5fa;
+  --royui-progresspill-info-bg: rgba(96, 165, 250, 0.1);
+  --royui-progresspill-info-border: rgba(96, 165, 250, 0.32);
+  --royui-progresspill-neutral-fg: rgba(148, 155, 168, 1);
+  --royui-progresspill-neutral-bg: rgba(148, 155, 168, 0.1);
+  --royui-progresspill-neutral-border: rgba(148, 155, 168, 0.32);
+  --royui-progresspill-caption-fg: rgba(140, 146, 158, 0.85);
+  --royui-progresspill-shimmer: rgba(255, 255, 255, 0.14);
+
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  max-width: 100%;
+}
+
+@media (prefers-color-scheme: light) {
+  .royui-progresspill {
+    --royui-progresspill-danger-fg: #dc2626;
+    --royui-progresspill-warning-fg: #b45309;
+    --royui-progresspill-success-fg: #15803d;
+    --royui-progresspill-info-fg: #2563eb;
+    --royui-progresspill-neutral-fg: #57606a;
+    --royui-progresspill-caption-fg: rgba(87, 96, 106, 0.85);
+    --royui-progresspill-shimmer: rgba(0, 0, 0, 0.06);
+  }
+}
+
+.royui-progresspill__pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  max-width: 100%;
+  padding: 2px 6px;
+  border: 1px solid;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.royui-progresspill__pill--danger {
+  color: var(--royui-progresspill-danger-fg);
+  background: var(--royui-progresspill-danger-bg);
+  border-color: var(--royui-progresspill-danger-border);
+}
+
+.royui-progresspill__pill--warning {
+  color: var(--royui-progresspill-warning-fg);
+  background: var(--royui-progresspill-warning-bg);
+  border-color: var(--royui-progresspill-warning-border);
+}
+
+.royui-progresspill__pill--success {
+  color: var(--royui-progresspill-success-fg);
+  background: var(--royui-progresspill-success-bg);
+  border-color: var(--royui-progresspill-success-border);
+}
+
+.royui-progresspill__pill--info {
+  color: var(--royui-progresspill-info-fg);
+  background: var(--royui-progresspill-info-bg);
+  border-color: var(--royui-progresspill-info-border);
+}
+
+.royui-progresspill__pill--neutral {
+  color: var(--royui-progresspill-neutral-fg);
+  background: var(--royui-progresspill-neutral-bg);
+  border-color: var(--royui-progresspill-neutral-border);
+}
+
+/* Shimmer sweep — rides on ::after so text and border stay crisp and the
+   overlay never intercepts clicks. Only while active. */
+.royui-progresspill__pill--active::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 25%,
+    var(--royui-progresspill-shimmer) 50%,
+    transparent 75%
+  );
+  background-size: 200% 100%;
+  animation: royui-progresspill-shimmer 1.5s infinite linear;
+  pointer-events: none;
+}
+
+@keyframes royui-progresspill-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .royui-progresspill__pill--active::after {
+    animation: none;
+    display: none;
+  }
+}
+
+.royui-progresspill__glyph {
+  min-width: 1ch;
+  font-size: 9px;
+  line-height: 1;
+  text-align: center;
+}
+
+.royui-progresspill__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.royui-progresspill__caption {
+  max-width: 240px;
+  font-size: 10px;
+  line-height: 1.3;
+  color: var(--royui-progresspill-caption-fg);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  animation: royui-progresspill-caption-in 120ms ease-out;
+}
+
+@keyframes royui-progresspill-caption-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .royui-progresspill__caption {
+    animation: none;
+  }
+}

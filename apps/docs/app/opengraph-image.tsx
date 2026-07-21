@@ -73,7 +73,7 @@ export default async function OpengraphImage() {
             letterSpacing: '0.02em',
           }}
         >
-          roy-ui-docs.vercel.app
+          royui.dibbayajyoti.com
         </div>
       </div>
     ),
