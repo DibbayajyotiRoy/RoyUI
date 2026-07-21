@@ -260,7 +260,6 @@ export const components: ComponentEntry[] = [
     category: 'Feedback',
     tags: ['notification', 'bell', 'badge', 'modal', 'toast'],
     status: 'available',
-    featured: true,
     importStatement: `import { NotificationBell } from '@roy-ui/ui';`,
   },
   {
