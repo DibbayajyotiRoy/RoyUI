@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Link } from '../../components/Link';
 import { getAvailable } from '../../lib/registry';
 
-const SITE_URL = 'https://roy-ui-docs.vercel.app';
+const SITE_URL = 'https://royui.dibbayajyoti.com';
 
 export const metadata: Metadata = {
   title: 'About',
