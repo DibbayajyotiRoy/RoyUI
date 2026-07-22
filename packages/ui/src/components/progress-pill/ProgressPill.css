@@ -128,6 +128,17 @@
   text-overflow: ellipsis;
 }
 
+/* Visually hidden — keeps the announced text as "Label…" while the visible
+   dots animate as separate decorative glyphs. */
+.royui-progresspill__sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 .royui-progresspill__caption {
   max-width: 240px;
   font-size: 10px;

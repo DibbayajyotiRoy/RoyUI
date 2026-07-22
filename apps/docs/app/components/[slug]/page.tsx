@@ -23,6 +23,7 @@ import { NumberInputDocs } from '../../../components/NumberInputDocs';
 import { DropdownDocs } from '../../../components/DropdownDocs';
 import { NotificationBellDocs } from '../../../components/NotificationBellDocs';
 import { ProgressPillDocs } from '../../../components/ProgressPillDocs';
+import { ProgressButtonDocs } from '../../../components/ProgressButtonDocs';
 import { DocsSidebar } from '../../../components/DocsSidebar';
 import { TableOfContents, type TocItem } from '../../../components/TableOfContents';
 
@@ -200,6 +201,7 @@ const docsBySlug: Record<string, () => React.ReactNode> = {
   dropdown: () => <DropdownDocs />,
   'notification-bell': () => <NotificationBellDocs />,
   'progress-pill': () => <ProgressPillDocs />,
+  'progress-button': () => <ProgressButtonDocs />,
 };
 
 const tocBySlug: Record<string, TocItem[]> = {
@@ -304,6 +306,13 @@ const tocBySlug: Record<string, TocItem[]> = {
     { id: 'usage', label: 'Usage' },
     { id: 'ring-and-sound', label: 'Ring & sound' },
     { id: 'theming', label: 'Theming' },
+    { id: 'props', label: 'Props' },
+  ],
+  'progress-button': [
+    { id: 'installation', label: 'Installation' },
+    { id: 'usage', label: 'Usage' },
+    { id: 'result-duration', label: 'Result duration' },
+    { id: 'behavior', label: 'Behavior & a11y' },
     { id: 'props', label: 'Props' },
   ],
   'progress-pill': [

@@ -145,7 +145,8 @@ export default function OrdersTable({ orders }: { orders: Order[] }) {
 | Component | What it does |
 | --- | --- |
 | **`NotificationBell`** | Unread-count bell that rings itself — hover pill, opt-in chime, and a focus-trapped modal with a headless body. |
-| **`ProgressPill`** | Status pill for long-running operations — braille spinner, shimmer sweep while `active`, five tones, and an optional current-step caption. |
+| **`ProgressPill`** | Status pill for long-running operations — braille spinner, wave dots, shimmer sweep while `active`, five tones, and an optional current-step caption. |
+| **`ProgressButton`** | Self-reverting async action button — click runs your promise with spinner + wave dots + shimmer, shows a success/error flag for a customizable time, then returns to idle. |
 
 ## DataTable feature matrix
 

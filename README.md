@@ -177,7 +177,8 @@ export default function OrdersPage({ orders }: { orders: Order[] }) {
 | Component | Source | What it does |
 | --- | --- | --- |
 | **`NotificationBell`** | [`notification-bell`](./packages/ui/src/components/notification-bell) | Unread-count bell that rings itself — hover pill, opt-in chime, and a focus-trapped modal with a headless body. |
-| **`ProgressPill`** | [`progress-pill`](./packages/ui/src/components/progress-pill) | Status pill for long-running operations — braille spinner, shimmer sweep while `active`, five tones, and an optional current-step caption. |
+| **`ProgressPill`** | [`progress-pill`](./packages/ui/src/components/progress-pill) | Status pill for long-running operations — braille spinner, wave dots, shimmer sweep while `active`, five tones, and an optional current-step caption. |
+| **`ProgressButton`** | [`progress-button`](./packages/ui/src/components/progress-button) | Self-reverting async action button — click runs your promise with spinner + wave dots + shimmer, shows a success/error flag for a customizable time, then returns to idle. |
 
 Each component lives in its own folder with the source `.tsx`, its CSS, and an `index.ts` re-export — so you can read the whole implementation in one click.
 

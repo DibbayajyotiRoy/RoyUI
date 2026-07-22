@@ -19,6 +19,7 @@ import {
   NumberInput,
   NotificationBell,
   ProgressPill,
+  ProgressButton,
 } from '@roy-ui/ui';
 import type { ComponentEntry } from '../lib/registry';
 import { sampleContent, sampleImages, sampleStats } from './demos/card-sample';
@@ -143,9 +144,49 @@ function renderLivePreview(entry: ComponentEntry, compact: boolean) {
       return <NotificationBellPreview compact={compact} />;
     case 'progress-pill':
       return <ProgressPillPreview compact={compact} />;
+    case 'progress-button':
+      return <ProgressButtonPreview compact={compact} />;
     default:
       return null;
   }
+}
+
+/* Compact (catalog card): one pressable button. Detail stage: happy path
+   next to a failure path. Both are fully interactive. */
+function ProgressButtonPreview({ compact }: { compact: boolean }) {
+  const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+  if (compact) {
+    return (
+      <ProgressButton
+        onAction={() => sleep(1800)}
+        progressLabel="Deploying…"
+        successLabel="Deployed"
+      >
+        Deploy
+      </ProgressButton>
+    );
+  }
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
+      <ProgressButton
+        onAction={() => sleep(1800)}
+        progressLabel="Deploying…"
+        successLabel="Deployed"
+      >
+        Deploy
+      </ProgressButton>
+      <ProgressButton
+        onAction={async () => {
+          await sleep(1800);
+          throw new Error('failed');
+        }}
+        progressLabel="Publishing…"
+        errorLabel="Publish failed"
+      >
+        Publish (fails)
+      </ProgressButton>
+    </div>
+  );
 }
 
 /* Compact (catalog card): a single active pill. Detail stage: an active
