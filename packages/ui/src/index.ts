@@ -22,4 +22,5 @@ export * from './components/number-input';
 export * from './components/dropdown';
 export * from './components/form';
 export * from './components/notification-bell';
+export * from './components/progress-button';
 export * from './components/progress-pill';

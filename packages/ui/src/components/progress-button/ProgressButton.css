@@ -1,0 +1,352 @@
+.royui-progressbtn {
+  /* Surfaces — override on the button or :root to retheme. */
+  --royui-progressbtn-fg: rgba(235, 238, 244, 0.95);
+  --royui-progressbtn-bg: rgba(148, 155, 168, 0.12);
+  --royui-progressbtn-border: rgba(148, 155, 168, 0.32);
+  --royui-progressbtn-success-fg: #4ade80;
+  --royui-progressbtn-success-bg: rgba(74, 222, 128, 0.12);
+  --royui-progressbtn-success-border: rgba(74, 222, 128, 0.4);
+  --royui-progressbtn-danger-fg: #f87171;
+  --royui-progressbtn-danger-bg: rgba(248, 113, 113, 0.12);
+  --royui-progressbtn-danger-border: rgba(248, 113, 113, 0.4);
+  --royui-progressbtn-warning-fg: #fbbf24;
+  --royui-progressbtn-warning-bg: rgba(251, 191, 36, 0.12);
+  --royui-progressbtn-warning-border: rgba(251, 191, 36, 0.4);
+  --royui-progressbtn-info-fg: #60a5fa;
+  --royui-progressbtn-info-bg: rgba(96, 165, 250, 0.12);
+  --royui-progressbtn-info-border: rgba(96, 165, 250, 0.4);
+  --royui-progressbtn-neutral-fg: rgba(148, 155, 168, 1);
+  --royui-progressbtn-shimmer: rgba(255, 255, 255, 0.12);
+  --royui-progressbtn-ease: cubic-bezier(0.23, 1, 0.32, 1);
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 16px;
+  border: 1px solid var(--royui-progressbtn-border);
+  border-radius: 8px;
+  background: var(--royui-progressbtn-bg);
+  color: var(--royui-progressbtn-fg);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  cursor: pointer;
+  overflow: hidden;
+  user-select: none;
+  transition:
+    transform 160ms var(--royui-progressbtn-ease),
+    background 200ms ease,
+    border-color 200ms ease,
+    color 200ms ease;
+}
+
+@media (prefers-color-scheme: light) {
+  .royui-progressbtn {
+    --royui-progressbtn-fg: #24292f;
+    --royui-progressbtn-success-fg: #15803d;
+    --royui-progressbtn-danger-fg: #dc2626;
+    --royui-progressbtn-warning-fg: #b45309;
+    --royui-progressbtn-info-fg: #2563eb;
+    --royui-progressbtn-neutral-fg: #57606a;
+    --royui-progressbtn-shimmer: rgba(0, 0, 0, 0.05);
+  }
+}
+
+.royui-progressbtn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.royui-progressbtn:focus-visible {
+  outline: 2px solid var(--royui-progressbtn-info-fg);
+  outline-offset: 2px;
+}
+
+.royui-progressbtn:disabled {
+  cursor: default;
+}
+
+/* Idle is the only state where the button invites a press. */
+@media (hover: hover) and (pointer: fine) {
+  .royui-progressbtn--idle:not(:disabled):hover {
+    border-color: var(--royui-progressbtn-info-border);
+  }
+}
+
+/* ── State surfaces ── */
+
+.royui-progressbtn--tone-danger {
+  color: var(--royui-progressbtn-danger-fg);
+  background: var(--royui-progressbtn-danger-bg);
+  border-color: var(--royui-progressbtn-danger-border);
+}
+
+.royui-progressbtn--tone-warning {
+  color: var(--royui-progressbtn-warning-fg);
+  background: var(--royui-progressbtn-warning-bg);
+  border-color: var(--royui-progressbtn-warning-border);
+}
+
+.royui-progressbtn--tone-success {
+  color: var(--royui-progressbtn-success-fg);
+  background: var(--royui-progressbtn-success-bg);
+  border-color: var(--royui-progressbtn-success-border);
+}
+
+.royui-progressbtn--tone-info {
+  color: var(--royui-progressbtn-info-fg);
+  background: var(--royui-progressbtn-info-bg);
+  border-color: var(--royui-progressbtn-info-border);
+}
+
+.royui-progressbtn--tone-neutral {
+  color: var(--royui-progressbtn-neutral-fg);
+}
+
+.royui-progressbtn--success {
+  color: var(--royui-progressbtn-success-fg);
+  background: var(--royui-progressbtn-success-bg);
+  border-color: var(--royui-progressbtn-success-border);
+}
+
+.royui-progressbtn--error {
+  color: var(--royui-progressbtn-danger-fg);
+  background: var(--royui-progressbtn-danger-bg);
+  border-color: var(--royui-progressbtn-danger-border);
+}
+
+/* ── Shimmer sweep while in progress (same treatment as ProgressPill) ── */
+
+.royui-progressbtn--progress::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 25%,
+    var(--royui-progressbtn-shimmer) 50%,
+    transparent 75%
+  );
+  background-size: 200% 100%;
+  animation: royui-progressbtn-shimmer 1.5s infinite linear;
+  pointer-events: none;
+}
+
+@keyframes royui-progressbtn-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* ── Content layers: all states share one grid cell so the button keeps a
+   constant width and states crossfade with opacity + blur + a slight rise.
+   Transitions (not keyframes) so rapid state changes retarget smoothly. ── */
+
+.royui-progressbtn__stack {
+  display: inline-grid;
+}
+
+.royui-progressbtn__layer {
+  grid-area: 1 / 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(35%);
+  filter: blur(2px);
+  pointer-events: none;
+  transition:
+    opacity 200ms var(--royui-progressbtn-ease),
+    transform 200ms var(--royui-progressbtn-ease),
+    filter 200ms var(--royui-progressbtn-ease);
+}
+
+.royui-progressbtn__layer[data-current] {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* Icons: block-level and fixed-size so flex centering is exact — inline
+   SVGs sit on the text baseline and read as misaligned. The 0.5px nudge
+   optically centers the badge against the text's x-height. */
+.royui-progressbtn__checkicon,
+.royui-progressbtn__crossicon {
+  display: block;
+  flex: none;
+  width: 14px;
+  height: 14px;
+  margin-top: 0.5px;
+}
+
+.royui-progressbtn__glyph {
+  min-width: 1ch;
+  font-size: 11px;
+  line-height: 1;
+  text-align: center;
+}
+
+/* ── Post-run idle: a quiet echo of the last outcome, so a button that has
+   completed reads differently from one that was never pressed. Border and
+   text only — the surface stays the idle background, keeping it calm. ── */
+
+.royui-progressbtn--ran-success {
+  color: var(--royui-progressbtn-success-fg);
+  border-color: color-mix(in srgb, var(--royui-progressbtn-success-border) 55%, transparent);
+}
+
+.royui-progressbtn--ran-error {
+  color: var(--royui-progressbtn-danger-fg);
+  border-color: color-mix(in srgb, var(--royui-progressbtn-danger-border) 55%, transparent);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .royui-progressbtn--ran-success:not(:disabled):hover {
+    border-color: var(--royui-progressbtn-success-border);
+  }
+
+  .royui-progressbtn--ran-error:not(:disabled):hover {
+    border-color: var(--royui-progressbtn-danger-border);
+  }
+}
+
+/* ── Success choreography: ring pulse off the border → circle draws →
+   tick draws → tiny pop. Sequenced with delays; every step ease-out. ── */
+
+.royui-progressbtn--success {
+  animation: royui-progressbtn-ring 500ms ease-out 60ms;
+}
+
+.royui-progressbtn__checkcircle {
+  stroke-dasharray: 42;
+  stroke-dashoffset: 42;
+  transform: rotate(-90deg);
+  transform-origin: center;
+  opacity: 0.9;
+}
+
+.royui-progressbtn--success .royui-progressbtn__checkcircle {
+  animation: royui-progressbtn-draw 260ms var(--royui-progressbtn-ease) 60ms forwards;
+}
+
+.royui-progressbtn__checkpath {
+  stroke-dasharray: 12;
+  stroke-dashoffset: 12;
+}
+
+.royui-progressbtn--success .royui-progressbtn__checkpath {
+  animation: royui-progressbtn-draw 220ms var(--royui-progressbtn-ease) 240ms forwards;
+}
+
+.royui-progressbtn--success .royui-progressbtn__checkicon {
+  animation: royui-progressbtn-pop 260ms var(--royui-progressbtn-ease) 380ms;
+}
+
+/* ── Error: circle + cross draw, and the whole button vibrates once —
+   the same damped shake the form fields use on a bad value. ── */
+
+.royui-progressbtn__crosscircle {
+  stroke-dasharray: 42;
+  stroke-dashoffset: 42;
+  transform: rotate(-90deg);
+  transform-origin: center;
+  opacity: 0.9;
+}
+
+.royui-progressbtn--error .royui-progressbtn__crosscircle {
+  animation: royui-progressbtn-draw 260ms var(--royui-progressbtn-ease) 60ms forwards;
+}
+
+.royui-progressbtn__crosspath {
+  stroke-dasharray: 14;
+  stroke-dashoffset: 14;
+}
+
+.royui-progressbtn--error .royui-progressbtn__crosspath {
+  animation: royui-progressbtn-draw 220ms var(--royui-progressbtn-ease) 240ms forwards;
+}
+
+.royui-progressbtn--shake {
+  animation: royui-progressbtn-shake 0.4s var(--royui-progressbtn-ease);
+}
+
+@keyframes royui-progressbtn-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes royui-progressbtn-pop {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.18);
+  }
+}
+
+/* One soft ring expanding off the border, then gone. */
+@keyframes royui-progressbtn-ring {
+  0% {
+    box-shadow: 0 0 0 0 var(--royui-progressbtn-success-border);
+  }
+  100% {
+    box-shadow: 0 0 0 7px transparent;
+  }
+}
+
+@keyframes royui-progressbtn-shake {
+  10%,
+  90% {
+    transform: translateX(-1px);
+  }
+  20%,
+  80% {
+    transform: translateX(2px);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translateX(-2px);
+  }
+  40%,
+  60% {
+    transform: translateX(2px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .royui-progressbtn--progress::after {
+    animation: none;
+    display: none;
+  }
+
+  .royui-progressbtn__layer {
+    transform: none;
+    filter: none;
+    transition: opacity 200ms ease;
+  }
+
+  .royui-progressbtn__checkcircle,
+  .royui-progressbtn__checkpath,
+  .royui-progressbtn__crosscircle,
+  .royui-progressbtn__crosspath {
+    stroke-dashoffset: 0;
+  }
+
+  .royui-progressbtn--success,
+  .royui-progressbtn--success .royui-progressbtn__checkcircle,
+  .royui-progressbtn--success .royui-progressbtn__checkpath,
+  .royui-progressbtn--success .royui-progressbtn__checkicon,
+  .royui-progressbtn--error .royui-progressbtn__crosscircle,
+  .royui-progressbtn--error .royui-progressbtn__crosspath,
+  .royui-progressbtn--shake {
+    animation: none;
+  }
+}

@@ -1,11 +1,11 @@
 'use client';
 
+import { forwardRef, type HTMLAttributes } from 'react';
 import {
-  forwardRef,
-  useEffect,
-  useState,
-  type HTMLAttributes,
-} from 'react';
+  WaveDots,
+  splitTrailingEllipsis,
+  useSpinnerGlyph,
+} from '../_internal/progress-shared';
 import './ProgressPill.css';
 
 export type ProgressPillTone = 'danger' | 'warning' | 'neutral' | 'success' | 'info';
@@ -24,37 +24,6 @@ export interface ProgressPillProps
   title?: string;
 }
 
-const SPINNER_FRAMES = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
-const FRAME_MS = 80;
-
-/**
- * Braille spinner that only animates client-side (SSR renders the first
- * frame) and falls back to a static ellipsis under prefers-reduced-motion.
- */
-function useSpinnerGlyph(active: boolean): string {
-  const [frame, setFrame] = useState(0);
-  const [reduced, setReduced] = useState(false);
-
-  useEffect(() => {
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setReduced(mq.matches);
-    const onChange = (e: MediaQueryListEvent) => setReduced(e.matches);
-    mq.addEventListener('change', onChange);
-    return () => mq.removeEventListener('change', onChange);
-  }, []);
-
-  useEffect(() => {
-    if (!active || reduced) return;
-    const id = window.setInterval(
-      () => setFrame((f) => (f + 1) % SPINNER_FRAMES.length),
-      FRAME_MS,
-    );
-    return () => window.clearInterval(id);
-  }, [active, reduced]);
-
-  return reduced ? '…' : (SPINNER_FRAMES[frame] ?? '⠋');
-}
-
 export const ProgressPill = forwardRef<HTMLDivElement, ProgressPillProps>(
   (
     {
@@ -69,6 +38,7 @@ export const ProgressPill = forwardRef<HTMLDivElement, ProgressPillProps>(
     ref,
   ) => {
     const glyph = useSpinnerGlyph(active);
+    const { base, dots } = splitTrailingEllipsis(label);
 
     const classes = ['royui-progresspill', className].filter(Boolean).join(' ');
     const pillClasses = [
@@ -94,7 +64,18 @@ export const ProgressPill = forwardRef<HTMLDivElement, ProgressPillProps>(
               {glyph}
             </span>
           )}
-          <span className="royui-progresspill__label">{label}</span>
+          <span className="royui-progresspill__label">
+            {dots ? (
+              <>
+                {base}
+                <WaveDots animate={active} />
+                {/* Announce the full label; the wave dots are decorative. */}
+                <span className="royui-progresspill__sr">…</span>
+              </>
+            ) : (
+              label
+            )}
+          </span>
         </span>
         {caption != null && caption !== '' && (
           <span className="royui-progresspill__caption" key={caption}>

@@ -273,6 +273,17 @@ export const components: ComponentEntry[] = [
     status: 'available',
     importStatement: `import { ProgressPill } from '@roy-ui/ui';`,
   },
+  {
+    slug: 'progress-button',
+    name: 'ProgressButton',
+    tagline: 'A button that runs the job — progress, verdict, and back again.',
+    description:
+      'A self-reverting action button: click it and it morphs into a live progress state — braille spinner, wave dots, shimmer sweep — while your async onAction runs. Resolve and a check draws itself in; reject and a cross appears; after a customizable resultDuration it returns to its idle form. States crossfade with a subtle blur on one grid cell, so the button never jumps in size. Five progress tones, reduced-motion safe, announces state via aria-live.',
+    category: 'Inputs',
+    tags: ['button', 'progress', 'async', 'loading', 'success', 'error', 'feedback'],
+    status: 'available',
+    importStatement: `import { ProgressButton } from '@roy-ui/ui';`,
+  },
 ];
 
 export const categories = ['All', 'Inputs', 'Display', 'Overlay', 'Feedback'] as const;
