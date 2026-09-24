@@ -27,6 +27,10 @@ import { UploadFilesDemo } from './demos/UploadFilesDemo';
 import { AtIcon, InputEmailDemo } from './demos/InputDemo';
 import { SignInFormDemo } from './demos/FormDemo';
 import { ExportDropdownDemo } from './demos/DropdownDemo';
+import { SectionNavPreview } from './demos/SectionNavDemo';
+import { SidebarPreview } from './demos/SidebarDemo';
+import { ClickSparkPreview } from './demos/ClickSparkDemo';
+import { SegmentedTabsPreview } from './demos/SegmentedTabsDemo';
 
 export function PreviewBox({
   entry,
@@ -64,7 +68,7 @@ function renderLivePreview(entry: ComponentEntry, compact: boolean) {
     case 'popover':
       return compact ? <PopoverThumb /> : <PopoverLive />;
     case 'made-by':
-      return <MadeByPreview />;
+      return <MadeByPreview compact={compact} />;
     case 'text-morph':
       return <TextMorphPreview />;
     case 'tree-nav':
@@ -146,6 +150,14 @@ function renderLivePreview(entry: ComponentEntry, compact: boolean) {
       return <ProgressPillPreview compact={compact} />;
     case 'progress-button':
       return <ProgressButtonPreview compact={compact} />;
+    case 'section-nav':
+      return compact ? <SectionNavThumb /> : <SectionNavPreview />;
+    case 'sidebar':
+      return <SidebarPreview compact={compact} />;
+    case 'click-spark':
+      return <ClickSparkPreview compact={compact} />;
+    case 'segmented-tabs':
+      return <SegmentedTabsPreview compact={compact} />;
     default:
       return null;
   }
@@ -708,7 +720,9 @@ function TextMorphPreview() {
   );
 }
 
-function MadeByPreview() {
+/* The catalog card is itself a link, so the compact thumb renders MadeBy's
+   markup in a <span> instead of a nested <a> (invalid HTML, hydration error). */
+function MadeByPreview({ compact }: { compact: boolean }) {
   return (
     <div
       style={{
@@ -717,11 +731,18 @@ function MadeByPreview() {
         display: 'inline-flex',
       }}
     >
-      <MadeBy
-        name="Roy"
-        href="https://example.com"
-        style={{ position: 'static' }}
-      />
+      {compact ? (
+        <span
+          className="royui-madeby royui-madeby--bottom-right"
+          style={{ position: 'static' }}
+          aria-hidden
+        >
+          <span className="royui-madeby__prefix">Made by</span>
+          <span className="royui-madeby__name">Roy</span>
+        </span>
+      ) : (
+        <MadeBy name="Roy" href="https://example.com" style={{ position: 'static' }} />
+      )}
     </div>
   );
 }
@@ -755,6 +776,33 @@ function PopoverLive() {
         Billed monthly. Cancel any time from your dashboard. Taxes calculated at
         checkout based on your billing address.
       </Popover>
+    </div>
+  );
+}
+
+/* SectionNav renders <a href="#…"> links, which can't sit inside the catalog
+   card's link — so the card gets a static picture of the rail. */
+function SectionNavThumb() {
+  const items = ['Overview', 'Install', 'Usage', 'Props'];
+  const active = 2;
+  return (
+    <div aria-hidden style={{ display: 'flex', gap: 12, fontSize: 12 }}>
+      <div style={{ position: 'relative', width: 2, borderRadius: 2, background: 'rgba(255,255,255,0.12)' }}>
+        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '62%', borderRadius: 2, background: 'rgba(255,255,255,0.9)', boxShadow: '0 0 8px rgba(255,255,255,0.5)' }} />
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+        {items.map((label, i) => (
+          <span
+            key={label}
+            style={{
+              color: i === active ? '#fff' : i < active ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.4)',
+              fontWeight: i === active ? 500 : 400,
+            }}
+          >
+            {label}
+          </span>
+        ))}
+      </div>
     </div>
   );
 }

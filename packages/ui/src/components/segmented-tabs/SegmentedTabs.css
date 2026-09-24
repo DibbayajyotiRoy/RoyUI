@@ -1,0 +1,219 @@
+.royui-segtabs {
+  /* Theme tokens — override on .royui-segtabs or :root to retheme. */
+  --royui-segtabs-fg: #0f172a;
+  --royui-segtabs-muted: #667085;
+  --royui-segtabs-track: rgba(15, 23, 42, 0.04);
+  --royui-segtabs-border: rgba(15, 23, 42, 0.1);
+  --royui-segtabs-pill: #ffffff;
+  --royui-segtabs-pill-shadow: 0 1px 2px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(15, 23, 42, 0.06);
+  --royui-segtabs-soft: rgba(15, 23, 42, 0.06);
+  --royui-segtabs-underline: #0f172a;
+  --royui-segtabs-ring: rgba(37, 117, 240, 0.55);
+  --royui-segtabs-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --royui-segtabs-duration: 250ms;
+  --royui-segtabs-h: 32px;
+  --royui-segtabs-font-size: 13.5px;
+
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  font-family: inherit;
+  color: var(--royui-segtabs-fg);
+  -webkit-tap-highlight-color: transparent;
+}
+.royui-segtabs::-webkit-scrollbar {
+  display: none;
+}
+.royui-segtabs--sm {
+  --royui-segtabs-h: 26px;
+  --royui-segtabs-font-size: 12.5px;
+}
+.royui-segtabs--full {
+  display: flex;
+  width: 100%;
+}
+.royui-segtabs--full .royui-segtabs__tab {
+  flex: 1 1 0;
+}
+
+/* ---------- Tabs ---------- */
+.royui-segtabs__tab {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  height: var(--royui-segtabs-h);
+  margin: 0;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  font: inherit;
+  font-size: var(--royui-segtabs-font-size);
+  font-weight: 450;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--royui-segtabs-muted);
+  cursor: pointer;
+  outline: none;
+  transition:
+    color 150ms ease,
+    background-color 150ms ease;
+}
+.royui-segtabs__tab:hover:not(:disabled) {
+  color: var(--royui-segtabs-fg);
+}
+.royui-segtabs__tab[aria-selected='true'] {
+  color: var(--royui-segtabs-fg);
+  font-weight: 550;
+}
+.royui-segtabs__tab:focus-visible {
+  box-shadow: 0 0 0 2px var(--royui-segtabs-ring);
+}
+.royui-segtabs__tab:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.royui-segtabs__tab:active:not(:disabled) .royui-segtabs__label {
+  transform: scale(0.97);
+}
+
+.royui-segtabs__icon {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+.royui-segtabs__icon > svg {
+  width: 16px;
+  height: 16px;
+}
+.royui-segtabs--sm .royui-segtabs__icon > svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Two copies in one grid cell: the invisible one is always the heavier weight. */
+.royui-segtabs__label {
+  display: inline-grid;
+  transition: transform 120ms ease;
+}
+.royui-segtabs__label > span {
+  grid-area: 1 / 1;
+}
+.royui-segtabs__ghost {
+  visibility: hidden;
+  font-weight: 550;
+}
+
+/* ---------- Shared indicator ---------- */
+.royui-segtabs__indicator {
+  position: absolute;
+  left: 0;
+  z-index: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform var(--royui-segtabs-duration) var(--royui-segtabs-ease),
+    width var(--royui-segtabs-duration) var(--royui-segtabs-ease),
+    opacity 150ms ease;
+}
+
+/* ---------- Segmented variant ---------- */
+.royui-segtabs--segmented {
+  padding: 3px;
+  border: 1px solid var(--royui-segtabs-border);
+  border-radius: 9px;
+  background: var(--royui-segtabs-track);
+}
+.royui-segtabs--segmented .royui-segtabs__indicator {
+  top: 3px;
+  bottom: 3px;
+  border-radius: 6px;
+  background: var(--royui-segtabs-pill);
+  box-shadow: var(--royui-segtabs-pill-shadow);
+}
+/* Before the indicator is placed (SSR, first paint), the tab paints its own fill. */
+.royui-segtabs--segmented:not([data-indicator='ready'])
+  .royui-segtabs__tab[aria-selected='true'] {
+  background: var(--royui-segtabs-pill);
+  box-shadow: var(--royui-segtabs-pill-shadow);
+}
+
+/* ---------- Underline variant ---------- */
+/* The 1px track is an inset shadow, not a border, so scrolling never clips the underline. */
+.royui-segtabs--underline {
+  padding: 2px 3px 7px;
+  box-shadow: inset 0 -1px 0 var(--royui-segtabs-border);
+}
+.royui-segtabs--underline .royui-segtabs__tab {
+  padding: 0 10px;
+}
+.royui-segtabs--underline .royui-segtabs__tab:hover:not(:disabled):not([aria-selected='true']) {
+  background: color-mix(in oklab, var(--royui-segtabs-soft) 60%, transparent);
+}
+.royui-segtabs--underline .royui-segtabs__indicator {
+  top: 0;
+  bottom: 0;
+}
+.royui-segtabs--underline .royui-segtabs__indicator::before {
+  content: '';
+  position: absolute;
+  inset: 2px 0 7px;
+  border-radius: 6px;
+  background: var(--royui-segtabs-soft);
+}
+.royui-segtabs--underline .royui-segtabs__indicator::after {
+  content: '';
+  position: absolute;
+  left: -3px;
+  right: -3px;
+  bottom: 0;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--royui-segtabs-underline);
+}
+.royui-segtabs--underline:not([data-indicator='ready'])
+  .royui-segtabs__tab[aria-selected='true'] {
+  background: var(--royui-segtabs-soft);
+}
+
+/* ---------- Dark ---------- */
+.royui-segtabs--dark {
+  --royui-segtabs-fg: #f5f5f7;
+  --royui-segtabs-muted: rgba(255, 255, 255, 0.55);
+  --royui-segtabs-track: rgba(255, 255, 255, 0.03);
+  --royui-segtabs-border: rgba(255, 255, 255, 0.1);
+  --royui-segtabs-pill: rgba(255, 255, 255, 0.1);
+  --royui-segtabs-pill-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 1px 2px rgba(0, 0, 0, 0.4);
+  --royui-segtabs-soft: rgba(255, 255, 255, 0.07);
+  --royui-segtabs-underline: #f5f5f7;
+  --royui-segtabs-ring: rgba(91, 155, 255, 0.6);
+}
+@media (prefers-color-scheme: dark) {
+  .royui-segtabs--auto {
+    --royui-segtabs-fg: #f5f5f7;
+    --royui-segtabs-muted: rgba(255, 255, 255, 0.55);
+    --royui-segtabs-track: rgba(255, 255, 255, 0.03);
+    --royui-segtabs-border: rgba(255, 255, 255, 0.1);
+    --royui-segtabs-pill: rgba(255, 255, 255, 0.1);
+    --royui-segtabs-pill-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 1px 2px rgba(0, 0, 0, 0.4);
+    --royui-segtabs-soft: rgba(255, 255, 255, 0.07);
+    --royui-segtabs-underline: #f5f5f7;
+    --royui-segtabs-ring: rgba(91, 155, 255, 0.6);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .royui-segtabs__indicator,
+  .royui-segtabs__label {
+    transition: none;
+  }
+}

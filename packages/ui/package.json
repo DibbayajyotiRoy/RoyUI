@@ -127,7 +127,13 @@
     "daisyui",
     "daisyui-alternative",
     "roy-ui",
-    "royui"
+    "royui",
+    "tabs",
+    "segmented-control",
+    "scroll-spy",
+    "table-of-contents",
+    "click-effect",
+    "cursor-effect"
   ],
   "author": {
     "name": "Dibbayajyoti Roy",
@@ -261,6 +267,22 @@
     "./notification-bell": {
       "types": "./dist/components/notification-bell/index.d.ts",
       "import": "./dist/components/notification-bell/index.js"
+    },
+    "./click-spark": {
+      "types": "./dist/components/click-spark/index.d.ts",
+      "import": "./dist/components/click-spark/index.js"
+    },
+    "./segmented-tabs": {
+      "types": "./dist/components/segmented-tabs/index.d.ts",
+      "import": "./dist/components/segmented-tabs/index.js"
+    },
+    "./sidebar": {
+      "types": "./dist/components/sidebar/index.d.ts",
+      "import": "./dist/components/sidebar/index.js"
+    },
+    "./section-nav": {
+      "types": "./dist/components/section-nav/index.d.ts",
+      "import": "./dist/components/section-nav/index.js"
     },
     "./package.json": "./package.json"
   },
