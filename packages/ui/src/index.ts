@@ -24,3 +24,7 @@ export * from './components/form';
 export * from './components/notification-bell';
 export * from './components/progress-button';
 export * from './components/progress-pill';
+export * from './components/click-spark';
+export * from './components/segmented-tabs';
+export * from './components/sidebar';
+export * from './components/section-nav';

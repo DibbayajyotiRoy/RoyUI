@@ -284,6 +284,50 @@ export const components: ComponentEntry[] = [
     status: 'available',
     importStatement: `import { ProgressButton } from '@roy-ui/ui';`,
   },
+  {
+    slug: 'click-spark',
+    name: 'ClickSpark',
+    tagline: 'A tiny star of rays that bursts from every click.',
+    description:
+      'Mount once and every pointer click sends out a small star of rays that clears from the centre outward. Tints itself from the clicked element\'s text colour, so it reads on any surface. Scope it to one element with target, tune rays, size, spread and duration. Keyboard activation never sparks, and it is off under prefers-reduced-motion.',
+    category: 'Feedback',
+    tags: ['cursor', 'click', 'pointer', 'spark', 'effect', 'micro-interaction'],
+    status: 'available',
+    importStatement: `import { ClickSpark } from '@roy-ui/ui';`,
+  },
+  {
+    slug: 'segmented-tabs',
+    name: 'SegmentedTabs',
+    tagline: 'Tabs and toggles with one indicator that glides between options.',
+    description:
+      'A segmented toggle or tab strip whose single shared indicator glides between options. Two variants (boxed segmented, or a soft pill over an underline), icons, sizes, full width, controlled or uncontrolled. Full WAI-ARIA tabs keyboard support, weight-stable labels, scrolls sideways and keeps the selection in view on narrow screens.',
+    category: 'Inputs',
+    tags: ['tabs', 'toggle', 'segmented-control', 'switcher', 'navigation'],
+    status: 'available',
+    importStatement: `import { SegmentedTabs } from '@roy-ui/ui';`,
+  },
+  {
+    slug: 'sidebar',
+    name: 'Sidebar',
+    tagline: 'An app sidebar with a gliding active highlight and icon rail.',
+    description:
+      'Grouped app navigation where one shared highlight glides to the active item. Collapses to an icon rail with tooltips and badge dots, highlights the group you are in, takes header and footer slots, and renders links through your router via renderLink.',
+    category: 'Display',
+    tags: ['sidebar', 'navigation', 'nav', 'menu', 'app-shell', 'collapsible'],
+    status: 'available',
+    importStatement: `import { Sidebar } from '@roy-ui/ui';`,
+  },
+  {
+    slug: 'section-nav',
+    name: 'SectionNav',
+    tagline: 'On-this-page nav with scroll-spy and a reading-progress rail.',
+    description:
+      'An in-page section nav that tracks where the reader is. A progress rail fills continuously as you read through each section, the current section is highlighted, and clicking jumps smoothly, updates the hash and moves focus to the heading. Vertical rail or horizontal pill row, works in any scroll container.',
+    category: 'Display',
+    tags: ['scroll-spy', 'table-of-contents', 'toc', 'progress', 'navigation', 'anchor'],
+    status: 'available',
+    importStatement: `import { SectionNav } from '@roy-ui/ui';`,
+  },
 ];
 
 export const categories = ['All', 'Inputs', 'Display', 'Overlay', 'Feedback'] as const;

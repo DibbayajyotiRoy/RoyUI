@@ -1,0 +1,228 @@
+.royui-section-nav {
+  --royui-section-nav-fg: #0f172a;
+  --royui-section-nav-muted: #667085;
+  --royui-section-nav-read: #475467;
+  --royui-section-nav-track: #e4e7ec;
+  --royui-section-nav-accent: #2575f0;
+  --royui-section-nav-glow: rgba(37, 117, 240, 0.45);
+  --royui-section-nav-pill-bg: rgba(15, 23, 42, 0.06);
+  --royui-section-nav-hover-bg: rgba(15, 23, 42, 0.04);
+  --royui-section-nav-ring: rgba(37, 117, 240, 0.5);
+  --royui-section-nav-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --royui-section-nav-duration: 220ms;
+
+  min-width: 0;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--royui-section-nav-fg);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.royui-section-nav__title {
+  margin: 0 0 10px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--royui-section-nav-muted);
+}
+
+.royui-section-nav__body {
+  position: relative;
+}
+
+.royui-section-nav__list {
+  position: relative;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.royui-section-nav__li {
+  flex-shrink: 0;
+  margin: 0;
+}
+
+.royui-section-nav__item {
+  display: flex;
+  color: var(--royui-section-nav-muted);
+  text-decoration: none;
+  white-space: nowrap;
+  outline: none;
+  border-radius: 6px;
+  transition:
+    color var(--royui-section-nav-duration) var(--royui-section-nav-ease),
+    background-color var(--royui-section-nav-duration) var(--royui-section-nav-ease);
+}
+.royui-section-nav__item:hover {
+  color: var(--royui-section-nav-fg);
+}
+.royui-section-nav__item:focus-visible {
+  box-shadow: 0 0 0 2px var(--royui-section-nav-ring);
+}
+.royui-section-nav__item--read {
+  color: var(--royui-section-nav-read);
+}
+.royui-section-nav__item--active {
+  color: var(--royui-section-nav-fg);
+}
+
+/* Weight-stable label: a hidden medium copy reserves the widest width. */
+.royui-section-nav__label {
+  display: grid;
+  transform-origin: left center;
+  transition: transform var(--royui-section-nav-duration) var(--royui-section-nav-ease);
+}
+.royui-section-nav__text,
+.royui-section-nav__ghost {
+  grid-area: 1 / 1;
+}
+.royui-section-nav__ghost {
+  visibility: hidden;
+  font-weight: 500;
+}
+.royui-section-nav__item--active .royui-section-nav__text {
+  font-weight: 500;
+}
+
+/* ---- Vertical ---- */
+.royui-section-nav--vertical .royui-section-nav__list {
+  flex-direction: column;
+  gap: 2px;
+}
+.royui-section-nav--vertical .royui-section-nav__item {
+  padding: 5px 8px 5px 14px;
+}
+.royui-section-nav--vertical.royui-section-nav--progress .royui-section-nav__item:hover {
+  background: var(--royui-section-nav-hover-bg);
+}
+.royui-section-nav--vertical .royui-section-nav__item--active .royui-section-nav__label {
+  transform: translateX(2px);
+}
+/* Without progress: a plain left border. */
+.royui-section-nav--vertical:not(.royui-section-nav--progress) .royui-section-nav__list {
+  border-left: 1px solid var(--royui-section-nav-track);
+}
+.royui-section-nav--vertical:not(.royui-section-nav--progress) .royui-section-nav__item--active {
+  box-shadow: inset 2px 0 0 var(--royui-section-nav-accent);
+  border-radius: 0 6px 6px 0;
+}
+
+.royui-section-nav__rail {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--royui-section-nav-track);
+  pointer-events: none;
+}
+.royui-section-nav__rail .royui-section-nav__fill {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--royui-section-nav-accent) 55%, transparent),
+    var(--royui-section-nav-accent)
+  );
+  transform: scaleY(0);
+  transform-origin: top;
+  will-change: transform;
+}
+.royui-section-nav__dot {
+  position: absolute;
+  top: -3px;
+  left: -2px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--royui-section-nav-accent);
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, var(--royui-section-nav-accent) 18%, transparent),
+    0 0 10px 1px var(--royui-section-nav-glow);
+  opacity: 0;
+  transition: opacity var(--royui-section-nav-duration) var(--royui-section-nav-ease);
+  will-change: transform;
+}
+
+/* ---- Horizontal ---- */
+.royui-section-nav--horizontal .royui-section-nav__list {
+  flex-direction: row;
+  gap: 4px;
+  padding: 2px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+.royui-section-nav--horizontal .royui-section-nav__list::-webkit-scrollbar {
+  display: none;
+}
+.royui-section-nav--horizontal .royui-section-nav__item {
+  padding: 6px 12px;
+  border-radius: 999px;
+}
+.royui-section-nav--horizontal .royui-section-nav__item:hover {
+  background: var(--royui-section-nav-hover-bg);
+}
+.royui-section-nav--horizontal .royui-section-nav__item--active,
+.royui-section-nav--horizontal .royui-section-nav__item--active:hover {
+  background: var(--royui-section-nav-pill-bg);
+}
+.royui-section-nav__bar {
+  position: relative;
+  display: block;
+  height: 2px;
+  margin-top: 6px;
+  overflow: hidden;
+  border-radius: 2px;
+  background: var(--royui-section-nav-track);
+}
+.royui-section-nav__bar .royui-section-nav__fill {
+  position: absolute;
+  inset: 0;
+  background: var(--royui-section-nav-accent);
+  box-shadow: 0 0 8px var(--royui-section-nav-glow);
+  transform: scaleX(0);
+  transform-origin: left;
+  will-change: transform;
+}
+
+/* ---- Themes ---- */
+.royui-section-nav--dark {
+  --royui-section-nav-fg: #f5f5f7;
+  --royui-section-nav-muted: rgba(255, 255, 255, 0.5);
+  --royui-section-nav-read: rgba(255, 255, 255, 0.72);
+  --royui-section-nav-track: rgba(255, 255, 255, 0.12);
+  --royui-section-nav-accent: #5b9bff;
+  --royui-section-nav-glow: rgba(91, 155, 255, 0.55);
+  --royui-section-nav-pill-bg: rgba(255, 255, 255, 0.1);
+  --royui-section-nav-hover-bg: rgba(255, 255, 255, 0.05);
+  --royui-section-nav-ring: rgba(91, 155, 255, 0.6);
+}
+@media (prefers-color-scheme: dark) {
+  .royui-section-nav--auto {
+    --royui-section-nav-fg: #f5f5f7;
+    --royui-section-nav-muted: rgba(255, 255, 255, 0.5);
+    --royui-section-nav-read: rgba(255, 255, 255, 0.72);
+    --royui-section-nav-track: rgba(255, 255, 255, 0.12);
+    --royui-section-nav-accent: #5b9bff;
+    --royui-section-nav-glow: rgba(91, 155, 255, 0.55);
+    --royui-section-nav-pill-bg: rgba(255, 255, 255, 0.1);
+    --royui-section-nav-hover-bg: rgba(255, 255, 255, 0.05);
+    --royui-section-nav-ring: rgba(91, 155, 255, 0.6);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .royui-section-nav__item,
+  .royui-section-nav__label,
+  .royui-section-nav__dot {
+    transition: none;
+  }
+  .royui-section-nav--vertical .royui-section-nav__item--active .royui-section-nav__label {
+    transform: none;
+  }
+}

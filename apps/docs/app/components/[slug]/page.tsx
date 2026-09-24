@@ -24,6 +24,10 @@ import { DropdownDocs } from '../../../components/DropdownDocs';
 import { NotificationBellDocs } from '../../../components/NotificationBellDocs';
 import { ProgressPillDocs } from '../../../components/ProgressPillDocs';
 import { ProgressButtonDocs } from '../../../components/ProgressButtonDocs';
+import { SectionNavDocs } from '../../../components/SectionNavDocs';
+import { SidebarDocs } from '../../../components/SidebarDocs';
+import { ClickSparkDocs } from '../../../components/ClickSparkDocs';
+import { SegmentedTabsDocs } from '../../../components/SegmentedTabsDocs';
 import { DocsSidebar } from '../../../components/DocsSidebar';
 import { TableOfContents, type TocItem } from '../../../components/TableOfContents';
 
@@ -202,9 +206,41 @@ const docsBySlug: Record<string, () => React.ReactNode> = {
   'notification-bell': () => <NotificationBellDocs />,
   'progress-pill': () => <ProgressPillDocs />,
   'progress-button': () => <ProgressButtonDocs />,
+  'click-spark': () => <ClickSparkDocs />,
+  sidebar: () => <SidebarDocs />,
+  'section-nav': () => <SectionNavDocs />,
+  'segmented-tabs': () => <SegmentedTabsDocs />,
 };
 
 const tocBySlug: Record<string, TocItem[]> = {
+  'section-nav': [
+    { id: 'installation', label: 'Installation' },
+    { id: 'usage', label: 'Usage' },
+    { id: 'progress', label: 'Progress & orientation' },
+    { id: 'behavior', label: 'Behavior & a11y' },
+    { id: 'props', label: 'Props' },
+  ],
+  sidebar: [
+    { id: 'installation', label: 'Installation' },
+    { id: 'usage', label: 'Usage' },
+    { id: 'collapsed', label: 'Collapsed rail' },
+    { id: 'theming', label: 'Theming' },
+    { id: 'props', label: 'Props' },
+  ],
+  'click-spark': [
+    { id: 'installation', label: 'Installation' },
+    { id: 'usage', label: 'Usage' },
+    { id: 'variants', label: 'Variations' },
+    { id: 'behavior', label: 'Behavior & a11y' },
+    { id: 'props', label: 'Props' },
+  ],
+  'segmented-tabs': [
+    { id: 'installation', label: 'Installation' },
+    { id: 'usage', label: 'Usage' },
+    { id: 'variants', label: 'Variants' },
+    { id: 'behavior', label: 'Behavior & a11y' },
+    { id: 'props', label: 'Props' },
+  ],
   button: [
     { id: 'installation', label: 'Installation' },
     { id: 'usage', label: 'Usage' },
